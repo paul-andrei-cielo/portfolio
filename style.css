@@ -1,0 +1,124 @@
+body{
+    text-align: center;
+    background: linear-gradient(-45deg, #fffdfc, #fdecef);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      height: 100vh;
+    margin: 3rem;
+}
+h1 {
+    font-family: "Bodoni Moda", serif;
+    font-size: 4rem;
+    margin-bottom: 0%;
+    margin-top: 0%;
+    color: #d1a1a1;
+}
+h2 {
+    font-family: "Poppins", serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    color: #d1a1a1;
+}
+h3 {
+    font-family: "Poppins", serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 4rem;
+    margin-bottom: 0px;
+    color: #d1a1a1;
+}
+h4 {
+    font-family: "Bodoni Moda", serif;
+    font-size: 5rem;
+    margin-bottom: 0%;
+    margin-top: 10%;
+    color: #d1a1a1;
+}
+.circular-img {
+width: 200px; 
+height: 200px;
+border: 5px solid black;
+border-color: #d1a1a1;
+border-radius: 50%;
+margin-top: 4rem;
+}
+
+.navbar {
+    text-align: center;
+    margin-top: 20px;
+    background-color: transparent;
+    position: sticky;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #fffdfc;
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+.nav-link {
+    background-color: #fffdfc;
+    border: 2px solid #d1a1a1;
+    color: #d1a1a1;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 16px;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #d1a1a1;
+    color: #fffdfc;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #d1a1a1;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+}
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+}
+  50% {
+      background-position: 100% 50%;
+}
+  100% {
+    background-position: 0% 50%;
+}
+}
