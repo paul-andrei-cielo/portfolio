@@ -8,6 +8,8 @@ body{
 }
 h1 {
     font-family: "Bodoni Moda", serif;
+    font-style: italic;
+    font-weight: 600;
     font-size: 4rem;
     margin-bottom: 0%;
     margin-top: 0%;
@@ -27,20 +29,6 @@ h3 {
     font-weight: 400;
     margin-top: 4rem;
     margin-bottom: 0px;
-    color: #d1a1a1;
-}
-h4 {
-    font-family: "Bodoni Moda", serif;
-    font-size: 5rem;
-    margin-bottom: 0%;
-    margin-top: 10rem;
-    color: #d1a1a1;
-}
-p {
-    font-family: "Poppins", serif;
-    font-size: 1rem;
-    margin-left: 10px;
-    margin-right: 10px;
     color: #d1a1a1;
 }
 .circular-img {
