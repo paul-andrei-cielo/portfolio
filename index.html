@@ -11,24 +11,37 @@
   </head>
   <body>
     <nav class="navbar">
-      <button class="hamburger" onclick="toggleMenu()">☰</button>
-      <div class="nav-links" id="nav-links">
-        <a href="about.html" class="nav-link">About</a>
-        <a href="tech-stack.html" class="nav-link">Tech Stack</a>
-        <a href="contact.html" class="nav-link">Contact</a>
+      <div class="nav-left">
+          <a href="about.html" class="nav-link">About</a>
+          <a href="certifications.html" class="nav-link">Certifications</a>
       </div>
-    </nav>
 
-    <img src="https://scontent.fmnl4-7.fna.fbcdn.net/v/t1.15752-9/481859167_1639431283603495_7818264845424233210_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGRAQxts507C3ckdtW8oZsYqTGKH52CCeOpMYofnYIJ474Ed7mYTSAxdVeoF42946mky7bHqKGSgi8M9LcYcIVh&_nc_ohc=EK16Mrsen9IQ7kNvgHJT2Ac&_nc_oc=AdiNaGvpYjieRdD_pbgMuAriAD3S13PChckrtbLGiTBhO3Ws9IOZC0lb4OGyaqdip25Mx2-vazNhZ3v9qtVqZvQv&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&oh=03_Q7cD1gGMBsP1If9dBdtcaBVv9ezzsZK3e9Luzel98exz6tUdQw&oe=67E7F72E" alt="Photo of Andrei Cielo" class="circular-img"  width="300">
+      <div class="logo"><img src="logo.png" class="logo-img"></a></div>
+
+      <div class="nav-right">
+          <a href="tech-stack.html" class="nav-link">Tech Stack</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+
+      <div class="mobile-menu" id="mobile-menu">
+          <a href="about.html" class="nav-link">About</a>
+          <a href="certifications.html" class="nav-link">Certifications</a>
+          <a href="tech-stack.html" class="nav-link">Tech Stack</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+  </nav>
+
+    <img src="self-portrait.jpg" alt="Photo of Andrei Cielo" class="circular-img"  width="300">
     <h3>Hello! I am</h3>
     <h1>Paul Andrei Cielo,</h1>
     <h2>an aspiring web designer.</h2>
 
     <script>
       function toggleMenu() {
-        var navLinks = document.getElementById("nav-links");
-        navLinks.classList.toggle("active");
+          document.getElementById("mobile-menu").classList.toggle("active");
       }
-    </script>
+  </script>
   </body>
 </html>

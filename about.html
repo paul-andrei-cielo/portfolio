@@ -10,26 +10,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <button class="hamburger" onclick="toggleMenu()">☰</button>
-        <div class="nav-links" id="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a class="nav-link">About</a>
-            <a href="tech-stack.html" class="nav-link">Tech Stack</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-        </div>
-      </nav>
+  <nav class="navbar">
+    <div class="nav-left">
+        <a class="nav-link">About</a>
+        <a href="certifications.html" class="nav-link">Certifications</a>
+    </div>
+
+    <div class="logo"><a href="index.html"><img src="logo.png" class="logo-img"></a></div>
+
+    <div class="nav-right">
+        <a href="tech-stack.html" class="nav-link">Tech Stack</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a class="nav-link">About</a>
+        <a href="certifications.html" class="nav-link">Certifications</a>
+        <a href="tech-stack.html" class="nav-link">Tech Stack</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+</nav>
 
     <h1>about</h1> 
     <p>
       I am Paul Andrei Cielo, an Information Technology student with a passion for web design. I love creating visually appealing and functional designs, which is why I enjoy digital art and graphic design in my free time. I also explore programming to improve both my creative and technical skills.<br><br>I want to become a web designer because it allows me to use both creativity and technology. I enjoy bringing ideas to life through well-designed and user-friendly websites. I’m excited to keep learning, improving my skills, and growing in this field.
     </p> 
 
-      <script>
-        function toggleMenu() {
-          var navLinks = document.getElementById("nav-links");
-          navLinks.classList.toggle("active");
-        }
-      </script>
+    <script>
+      function toggleMenu() {
+          document.getElementById("mobile-menu").classList.toggle("active");
+      }
+  </script>
 </body>
 </html>
