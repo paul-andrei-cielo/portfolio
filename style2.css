@@ -1,3 +1,10 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100%;
+}
+
 body{
     text-align: center;
     background: linear-gradient(-45deg, #e6bbbb, #fdecef, #fffdfc);
@@ -9,7 +16,6 @@ h1 {
     font-family: "Bodoni Moda", serif;
     font-size: 5rem;
     font-style: italic;
-    margin-bottom: 0%;
     color: #d1a1a1;
 }
 p {
@@ -18,13 +24,13 @@ p {
     margin-left: 10px;
     margin-right: 10px;
     color: #d1a1a1;
+    text-align: left;
 }
 .logo-img {
     width: 50px;
     height:50px;
     }
     
-    /* General Navbar Styling */
     .navbar {
         display: flex;
         align-items: center;
@@ -37,7 +43,6 @@ p {
         z-index: 1000;
     }
     
-    /* Logo Centered */
     .logo {
         font-size: 20px;
         font-weight: bold;
@@ -46,14 +51,12 @@ p {
         font-style: italic;
     }
     
-    /* Left and Right Nav */
     .nav-left, .nav-right {
         display: flex;
-        flex-grow: 1; /* Makes space distribute evenly */
-        justify-content: space-evenly; /* Adjusts spacing automatically */
+        flex-grow: 1; 
+        justify-content: space-evenly;
     }
     
-    /* Links Styling */
     .nav-link {
         text-decoration: none;
         color: #d1a1a1;
@@ -67,7 +70,6 @@ p {
         color: #a86565;
     }
     
-    /* Mobile Hamburger Menu */
     .hamburger {
         display: none;
         background: none;
@@ -77,7 +79,6 @@ p {
         color: #d1a1a1;
     }
     
-    /* Mobile Menu (Hidden by Default) */
     .mobile-menu {
         display: none;
         flex-direction: column;
@@ -96,8 +97,30 @@ p {
     .mobile-menu.active {
         display: flex;
     }
-    
-    /* Responsive Design */
+
+    .about-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30rem;
+        padding: 40px;
+
+    }
+
+    .about-title {
+        font-style: italic;
+        flex: 1;
+        text-align: left;
+        padding-left: 10%;
+    }
+
+    .about-text {
+        flex: 2;
+        max-width: 40rem;
+        line-height: 1.6;
+        padding-right: 10%;
+    }
+
     @media (max-width: 768px) {
 
         .nav-left, .nav-right {
@@ -114,6 +137,22 @@ p {
 
         h1 {
             margin-top: -1%;
+        }
+
+        .about-section {
+            flex-direction: column;
+            height: auto;
+            text-align: center;
+        }
+    
+        .about-title {
+            text-align: center;
+            padding-left: 0;
+            margin-bottom: 10px;
+        }
+    
+        .about-text {
+            padding-right: 0;
         }
     }
     

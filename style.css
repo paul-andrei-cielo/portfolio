@@ -1,3 +1,9 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+    height: 100%;
+}
 body{
     text-align: center;
     background: linear-gradient(-45deg, #e6bbbb, #fdecef, #fffdfc);
@@ -45,7 +51,6 @@ width: 50px;
 height:50px;
 }
 
-/* General Navbar Styling */
 .navbar {
     display: flex;
     align-items: center;
@@ -58,7 +63,6 @@ height:50px;
     z-index: 1000;
 }
 
-/* Logo Centered */
 .logo {
     font-size: 20px;
     font-weight: bold;
@@ -67,28 +71,25 @@ height:50px;
     font-style: italic;
 }
 
-/* Left and Right Nav */
 .nav-left, .nav-right {
     display: flex;
-    flex-grow: 1; /* Makes space distribute evenly */
-    justify-content: space-evenly; /* Adjusts spacing automatically */
+    flex-grow: 1; 
+    justify-content: space-evenly;
 }
 
-/* Links Styling */
 .nav-link {
     text-decoration: none;
     color: #d1a1a1;
     font-family: "Poppins", serif;
     font-size: 15px;
     font-weight: 300;
-    transition: 0.3s ease;
+    transition: 0.7s ease;
 }
 
 .nav-link:hover {
     color: #a86565;
 }
 
-/* Mobile Hamburger Menu */
 .hamburger {
     display: none;
     background: none;
@@ -98,7 +99,6 @@ height:50px;
     color: #d1a1a1;
 }
 
-/* Mobile Menu (Hidden by Default) */
 .mobile-menu {
     display: none;
     flex-direction: column;
@@ -118,8 +118,7 @@ height:50px;
     display: flex;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .nav-left, .nav-right {
         display: none;
     }
