@@ -57,7 +57,7 @@ height:50px;
     justify-content: space-between;
     padding: 10px 5%;
     background-color: transparent;
-    border-bottom: 1px solid #d1a1a1;
+    border-bottom: 2px solid #d1a1a1;
     position: sticky;
     top: 0;
     z-index: 1000;
