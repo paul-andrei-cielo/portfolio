@@ -11,8 +11,15 @@ body{
       animation: gradient 15s ease infinite;
       height: 100vh;
     align-items: center;
-    text-align: center;
-}
+    text-align: center;  
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  body.fade-in {
+    opacity: 1;
+  }
+
 h1 {
     font-family: "Bodoni Moda", serif;
     font-style: italic;
@@ -118,7 +125,7 @@ height:50px;
     display: flex;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .nav-left, .nav-right {
         display: none;
     }
