@@ -132,6 +132,22 @@ p {
   padding-right: 10%;
 }
 
+.certifications-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30rem;
+  padding: 40px;
+}
+
+.certifications-title {
+  font-style: italic;
+  flex: 1;
+  text-align: left;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .tech-stack-section {
   display: flex;
   align-items: center;
@@ -300,6 +316,19 @@ p {
 
   .about-text {
       padding-right: 0;
+  }
+
+  .certifications-section {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+  }
+
+  .certifications-title {
+    text-align: center;
+    padding-left: 0;
+    margin-bottom: 5%;
+    padding-right: 0;
   }
 
   .tech-stack-section {
