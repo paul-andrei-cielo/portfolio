@@ -1,66 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paul Andrei Cielo | Certifications</title>
-  <link rel="stylesheet" href="style2.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/logo.png" type="image/png" />
-</head>
-<body>
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="about.html" class="nav-link">About</a>
-      <a class="nav-link">Certifications</a>
-    </div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Andrei Cielo | Certifications</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/logo.png" type="image/png" />
+  </head>
+  <body>
+    <canvas id="gradient-canvas"></canvas>
 
-    <div class="logo">
-      <a href="index.html"><img src="images/logo.png" class="logo-img"></a>
-    </div>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="about.html" class="nav-link">About</a>
+        <a class="nav-link">Certifications</a>
+      </div>
 
-    <div class="nav-right">
-      <a href="tech-stack.html" class="nav-link">Tech Stack</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
+      <div class="logo">
+        <a href="index.html"><img src="images/logo.png" class="logo-img"></a>
+      </div>
 
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
+      <div class="nav-right">
+        <a href="tech-stack.html" class="nav-link">Tech Stack</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
 
-    <div class="mobile-menu" id="mobile-menu">
-      <a href="about.html" class="nav-link">About</a>
-      <a class="nav-link">Certifications</a>
-      <a href="tech-stack.html" class="nav-link">Tech Stack</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-  </nav>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
 
-  <section class="certifications-section">
-    <h1 class="certifications-title">certifications</h1>
-  </section>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="about.html" class="nav-link">About</a>
+        <a class="nav-link">Certifications</a>
+        <a href="tech-stack.html" class="nav-link">Tech Stack</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+    </nav>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById("mobile-menu").classList.toggle("active");
-    }
+    <section class="certifications-section">
+      <h1 class="certifications-title">certifications</h1>
+      <div class="cert-content">
+        <div class="cert-description">
+          <p>
+            These are some of the certifications I’ve earned along the way. Click the cards to see my certificates!
+          </p>
+        </div>
+      <div class="container" id="cardStack">
+        <div class="card">
+          <h2>Microsoft Office Specialist: Word Associate (Office 2019)</h2>
+          <h3>Issued by: Microsoft</h3>
+          <img src="images/word-cert.jpg" alt="Certification 1">
+        </div>
+        <div class="card">
+          <h2>Microsoft Office Specialist: PowerPoint Associate (Office 2019)</h2>
+          <h3>Issued by: Microsoft</h3>
+          <img src="images/ppt-cert.jpg" alt="Certification 2">
+        </div>
+        <div class="card">
+          <h2>Java Foundations</h2>
+          <h3>Issued by: Oracle Academy</h3>
+          <img src="images/oracle-cert.jpg" alt="Certification 3">
+        </div>
+      </div>
+    </section>
 
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('fade-in');
-    });
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobile-menu").classList.toggle("active");
+      }
+    </script>
 
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
-          e.preventDefault();
-          document.body.classList.remove('fade-in');
-          setTimeout(() => {
-            window.location.href = href;
-          }, 300); // Match this to CSS transition time
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('fade-in');
+      });
+
+      document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
+            e.preventDefault();
+            document.body.classList.remove('fade-in');
+            setTimeout(() => {
+              window.location.href = href;
+            }, 300);
+          }
+        });
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js"></script>
+    <script>
+      const granimInstance = new Granim({
+        element: '#gradient-canvas',
+        direction: 'diagonal',
+        isPausedWhenNotInView: true,
+        states: {
+          "default-state": {
+            gradients: [
+              ['#e6bbbb', '#fdecef'],
+              ['#fffdfc', '#fdedf0'],
+            ],
+            transitionSpeed: 3000
+          }
         }
       });
-    });
-  </script>
-</body>
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = Array.from(document.querySelectorAll(".card"));
+        let current = 0;
+
+        function showCard(index) {
+          cards.forEach((card, i) => {
+            card.classList.remove("active", "out");
+            if (i === index) {
+              card.classList.add("active");
+            }
+          });
+        }
+
+        showCard(current);
+
+        document.querySelector(".container").addEventListener("click", () => {
+          const prev = current;
+          current = (current + 1) % cards.length;
+
+          // Animate the current card out
+          cards[prev].classList.remove("active");
+          cards[prev].classList.add("out");
+
+          // Animate the next card in
+          showCard(current);
+        });
+      });
+    </script>
+  </body>
 </html>

@@ -5,12 +5,17 @@ html, body {
   height: 100%;
 }
 
+#gradient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
 body {
   text-align: center;
-  background: linear-gradient(-45deg, #e6bbbb, #fdecef, #fffdfc);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  height: 100vh;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
@@ -75,6 +80,14 @@ p {
   font-weight: 300;
   transition: 0.3s ease;
 }
+
+.nav-link.active {
+  color: #a86565;
+  font-weight: bold;
+  border-bottom: 2px solid #a86565;
+  pointer-events: none;
+}
+
 
 .nav-link:hover {
   color: #a86565;
@@ -141,11 +154,94 @@ p {
 }
 
 .certifications-title {
+  font-size: 4.5rem;
   font-style: italic;
   flex: 1;
   text-align: left;
   padding-left: 10%;
   padding-right: 10%;
+}
+
+.cert-content {
+  flex: 2;
+  display: flex;
+  max-width: 40rem;
+  flex-direction: column;
+  gap: 2rem;
+  padding-right: 10%;
+}
+
+.cert-description {
+  line-height: 1.6;
+  margin-top: -40%;
+}
+
+.container {
+  position: relative;
+  width: 420px;
+  height: auto;
+  perspective: 1000px;
+  align-self: center;
+}
+
+.card {
+  position: absolute;
+  width: 75%;
+  top: 0;
+  left: 0;
+  padding: 10px 20px 20px;
+  border-radius: 15px;
+  background-color: #ebcaca;
+  box-shadow: 0 20px 40px rgba(209, 161, 161, 0.2);
+  transform-origin: center;
+  transition: transform 0.6s ease, opacity 0.6s ease, z-index 0s 0.6s;
+  opacity: 0;
+  transform: scale(0.95) translateY(40px) rotateZ(0deg);
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.card.active {
+  opacity: 1;
+  z-index: 10;
+  transform: scale(1) translateY(0) rotateZ(-1.5deg);
+  pointer-events: auto;
+}
+
+.card.out {
+  opacity: 0;
+  transform: scale(0.92) translateY(80px) rotateZ(6deg);
+  z-index: 5;
+  transition:
+    transform 0.5s ease-in,
+    opacity 0.5s ease-in;
+}
+
+.card h2 {
+  font-family: "Poppins", serif;
+  text-align: left;
+  color: #a86565;
+  font-size: 1rem;
+  margin-bottom: -10px;
+}
+
+.card h3 {
+  font-family: "Poppins", serif;
+  text-align: left;
+  color: #a86565;
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .tech-stack-section {
@@ -285,6 +381,111 @@ p {
 }
 
 @media (max-width: 1024px) {
+  h1 {
+    margin-top: -1%;
+}
+
+.navbar {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.about-section {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+}
+
+.about-title {
+    text-align: center;
+    padding-left: 0;
+    margin-bottom: 5%;
+    padding-right: 0;
+}
+
+.about-text {
+    padding-right: 0;
+}
+
+.certifications-section {
+  flex-direction: column;
+  height: auto;
+  text-align: center;
+}
+
+.certifications-title {
+  font-size: 4rem;
+  text-align: center;
+  padding-left: 0;
+  margin-bottom: 5%;
+  padding-right: 0;
+}
+
+.cert-content {
+  padding-right: 0;
+}
+
+.cert-description {
+  margin-top: 0;
+}
+
+.card {
+  margin-top: 0;
+}
+
+.container {
+  margin-left: 0;
+  align-self: center;
+}
+
+.tech-stack-section {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+}
+
+.tech-stack-title {
+  text-align: center;
+  padding-left: 0;
+  margin-bottom: -5%;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.tech-content {
+  align-items: center;
+  padding-right: 0;
+}
+
+.tech-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.contact-section {
+  flex-direction: column;
+  height: auto;
+  text-align: center;
+}
+
+.contact-title {
+  text-align: center;
+  padding-left: 0;
+  margin-bottom: -5%;
+  padding-right: 0;
+}
+
+.contact-content {
+  align-items: center;
+  padding-right: 0;
+}
+
+.socials {
+  flex-direction: column;
+}
+  
+}
+
+@media (max-width: 768px) {
   .nav-left, .nav-right {
       display: none;
   }
@@ -294,7 +495,8 @@ p {
   }
 
   .navbar {
-      background-color: #fdecef;
+      background-color: transparent;
+      backdrop-filter: blur(10px);
   }
 
   h1 {
@@ -330,6 +532,23 @@ p {
     padding-left: 0;
     margin-bottom: 5%;
     padding-right: 0;
+  }
+
+  .cert-content {
+    padding-right: 0;
+  }
+  
+  .cert-description {
+    margin-top: 0;
+  }
+
+  .card {
+    margin-top: 0;
+  }
+
+  .container {
+    width: 75%;
+    align-self: center;
   }
 
   .tech-stack-section {
@@ -377,16 +596,4 @@ p {
     flex-direction: column;
   }
 
-}
-
-@keyframes gradient {
-  0% {
-      background-position: 0% 50%;
-  }
-  50% {
-      background-position: 100% 50%;
-  }
-  100% {
-      background-position: 0% 50%;
-  }
 }

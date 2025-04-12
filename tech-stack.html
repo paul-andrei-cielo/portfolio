@@ -1,99 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paul Andrei Cielo | Tech Stack</title>
-    <link rel="stylesheet" href="style2.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style2.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="images/logo.png" type="image/png" />
-</head>
-<body>
-  <nav class="navbar">
-    <div class="nav-left">
+  </head>
+  <body>
+    <canvas id="gradient-canvas"></canvas>
+
+    <nav class="navbar">
+      <div class="nav-left">
         <a href="about.html" class="nav-link">About</a>
         <a href="certifications.html" class="nav-link">Certifications</a>
-    </div>
+      </div>
 
-    <div class="logo"><a href="index.html"><img src="images/logo.png" class="logo-img"></a></div>
+      <div class="logo">
+        <a href="index.html"><img src="images/logo.png" class="logo-img" /></a>
+      </div>
 
-    <div class="nav-right">
+      <div class="nav-right">
         <a class="nav-link">Tech Stack</a>
         <a href="contact.html" class="nav-link">Contact</a>
-    </div>
+      </div>
 
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
 
-    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu" id="mobile-menu">
         <a href="about.html" class="nav-link">About</a>
         <a href="certifications.html" class="nav-link">Certifications</a>
         <a class="nav-link">Tech Stack</a>
         <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-</nav>
-
-<section class="tech-stack-section">
-    <div class="tech-stack-title">
-      <h1>tech stack</h1>
-    </div>
-  
-    <div class="tech-content">
-      <div class="tech-description">
-        <p>Behind every great project are the tools that make it possible. These are the technologies I have experienced working with:</p>
       </div>
-  
-      <div class="tech-grid">
-        <div class="tech-item">
-          <img src="images/c.png" alt="C">
-          <p>C</p>
+    </nav>
+
+    <section class="tech-stack-section">
+      <div class="tech-stack-title">
+        <h1>tech stack</h1>
+      </div>
+
+      <div class="tech-content">
+        <div class="tech-description">
+          <p>
+            Behind every great project are the tools that make it possible. These are the technologies I have experienced working with:
+          </p>
         </div>
-        <div class="tech-item">
-          <img src="images/cpp.png" alt="C++">
-          <p>C++</p>
-        </div>
-        <div class="tech-item">
-          <img src="images/java.png" alt="Java">
-          <p>Java</p>
-        </div>
-        <div class="tech-item">
-          <img src="images/css.png" alt="CSS">
-          <p>CSS</p>
-        </div>
-        <div class="tech-item">
-          <img src="images/html.png" alt="HTML">
-          <p>HTML</p>
-        </div>
-        <div class="tech-item">
-          <img src="images/android-studio.png" alt="Android Studio">
-          <p>Android Studio</p>
+
+        <div class="tech-grid">
+          <div class="tech-item">
+            <img src="images/c.png" alt="C" />
+            <p>C</p>
+          </div>
+          <div class="tech-item">
+            <img src="images/cpp.png" alt="C++" />
+            <p>C++</p>
+          </div>
+          <div class="tech-item">
+            <img src="images/java.png" alt="Java" />
+            <p>Java</p>
+          </div>
+          <div class="tech-item">
+            <img src="images/css.png" alt="CSS" />
+            <p>CSS</p>
+          </div>
+          <div class="tech-item">
+            <img src="images/html.png" alt="HTML" />
+            <p>HTML</p>
+          </div>
+          <div class="tech-item">
+            <img src="images/android-studio.png" alt="Android Studio" />
+            <p>Android Studio</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  
-  <script>
-    function toggleMenu() {
-      document.getElementById("mobile-menu").classList.toggle("active");
-    }
+    </section>
 
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('fade-in');
-    });
+    <script>
+      function toggleMenu() {
+        document.getElementById("mobile-menu").classList.toggle("active");
+      }
+    </script>
 
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
-          e.preventDefault();
-          document.body.classList.remove('fade-in');
-          setTimeout(() => {
-            window.location.href = href;
-          }, 300); // Match this to CSS transition time
-        }
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("fade-in");
       });
-    });
-  </script>
-</body>
+
+      document.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          const href = this.getAttribute("href");
+          if (href && !href.startsWith("#") && !href.startsWith("javascript")) {
+            e.preventDefault();
+            document.body.classList.remove("fade-in");
+            setTimeout(() => {
+              window.location.href = href;
+            }, 300);
+          }
+        });
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js"></script>
+    <script>
+      const granimInstance = new Granim({
+        element: "#gradient-canvas",
+        direction: "diagonal",
+        isPausedWhenNotInView: true,
+        states: {
+          "default-state": {
+            gradients: [
+              ["#e6bbbb", "#fdecef"],
+              ["#fffdfc", "#fdedf0"],
+            ],
+            transitionSpeed: 3000,
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
+
