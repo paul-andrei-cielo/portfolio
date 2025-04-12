@@ -284,7 +284,7 @@ p {
   transform: scale(1.1);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav-left, .nav-right {
       display: none;
   }
