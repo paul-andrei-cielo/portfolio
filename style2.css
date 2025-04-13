@@ -26,7 +26,6 @@ body.fade-in {
 
 h1 {
   font-family: "Bodoni Moda", serif;
-  font-size: 5rem;
   font-style: italic;
   color: #d1a1a1;
 }
@@ -132,10 +131,18 @@ p {
 
 .about-title {
   font-style: italic;
+  font-size: 5rem;
   flex: 1;
   text-align: left;
   padding-left: 10%;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.about-title:nth-child(1) {
+  animation-delay: 0.5s;
 }
 
 .about-text {
@@ -143,6 +150,13 @@ p {
   max-width: 40rem;
   line-height: 1.6;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.about-text:nth-child(2) {
+  animation-delay: 1s;
 }
 
 .certifications-section {
@@ -154,12 +168,22 @@ p {
 }
 
 .certifications-title {
-  font-size: 4.5rem;
   font-style: italic;
   flex: 1;
   text-align: left;
   padding-left: 10%;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.certifications-title h1 {
+  font-size: 4.5rem;
+}
+
+.certifications-title:nth-child(1) {
+  animation-delay: 0.5s;
 }
 
 .cert-content {
@@ -174,6 +198,13 @@ p {
 .cert-description {
   line-height: 1.6;
   margin-top: -40%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.cert-description:nth-child(2) {
+  animation-delay: 1s;
 }
 
 .container {
@@ -258,6 +289,17 @@ p {
   text-align: left;
   padding-left: 10%;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.tech-stack-title h1 {
+  font-size: 5rem;
+}
+
+.tech-stack-title:nth-child(1) {
+  animation-delay: 0.5s;
 }
 
 .tech-content {
@@ -267,6 +309,13 @@ p {
   flex-direction: column;
   gap: 2rem;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.tech-content:nth-child(2) {
+  animation-delay: 1s; 
 }
 
 .tech-description {
@@ -328,6 +377,17 @@ p {
   text-align: left;
   padding-left: 10%;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.contact-title h1 {
+  font-size: 5rem;
+}
+
+.contact-title:nth-child(1) {
+  animation-delay: 0.5s;
 }
 
 .contact-content {
@@ -337,6 +397,13 @@ p {
   flex-direction: column;
   gap: 2rem;
   padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.contact-content:nth-child(2) {
+  animation-delay: 1s;
 }
 
 .contact-description {
@@ -397,14 +464,21 @@ p {
 }
 
 .about-title {
-    text-align: center;
-    padding-left: 0;
-    margin-bottom: 5%;
-    padding-right: 0;
+  text-align: center;
+  padding-left: 0;
+  margin-bottom: 5%;
+  padding-right: 0;
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
 .about-text {
-    padding-right: 0;
+  padding-right: 0;
+  transform: translateY(-50px); 
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 1s;
 }
 
 .certifications-section {
@@ -414,11 +488,14 @@ p {
 }
 
 .certifications-title {
-  font-size: 4rem;
+  font-size: 5rem;
   text-align: center;
   padding-left: 0;
   margin-bottom: 5%;
   padding-right: 0;
+  transform: translateY(-50px);
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
 .cert-content {
@@ -426,7 +503,10 @@ p {
 }
 
 .cert-description {
-  margin-top: 0;
+  margin-top: -8%;
+  transform: translateY(-50px); 
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 1s;
 }
 
 .card {
@@ -439,9 +519,9 @@ p {
 }
 
 .tech-stack-section {
-    flex-direction: column;
-    height: auto;
-    text-align: center;
+  flex-direction: column;
+  height: auto;
+  text-align: center;
 }
 
 .tech-stack-title {
@@ -450,11 +530,17 @@ p {
   margin-bottom: -5%;
   padding-right: 0;
   padding-left: 0;
+  transform: translateY(-50px); 
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
 .tech-content {
   align-items: center;
   padding-right: 0;
+  transform: translateY(-50px); 
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 1s;
 }
 
 .tech-grid {
@@ -472,11 +558,17 @@ p {
   padding-left: 0;
   margin-bottom: -5%;
   padding-right: 0;
+  transform: translateY(-50px); 
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
 .contact-content {
   align-items: center;
   padding-right: 0;
+  transform: translateY(-50px); 
+  animation: fadeSlideFromTop 1s ease-out forwards;
+  animation-delay: 1s;
 }
 
 .socials {
@@ -527,11 +619,14 @@ p {
   }
 
   .certifications-title {
-    font-size: 4rem;
     text-align: center;
     padding-left: 0;
     margin-bottom: 5%;
     padding-right: 0;
+  }
+
+  .certifications-title h1 {
+    font-size: 3.5rem;
   }
 
   .cert-content {
@@ -539,7 +634,7 @@ p {
   }
   
   .cert-description {
-    margin-top: 0;
+    margin-top: -8%;
   }
 
   .card {
@@ -552,9 +647,9 @@ p {
   }
 
   .tech-stack-section {
-      flex-direction: column;
-      height: auto;
-      text-align: center;
+    flex-direction: column;
+    height: auto;
+    text-align: center;
   }
 
   .tech-stack-title {
@@ -563,6 +658,10 @@ p {
     margin-bottom: -5%;
     padding-right: 0;
     padding-left: 0;
+  }
+
+  .tech-stack-title h1 {
+    font-size: 4rem;
   }
 
   .tech-content {
@@ -595,5 +694,26 @@ p {
   .socials {
     flex-direction: column;
   }
+}
 
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px); /* Start from the left */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Slide into place */
+  }
+}
+
+@keyframes fadeSlideFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px); /* Start from the top */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Slide into place */
+  }
 }
