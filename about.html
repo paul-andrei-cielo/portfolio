@@ -15,7 +15,7 @@
 
     <nav class="navbar">
       <div class="nav-left">
-        <a class="nav-link">about</a>
+        <a class="nav-link active">about</a>
         <a href="certifications.html" class="nav-link">certifications</a>
       </div>
 
@@ -31,7 +31,7 @@
       <button class="hamburger" onclick="toggleMenu()">☰</button>
 
       <div class="mobile-menu" id="mobile-menu">
-        <a class="nav-link">about</a>
+        <a class="nav-link active">about</a>
         <a href="certifications.html" class="nav-link">certifications</a>
         <a href="tech-stack.html" class="nav-link">tech stack</a>
         <a href="contact.html" class="nav-link">contact</a>
@@ -47,54 +47,13 @@
           graphic design in my free time. I also explore programming to improve both my creative and technical skills.
         </p>
         <p>
-          I want to become a web designer because it allows me to use both creativity and technology.
+          I want to become a web developer because it allows me to use both creativity and technology.
           I enjoy bringing ideas to life through well-designed and user-friendly websites.
           I’m excited to keep learning, improving my skills, and growing in this field.
         </p>
       </div>
     </section>
 
-    <script>
-      function toggleMenu() {
-        document.getElementById("mobile-menu").classList.toggle("active");
-      }
-    </script>
-
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('fade-in');
-      });
-
-      document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
-            e.preventDefault();
-            document.body.classList.remove('fade-in');
-            setTimeout(() => {
-              window.location.href = href;
-            }, 300);
-          }
-        });
-      });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js"></script>
-    <script>
-      const granimInstance = new Granim({
-        element: '#gradient-canvas',
-        direction: 'diagonal',
-        isPausedWhenNotInView: true,
-        states: {
-          "default-state": {
-            gradients: [
-              ['#e6bbbb', '#fdecef'],
-              ['#fffdfc', '#fdedf0'],
-            ],
-            transitionSpeed: 3000
-          }
-        }
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

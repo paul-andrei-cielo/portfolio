@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paul Andrei Cielo | Home</title>
+    <title>Paul Andrei Cielo</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,70 +45,11 @@
       <div class="intro-text">
         <h2>Hello, I’m</h2>
         <h1><em>Andrei!</em></h1>
-        <h3>I am <strong>Paul Andrei Cielo</strong>, an aspiring full-stack developer!</h3>
+        <h3>I am <strong>Paul Andrei Cielo</strong>, an aspiring web developer!</h3>
       </div>
     </main>
 
-    <script>
-      function toggleMenu() {
-        document.getElementById("mobile-menu").classList.toggle("active");
-      }
-    </script>
-
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('fade-in');
-      });
-
-      document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function (e) {
-          const href = this.getAttribute('href');
-          if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
-            e.preventDefault();
-            document.body.classList.remove('fade-in');
-            setTimeout(() => {
-              window.location.href = href;
-            }, 300);
-          }
-        });
-      });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js"></script>
-    <script>
-      const granimInstance = new Granim({
-        element: '#gradient-canvas',
-        direction: 'diagonal',
-        isPausedWhenNotInView: true,
-        states: {
-          "default-state": {
-            gradients: [
-              ['#e6bbbb', '#fdecef'],
-              ['#fffdfc', '#fdedf0'],
-            ],
-            transitionSpeed: 3000
-          }
-        }
-      });
-    </script>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.5 });
-
-    const profileImage = document.querySelector('.profile-image');
-    const textBlock = document.querySelector('.intro-text');
-
-    if (profileImage) observer.observe(profileImage);
-    if (textBlock) observer.observe(textBlock);
-  </script>
-
-
+    <script src="script.js"></script>
   </body>
 </html>
 
