@@ -18,7 +18,7 @@ html, body {
     text-align: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
   }
   
   body.fade-in {
@@ -199,6 +199,7 @@ html, body {
         opacity: 0;
         transform: translateY(-40px);
         transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+        padding-top: 5%;
       }
   
     .profile-image img {

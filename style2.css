@@ -230,7 +230,7 @@ p {
   background-color: #ebcaca;
   box-shadow: 0 20px 40px rgba(209, 161, 161, 0.2);
   transform-origin: center;
-  transition: transform 2s ease, opacity 0.6s ease, z-index 0s 0.6s;
+  transition: transform 0.6s ease, opacity 0.6s ease, z-index 0s 0.6s;
   opacity: 0;
   transform: scale(0.95) translateY(40px) rotateZ(0deg);
   pointer-events: none;
@@ -314,6 +314,7 @@ p {
   flex-direction: column;
   gap: 2rem;
   padding-right: 10%;
+  padding-top: 5%;
   opacity: 0;
   transform: translateX(-50px);
   animation: fadeSlide 1s ease-out forwards;
@@ -327,10 +328,26 @@ p {
   line-height: 1.6;
 }
 
-.tech-grid {
+.tech-type {
+  margin-top: -5%;
+}
+
+.tech-type p {
+  font-size: 1.2rem;
+}
+
+.tech-grid-languages {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(6, 1fr); 
   gap: 1rem;
+  margin-top: -5%;
+}
+
+.tech-grid-tools {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 1rem;
+  margin-top: -5%;
 }
 
 .tech-item {
@@ -342,13 +359,13 @@ p {
 .tech-item img {
   width: 50px;
   height: 50px;
-  border: 3px solid #d7a1aa;
+  border: 3px solid #d1a1a1;
   border-radius: 50%;
   padding: 0.5rem;
-  background-color: white;
+  background-color: transparent;
   transform: scale(0.8);
   animation: fadeInScale 0.6s ease forwards;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .tech-item:nth-child(1) img { animation-delay: 0.1s; }
@@ -361,11 +378,13 @@ p {
 .tech-item img:hover {
   transform: scale(1.1);
   transition: transform 1s ease;
+  background-color: #d1a1a1
 }
 
 .tech-item p {
   margin-top: 0.5rem;
   font-size: 1rem;
+  text-align: center;
 }
 
 .contact-section {
@@ -523,7 +542,8 @@ p {
 }
 
 .card {
-  margin-top: 0;
+  margin-top: 5%;
+  width: 90%;
 }
 
 .container {
@@ -551,6 +571,7 @@ p {
 .tech-content {
   align-items: center;
   padding-right: 0;
+  padding-top: 0;
   transform: translateY(-50px); 
   animation: fadeSlideFromTop 1s ease-out forwards;
   animation-delay: 1s;
@@ -560,8 +581,10 @@ p {
   text-align: center;
 }
 
-.tech-grid {
-  grid-template-columns: repeat(2, 1fr);
+.tech-grid-languages,
+.tech-grid-tools {
+  width: 30rem;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .contact-section {
@@ -660,6 +683,7 @@ p {
 
   .card {
     margin-top: 0;
+    width: 75%;
   }
 
   .container {
@@ -690,7 +714,9 @@ p {
     padding-right: 0;
   }
 
-  .tech-grid {
+  .tech-grid-languages,
+  .tech-grid-tools {
+    width: 20rem;
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -720,21 +746,21 @@ p {
 @keyframes fadeSlide {
   0% {
     opacity: 0;
-    transform: translateX(-50px); /* Start from the left */
+    transform: translateX(-50px); 
   }
   100% {
     opacity: 1;
-    transform: translateX(0); /* Slide into place */
+    transform: translateX(0); 
   }
 }
 
 @keyframes fadeSlideFromTop {
   0% {
     opacity: 0;
-    transform: translateY(-50px); /* Start from the top */
+    transform: translateY(-50px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* Slide into place */
+    transform: translateY(0); 
   }
 }
