@@ -126,14 +126,6 @@ html, body {
     z-index: 1000;
   }
   
-  .logo {
-    font-size: 20px;
-    font-weight: bold;
-    font-family: "Poppins", serif;
-    color: #d1a1a1;
-    font-style: italic;
-  }
-  
   .nav-left,
   .nav-right {
     display: flex;
@@ -196,10 +188,10 @@ html, body {
     }
 
     .profile-image {
-        opacity: 0;
-        transform: translateY(-40px);
-        transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
-        padding-top: 5%;
+      opacity: 0;
+      transform: translateY(-40px);
+      transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+      padding-top: 5%;
       }
   
     .profile-image img {
@@ -252,28 +244,28 @@ html, body {
     }
 
     .profile-image img {
-        width: 220px;
-        height: 330px;
+      width: 220px;
+      height: 330px;
     }
 
     .intro-text h1 {
-        font-size: 6rem;
-        text-align: center;
-        margin-top: 0;
+      font-size: 6rem;
+      text-align: center;
+      margin-top: 0;
     }
 
     .intro-text h2 {
-        font-size: 1.7rem;
-        text-align: center;
+      font-size: 1.7rem;
+      text-align: center;
     }
 
     .intro-text h3 {
-        font-size: 1rem;
-        text-align: center;
-        margin-top: 5%;
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+      font-size: 1rem;
+      text-align: center;
+      margin-top: 5%;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
   
