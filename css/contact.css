@@ -363,7 +363,6 @@ p {
   }
 }
 
-/* Animations */
 @keyframes fadeSlide {
   0% {
     opacity: 0;

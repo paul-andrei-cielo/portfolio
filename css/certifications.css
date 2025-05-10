@@ -231,8 +231,6 @@ p {
   transform: scale(1.02);
 }
 
-/* Responsive Styles */
-
 @media (max-width: 1024px) {
   h1 {
     margin-top: -1%;
@@ -338,8 +336,6 @@ p {
     align-self: center;
   }
 }
-
-/* Animations */
 
 @keyframes fadeSlide {
   0% {
