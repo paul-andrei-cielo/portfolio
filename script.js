@@ -115,15 +115,25 @@ window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      if (href && !href.startsWith('#') && !href.startsWith('javascript')) {
-        e.preventDefault();
-        document.body.classList.remove('fade-in');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 300);
+      const target = this.getAttribute('target');
+  
+      if (
+        !href ||
+        href.startsWith('#') ||
+        href.startsWith('javascript') ||
+        target === '_blank'
+      ) {
+        return;
       }
+  
+      e.preventDefault();
+      document.body.classList.remove('fade-in');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
     });
   });
+  
 
   // Card slideshow
   const cards = Array.from(document.querySelectorAll(".card"));
