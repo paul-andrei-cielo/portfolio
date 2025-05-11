@@ -56,6 +56,7 @@ p {
   justify-content: space-between;
   padding: 10px 5%;
   background-color: transparent;
+  backdrop-filter: blur(10px);
   border-bottom: 2px solid #d1a1a1;
   position: sticky;
   top: 0;
@@ -139,6 +140,24 @@ p {
 .about-title:nth-child(1) {
   animation-delay: 0.5s;
 }
+.profile-image {
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+.profile-image img {
+  border: 3px solid #d1a1a1;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 15rem;
+  height: 15rem;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.profile-image img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(209, 161, 161, 0.5);
+}
 
 .about-text {
   flex: 2;
@@ -190,6 +209,11 @@ p {
 
   .about-text p {
     text-align: center;
+  }
+
+  .profile-image {
+    margin-top: 0;
+    margin-bottom: 5%;
   }
 }
 
