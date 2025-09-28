@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (profileImage) observer.observe(profileImage);
   if (textBlock) observer.observe(textBlock);
 
-  // Subtle bounce on hover
+  // Subtle bounce on hover (fixed easing string)
   const profileImg = document.querySelector('.profile-image img');
 
   if (profileImg) {
@@ -111,12 +111,12 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Fade-out transition
+  // Fade-out transition for internal links
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       const target = this.getAttribute('target');
-  
+
       if (
         !href ||
         href.startsWith('#') ||
@@ -125,7 +125,7 @@ window.addEventListener('DOMContentLoaded', () => {
       ) {
         return;
       }
-  
+
       e.preventDefault();
       document.body.classList.remove('fade-in');
       setTimeout(() => {
@@ -133,25 +133,24 @@ window.addEventListener('DOMContentLoaded', () => {
       }, 300);
     });
   });
-  
 
-  // Card slideshow
-  const cards = Array.from(document.querySelectorAll(".card"));
-  let current = 0;
+  // Card slideshow for multiple stacks (each .container is independent)
+  document.querySelectorAll(".container").forEach((container) => {
+    const cards = Array.from(container.querySelectorAll(".card"));
+    let current = 0;
 
-  function showCard(index) {
-    cards.forEach((card, i) => {
-      card.classList.remove("active", "out");
-      if (i === index) {
-        card.classList.add("active");
-      }
-    });
-  }
+    function showCard(index) {
+      cards.forEach((card, i) => {
+        card.classList.remove("active", "out");
+        if (i === index) {
+          card.classList.add("active");
+        }
+      });
+    }
 
-  if (cards.length > 0) {
-    showCard(current);
-    const container = document.querySelector(".container");
-    if (container) {
+    if (cards.length > 0) {
+      showCard(current);
+
       container.addEventListener("click", () => {
         const prev = current;
         current = (current + 1) % cards.length;
@@ -162,11 +161,9 @@ window.addEventListener('DOMContentLoaded', () => {
         showCard(current);
       });
     }
-  }
-});
+  });
 
-// Granim background
-document.addEventListener('DOMContentLoaded', () => {
+  // Granim background loader
   const granimScript = document.createElement('script');
   granimScript.src = 'https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js';
   granimScript.onload = () => {

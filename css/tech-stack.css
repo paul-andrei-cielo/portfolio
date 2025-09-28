@@ -56,6 +56,7 @@ p {
   justify-content: space-between;
   padding: 10px 5%;
   background-color: transparent;
+  backdrop-filter: blur(10px);
   border-bottom: 2px solid #d1a1a1;
   position: sticky;
   top: 0;
@@ -121,7 +122,8 @@ p {
   align-items: center;
   justify-content: center;
   height: 30rem;
-  padding: 40px; 
+  padding: 40px;
+  margin-bottom: 23%;
 }
 
 .tech-stack-title {
@@ -130,9 +132,17 @@ p {
   text-align: left;
   padding-left: 10%;
   padding-right: 10%;
+  margin-top: 10.4%;
+  margin-left: 2.13%;
   opacity: 0;
   transform: translateX(-50px);
   animation: fadeSlide 1s ease-out forwards;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background: transparent; 
 }
 
 .tech-stack-title h1 {
@@ -154,6 +164,8 @@ p {
   opacity: 0;
   transform: translateX(-50px);
   animation: fadeSlide 1s ease-out forwards;
+  margin-top: 17rem;
+  margin-left: 46.5%;
 }
 
 .tech-content:nth-child(2) {
@@ -175,6 +187,13 @@ p {
 .tech-grid-languages {
   display: grid;
   grid-template-columns: repeat(6, 1fr); 
+  gap: 1rem;
+  margin-top: -5%;
+}
+
+.tech-grid-databases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
   gap: 1rem;
   margin-top: -5%;
 }
@@ -240,14 +259,24 @@ p {
   }
 
   .tech-stack-title {
+    width: 100vw;
+    left: 0;
     text-align: center;
     padding-left: 0;
+    margin-top: 0;
+    margin-left: 0;
     margin-bottom: -5%;
     padding-right: 0;
     padding-left: 0;
     transform: translateY(-50px); 
     animation: fadeSlideFromTop 1s ease-out forwards;
     animation-delay: 0.5s;
+    position: sticky;
+    background: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
   }
 
   .tech-content {
@@ -257,6 +286,8 @@ p {
     transform: translateY(-50px); 
     animation: fadeSlideFromTop 1s ease-out forwards;
     animation-delay: 1s;
+    margin-top: 1%;
+    margin-left: 0;
   }
 
   .tech-content p {
@@ -264,6 +295,7 @@ p {
   }
 
   .tech-grid-languages,
+  .tech-grid-databases,
   .tech-grid-tools {
     width: 30rem;
     grid-template-columns: repeat(3, 1fr);
@@ -292,6 +324,7 @@ p {
     flex-direction: column;
     height: auto;
     text-align: center;
+    margin-bottom: 0;
   }
 
   .tech-stack-title {
@@ -309,9 +342,11 @@ p {
   .tech-content {
     align-items: center;
     padding-right: 0;
+    margin-top: 0;
   }
 
   .tech-grid-languages,
+  .tech-grid-databases,
   .tech-grid-tools {
     width: 20rem;
     grid-template-columns: repeat(2, 1fr);

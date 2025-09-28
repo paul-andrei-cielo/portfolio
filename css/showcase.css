@@ -55,6 +55,7 @@ p {
   justify-content: space-between;
   padding: 10px 5%;
   background-color: transparent;
+  backdrop-filter: blur(10px);
   border-bottom: 2px solid #d1a1a1;
   position: sticky;
   top: 0;
@@ -161,6 +162,59 @@ p {
 }
 
 .cert-description:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.projects-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6rem; /* adjust value to taste (e.g. 4rem, 8rem) */
+  min-height: 30rem;   /* replace fixed height so section can grow on small screens */
+  height: auto;     
+  padding: 40px;
+}
+
+.projects-title {
+  font-style: italic;
+  flex: 1;
+  text-align: left;
+  padding-left: 10%;
+  padding-right: 10%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.projects-title h1 {
+  font-size: 4.5rem;
+}
+
+.projects-title:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.projects-content {
+  flex: 2;
+  display: flex;
+  max-width: 40rem;
+  flex-direction: column;
+  gap: 2rem;
+  padding-right: 10%;
+  margin-bottom: 10%;
+  margin-left: 8%;
+}
+
+.projects-description {
+  line-height: 1.6;
+  margin-top: -20%;
+  margin-left: 2%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeSlide 1s ease-out forwards;
+}
+
+.projects-description:nth-child(2) {
   animation-delay: 1s;
 }
 
@@ -272,6 +326,39 @@ p {
     text-align: center;
   }
 
+  .projects-section {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+    margin-top: 40%;
+    margin-bottom: 25%; 
+  }
+
+  .projects-title {
+    font-size: 5rem;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 5%;
+    transform: translateY(-50px);
+    animation: fadeSlideFromTop 1s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+
+  .projects-content {
+    padding-right: 0;
+    margin-left: 0;
+  }
+
+  .projects-description {
+    transform: translateY(-50px);
+    animation: fadeSlideFromTop 1s ease-out forwards;
+    animation-delay: 1s;
+  }
+
+  .projects-description p {
+    text-align: center;
+  }
+
   .card {
     margin-top: 5%;
     width: 90%;
@@ -324,6 +411,27 @@ p {
 
   .cert-description {
     margin-top: -8%;
+  }
+
+  .projects-section {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+    margin-top: 70%;
+  }
+
+  .projects-title {
+    text-align: center;
+    padding: 0;
+    margin-bottom: -10%;
+  }
+
+  .projects-title h1 {
+    font-size: 3.5rem;
+  }
+
+  .projects-content {
+    padding-right: 0;
   }
 
   .card {
