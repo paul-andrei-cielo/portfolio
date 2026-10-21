@@ -1,10 +1,10 @@
-// Mobile menu
+// Legacy mobile menu (kept for any pages that still use the old hamburger)
 function toggleMenu() {
   const menu = document.getElementById("mobile-menu");
+  if (!menu) return;
   const isActive = menu.classList.contains("active");
 
   if (!isActive) {
-    // Show menu before animating
     menu.classList.add("active");
     menu.style.opacity = 0;
     menu.style.transform = "translate(-50%, -20px)";
@@ -34,84 +34,154 @@ function toggleMenu() {
 
 // Main DOM logic
 window.addEventListener('DOMContentLoaded', () => {
-  // Fade-in animation
-  document.body.classList.add('fade-in');
+  const body = document.body;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Profile + text reveal with Anime.js
-  const profileImage = document.querySelector('.profile-image');
-  const textBlock = document.querySelector('.intro-text');
+  // Fade-in flag (used by other pages' CSS)
+  body.classList.add('fade-in');
 
-  const animateIn = (element, properties) => {
-    anime({
-      targets: element,
-      ...properties,
-      duration: 1000,
-      easing: 'easeOutExpo'
-    });
-  };
+  /* ---------- Navbar, intro, butterfly, scroll reveal ---------- */
+  const intro = document.getElementById('intro');
+  const introLogo = document.getElementById('intro-logo');
+  const toggle = document.getElementById('logo-toggle');
+  const closeBtn = document.getElementById('nav-close');
+  const homeBtn = document.getElementById('nav-home');
+  const menu = document.getElementById('site-menu');
+  const hero = document.getElementById('hero');
+  const profile = document.getElementById('profile');
+  const scrollBtn = document.getElementById('scroll-btn');
+  const butterfly = document.getElementById('butterfly');
+  const smooth = reduceMotion ? 'auto' : 'smooth';
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const target = entry.target;
-        if (target.classList.contains('profile-image')) {
-          animateIn(target, { opacity: [0, 1], translateY: [-40, 0] });
-        } else if (target.classList.contains('intro-text')) {
-          animateIn(target, { opacity: [0, 1], translateX: [-40, 0] });
-        }
-        observer.unobserve(target);
-      }
-    });
-  }, { threshold: 0.5 });
+  // dim the background once the page leaves the top
+  const onScroll = () => body.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  if (profileImage) observer.observe(profileImage);
-  if (textBlock) observer.observe(textBlock);
-
-  // Subtle bounce on hover (fixed easing string)
-  const profileImg = document.querySelector('.profile-image img');
-
-  if (profileImg) {
-    profileImg.addEventListener('mouseenter', () => {
-      anime({
-        targets: profileImg,
-        scale: [1, 1.05],
-        duration: 400,
-        easing: 'easeOutElastic(1, .8)'
-      });
-    });
-
-    profileImg.addEventListener('mouseleave', () => {
-      anime({
-        targets: profileImg,
-        scale: 1,
-        duration: 300,
-        easing: 'easeOutExpo'
-      });
+  // split "Andrei" into letters for the staggered reveal
+  const nameEl = document.querySelector('.name');
+  if (nameEl) {
+    const text = nameEl.textContent;
+    nameEl.setAttribute('aria-label', text);
+    nameEl.textContent = '';
+    [...text].forEach((ch, i) => {
+      const s = document.createElement('span');
+      s.className = 'letter';
+      s.textContent = ch;
+      s.style.setProperty('--n', i);
+      s.setAttribute('aria-hidden', 'true');
+      nameEl.appendChild(s);
     });
   }
 
-  // Animate nav links on hover
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('mouseenter', () => {
-      anime({
-        targets: link,
-        scale: 1.1,
-        duration: 300,
-        easing: 'easeOutExpo'
-      });
+  // reveal the photo + name when the second screen scrolls into view
+  if (profile) {
+    const label = (on) => scrollBtn && scrollBtn.setAttribute('aria-label', on ? 'Back to top' : 'Scroll down');
+    new IntersectionObserver(([entry]) => {
+      body.classList.toggle('on-profile', entry.isIntersecting);
+      label(entry.isIntersecting);
+      profile.classList.toggle('in', entry.isIntersecting);
+      if (entry.isIntersecting) profile.classList.add('revealed');
+    }, { threshold: 0.55 }).observe(profile);
+
+    if (scrollBtn) scrollBtn.addEventListener('click', () => {
+      (body.classList.contains('on-profile') ? hero : profile).scrollIntoView({ behavior: smooth });
+    });
+  }
+
+  if (toggle && menu) {
+    const headerLogo = toggle.querySelector('img');
+
+    const setMenu = (open) => {
+      body.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Paul Andrei Cielo, close menu' : 'Paul Andrei Cielo, open menu');
+      [homeBtn, closeBtn].forEach(el => el && (el.tabIndex = open ? 0 : -1));
+      menu.querySelectorAll('a').forEach(a => a.tabIndex = open ? 0 : -1);
+    };
+    setMenu(false);
+
+    toggle.addEventListener('click', () => setMenu(!body.classList.contains('menu-open')));
+    if (closeBtn) closeBtn.addEventListener('click', () => { setMenu(false); toggle.focus(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && body.classList.contains('menu-open')) { setMenu(false); toggle.focus(); }
+    });
+    document.addEventListener('click', (e) => {
+      if (body.classList.contains('menu-open') && !e.target.closest('.topbar')) setMenu(false);
     });
 
+    if (intro && introLogo) {
+      const flyToHeader = () => {
+        const from = introLogo.getBoundingClientRect();
+        const to = toggle.getBoundingClientRect();   // the whole pill, not just the image inside it
+        const dx = (to.left + to.width / 2) - (from.left + from.width / 2);
+        const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
+        const s = to.width / from.width;
+
+        toggle.style.visibility = 'hidden';          // real button stays hidden until the logo lands
+        if (butterfly && !reduceMotion) {
+          butterfly.style.opacity = '0';
+          butterfly.style.filter = 'blur(20px)';
+        }
+        intro.classList.add('reveal');               // backdrop dissolves while the logo travels
+
+        // one continuous glide from the center to the button (Web Animations API)
+        const startFrom = getComputedStyle(introLogo).transform;
+        const flight = introLogo.animate([
+          { transform: startFrom === 'none' ? 'translate(0px, 0px) scale(1)' : startFrom },
+          { transform: `translate(${dx}px, ${dy}px) scale(${s})` }
+        ], { duration: 1600, easing: 'cubic-bezier(.65, 0, .35, 1)', fill: 'forwards' });
+
+        const land = () => {                         // same size + position, so the swap is invisible
+          toggle.style.visibility = 'visible';
+          intro.remove();
+          if (!butterfly) body.classList.remove('is-loading');
+        };
+        flight.onfinish = land;
+
+        if (butterfly) {
+          setTimeout(() => {
+            anime({
+              targets: butterfly,
+              opacity: [0, 1],
+              scale: [0.85, 1],
+              filter: ['blur(20px)', 'blur(0px)'],
+              duration: 2200,
+              easing: 'easeOutQuart',
+              begin: () => body.classList.remove('is-loading'),
+              complete: () => butterfly.removeAttribute('style')
+            });
+          }, 1100);
+        }
+      };
+
+      const runIntro = async () => {
+        try { await Promise.all([introLogo.decode(), headerLogo.decode()]); } catch (e) {}
+        if (reduceMotion) { intro.remove(); body.classList.remove('is-loading'); return; }
+        anime({
+          targets: introLogo,
+          opacity: [0, 1],
+          scale: [0.8, 1],
+          duration: 1100,
+          easing: 'easeOutQuart',
+          complete: () => setTimeout(flyToHeader, 600)
+        });
+      };
+      runIntro();
+    }
+  }
+
+  /* ---------- Hover scale for old-style nav links ---------- */
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      anime({ targets: link, scale: 1.1, duration: 300, easing: 'easeOutExpo' });
+    });
     link.addEventListener('mouseleave', () => {
-      anime({
-        targets: link,
-        scale: 1.0,
-        duration: 300,
-        easing: 'easeOutExpo'
-      });
+      anime({ targets: link, scale: 1.0, duration: 300, easing: 'easeOutExpo' });
     });
   });
 
-  // Fade-out transition for internal links
+  /* ---------- Fade-out transition for internal links ---------- */
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
@@ -127,14 +197,23 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       e.preventDefault();
-      document.body.classList.remove('fade-in');
+      body.classList.remove('fade-in');
+      body.classList.add('is-leaving');
       setTimeout(() => {
         window.location.href = href;
       }, 300);
     });
   });
 
-  // Card slideshow for multiple stacks (each .container is independent)
+  // Coming back with the browser's back button
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      body.classList.remove('is-leaving');
+      body.classList.add('fade-in');
+    }
+  });
+
+  /* ---------- Card slideshow (each .container is independent) ---------- */
   document.querySelectorAll(".container").forEach((container) => {
     const cards = Array.from(container.querySelectorAll(".card"));
     let current = 0;
@@ -163,24 +242,26 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Granim background loader
-  const granimScript = document.createElement('script');
-  granimScript.src = 'https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js';
-  granimScript.onload = () => {
-    new Granim({
-      element: '#gradient-canvas',
-      direction: 'diagonal',
-      isPausedWhenNotInView: true,
-      states: {
-        "default-state": {
-          gradients: [
-            ['#e6bbbb', '#fdecef'],
-            ['#fffdfc', '#fdedf0'],
-          ],
-          transitionSpeed: 3000
+  /* ---------- Granim background (only where a gradient canvas exists) ---------- */
+  if (document.getElementById('gradient-canvas')) {
+    const granimScript = document.createElement('script');
+    granimScript.src = 'https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js';
+    granimScript.onload = () => {
+      new Granim({
+        element: '#gradient-canvas',
+        direction: 'diagonal',
+        isPausedWhenNotInView: true,
+        states: {
+          "default-state": {
+            gradients: [
+              ['#e6bbbb', '#fdecef'],
+              ['#fffdfc', '#fdedf0'],
+            ],
+            transitionSpeed: 3000
+          }
         }
-      }
-    });
-  };
-  document.body.appendChild(granimScript);
+      });
+    };
+    body.appendChild(granimScript);
+  }
 });

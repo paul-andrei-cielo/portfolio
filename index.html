@@ -4,53 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paul Andrei Cielo</title>
+    <script>document.documentElement.classList.add('js')</script>
     <link rel="stylesheet" href="css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/logo.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <noscript><style>body.is-loading .intro{display:none}body.is-loading .logo-btn{visibility:visible}</style></noscript>
   </head>
-  <body>
-    <canvas id="gradient-canvas"></canvas>
+  <body class="is-loading">
+    <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
-    <nav class="navbar">
-      <div class="nav-left">
-        <a href="about.html" class="nav-link">about</a>
-        <a href="showcase.html" class="nav-link">showcase</a>
+    <!-- Intro: logo centered, then flies up into the header -->
+    <div class="intro" id="intro" aria-hidden="true">
+      <div class="pill" id="intro-logo"><img src="images/portfolio-logo.png" alt=""></div>
+    </div>
+
+    <!-- Progressive blur layers (behind navbar / behind scroll button) -->
+    <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="pblur pblur-btn" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <header class="topbar">
+      <div class="logo-wrap">
+        <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
+          <img src="images/home-icon.png" alt="" draggable="false">
+        </a>
+
+        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        </button>
+
+        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
+        </button>
       </div>
 
-      <div class="logo">
-        <img src="images/logo.png" class="logo-img">
-      </div>
+      <nav class="menu" id="site-menu" aria-label="Main">
+        <a href="about.html" style="--i:0">about</a>
+        <a href="awards.html" style="--i:1">awards &amp; achievements</a>
+        <a href="certifications.html" style="--i:2">certifications</a>
+        <a href="contact.html" style="--i:3">contact</a>
+        <a href="projects.html" style="--i:4">projects</a>
+        <a href="tech-stack.html" style="--i:5">tech stack</a>
+      </nav>
+    </header>
 
-      <div class="nav-right">
-        <a href="tech-stack.html" class="nav-link">tech stack</a>
-        <a href="contact.html" class="nav-link">contact</a>
-      </div>
+    <button class="scroll-btn" id="scroll-btn" aria-label="Scroll down">
+      <span class="bob"><svg viewBox="0 0 24 56" aria-hidden="true"><path d="M12 3v49M5 45l7 7 7-7"/></svg></span>
+    </button>
 
-      <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <main>
+      <!-- 1 · butterfly -->
+      <section class="screen hero" id="hero" aria-label="Welcome">
+        <div class="butterfly" id="butterfly">
+          <div class="butterfly-tilt" id="tilt"><img src="images/butterfly.png" alt="" draggable="false"></div>
+        </div>
+      </section>
 
-      <div class="mobile-menu" id="mobile-menu">
-        <a href="about.html" class="nav-link">about</a>
-        <a href="showcase.html" class="nav-link">showcase</a>
-        <a href="tech-stack.html" class="nav-link">tech stack</a>
-        <a href="contact.html" class="nav-link">contact</a>
-      </div>
-    </nav>
+      <!-- 2 · photo + name (revealed on scroll) -->
+      <section class="screen profile" id="profile" aria-label="Introduction">
+        <div class="stage">
+          <h1 class="greeting">
+            <span class="hello r">Hello! My name is</span>
+            <span class="name">Andrei</span><span class="dot r">.</span>
+          </h1>
 
-    <main class="hero-section">
-      <div class="profile-image" data-aos="zoom-in">
-        <img src="images/self-portrait-pill-2.png" alt="Andrei's profile picture" />
-      </div>
-      <div class="intro-text" data-aos="fade-up">
-        <h2>Hello, I’m</h2>
-        <h1><em>Andrei!</em></h1>
-        <h3>I am <strong>Paul Andrei Cielo</strong>, an aspiring web developer!</h3>
-      </div>
+          <div class="avatar-wrap">
+            <div class="avatar-bg r" aria-hidden="true"></div>
+            <div class="avatar-photo r"><img src="images/self-portrait-3.png" alt="Andrei's profile picture"></div>
+          </div>
+
+          <p class="roles r">I’m a ui/ux designer, web and mobile developer, and graphic designer.</p>
+        </div>
+      </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
-
