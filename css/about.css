@@ -13,8 +13,8 @@
     --portrait-tail: 22%;               /* soft end of the portrait; set to 0% for a pure blur */
     --overlap: 9vw;
     --lift: 3.6vw;             /* how far the head rises into "About me." */
-    --blur-h: 22vw; 
-    --below: 3vw; 
+    --blur-h: 22vw;
+    --below: 3vw;
   }
   
   /* no snapping on this page, it scrolls freely */
@@ -23,7 +23,7 @@
   /* ---------- backdrop: same look as home once scrolled ---------- */
   body::before { background: var(--about-bg); filter: brightness(.92) saturate(1.15); }
   .ambient { opacity: .7 !important; }
-
+  
   body.scrolled::before {
     filter: brightness(.92) saturate(1.15);
   }
@@ -83,7 +83,7 @@
     bottom: calc(var(--overlap) * -1 + var(--lift));
     display: flex; justify-content: center; pointer-events: none;
   }
-
+  
   .pimg { position: relative; height: 100%; }
   .pimg img {
     display: block; height: 100%; width: auto; max-width: none; user-select: none;
@@ -126,7 +126,7 @@
   /* ==========================================================
      2 · INTRO COPY
      ========================================================== */
-     .about-copy { position: relative; z-index: 4; padding: 3.8vw 0 0; text-align: center; }
+  .about-copy { position: relative; z-index: 4; padding: 3.8vw 0 0; text-align: center; }
   .hello-line {
     margin: 0 auto .7vw; width: var(--wrap);
     font-size: 6.2vw; line-height: 1.1; letter-spacing: -.01em;
@@ -210,7 +210,7 @@
     border: 1.5px solid rgba(255, 255, 255, .7);
     --r: clamp(36px, 4.6vw, 70px);
     border-radius: var(--r) var(--r) 0 0;
-    border-bottom: 0;     
+    border-bottom: 0;
     background: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .12));
     -webkit-backdrop-filter: blur(26px) saturate(1.2); backdrop-filter: blur(26px) saturate(1.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 -30px 80px -50px rgba(170, 70, 115, .35);
@@ -275,38 +275,127 @@
   @media (max-width: 900px) {
     .row p { text-align: left; hyphens: manual; }
   }
+  
+  /* ---------- phones ----------
+     Matched to the 360px mobile mockups (1vw = 3.6px there):
+     · hero: glass panel 80vw wide, portrait fading out below it, "Welcome to my" / "portfolio" over it
+     · intro: "Hello! I am" small, "Paul Andrei Cielo" bigger on its own line
+     · leadership: two-line heading, each entry stacked (role above text), butterfly pinned at the right edge
+     · contact: two-line heading, button under the text, links stacked at the left with the butterfly at the right
+     The navbar is at the bottom on phones (see index.css), so it hides downward on scroll. */
   @media (max-width: 700px) {
-    :root { --overlap: 18vw; --lift: 6vw; }
-    .hero { padding-top: 34vw; }
-    .hero-stage { height: 128vw; }
-    .about-title { top: -17vw; font-size: 21vw; }
-    .portrait { top: calc(9vw - var(--lift)); }
-    .hero-welcome { left: 3vw; top: 12vw; font-size: 16vw; }
-    .hero-portfolio { right: 2vw; top: auto; bottom: 9vw; font-size: 17vw; }
+    :root {
+      --wrap: 85.5vw;
+      --overlap: 10vw;                /* the portrait runs past the glass panel and fades out below it, like on desktop */
+      --lift: 0vw;
+      --portrait-tail: 22%;           /* same long, soft fade as desktop */
+      /* the mockup's text is small (~9–10px); raise these two to 3.1vw / 3.3vw (≈11–12px) for easier reading */
+      --m-body: clamp(9px, 2.7vw, 12px);
+      --m-role: clamp(10.5px, 3.05vw, 13px);
+    }
   
-    .about-copy { padding-top: 8vw; }
-    .hello-line { font-size: 9.4vw; margin-bottom: 3vw; }
-    .about-copy p { width: 90vw; font-size: .95rem; margin-bottom: 4vw; line-height: 1.8; }
+    body.nav-hidden .topbar { transform: translateY(calc(100% + 70px)); }
   
-    .leadership { margin-top: 14vw; }
-    .lead-title { font-size: 10.6vw; }
+    /* 1 · hero */
+    .hero { padding-top: 23.3vw; }
+    .hero-stage { width: 80vw; height: 120vw; }
+    .hero-panel { border-radius: 5.5vw; }
+    .about-title { top: -11vw; font-size: 18vw; }
+    .portrait { top: 5.5vw; }
+    /* no stacked-blur layers on phones: they smeared a dark band across the bottom of the photo */
+    .pblur-img { display: none; }
+    /* below the face, in front of the photo (same layer as "portfolio") */
+    .hero-welcome { z-index: 4; left: 4.4vw; top: 47vw; font-size: 12.5vw; line-height: .76; }
+    .hero-portfolio { right: 3.9vw; top: auto; bottom: 18vw; font-size: 13vw; }
+  
+    /* 2 · intro copy */
+    .about-copy { padding-top: 5vw; }
+    .hello-line { font-size: 6.6vw; line-height: 1.1; margin: 0 auto 2.2vw; }
+    .hello-line strong { display: block; font-size: 1.32em; line-height: 1.05; }
+    .about-copy p { width: 78vw; font-size: var(--m-body); line-height: 1.75; margin: 0 auto 1vw; }
+  
+    /* 3 · leadership */
+    .leadership { margin-top: 5vw; }
+    .lead-title { font-size: 12.4vw; line-height: .8; }
+    .lt-br { display: block; }
     .org { width: 100%; }
-    .org:first-of-type { margin-top: 8vw; }
-    .org + .org { margin-top: 12vw; }
-    .org-name { font-size: 9vw; margin-bottom: 3vw; }
-    .row { grid-template-columns: 1fr; gap: 3vw; padding: 4vw 0; }
-    .role { font-size: 1.05rem; }
-    .row p { font-size: .88rem; }
-    .lead-bf-track { width: 78vw; right: -26vw; opacity: .45; }
-    .lead-bf { top: 18svh; }
+    .org:first-of-type { margin-top: 4.5vw; }
+    .org + .org { margin-top: 1vw; }
+    .org-name { font-size: 9vw; margin-bottom: 2vw; }
+    .row { grid-template-columns: 1fr; gap: 2vw; padding: 4vw 0; }
+    .role { font-size: var(--m-role); gap: .6vw; }
+    .row p { font-size: var(--m-body); line-height: 1.5; text-align: justify; hyphens: auto; }
   
-    .contact { margin-top: 12vw; padding-bottom: 8vw; }
-    .contact-panel { padding: 12vw 0 22vw; }
-    .contact-title { font-size: 17vw; }
-    .contact-row { flex-direction: column; align-items: flex-start; gap: 5vw; margin-top: 3vw; }
-    .contact-row p { font-size: 1.15rem; }
-    .foot { grid-template-columns: 1fr; gap: 6vw; justify-items: center; margin-top: 10vw; padding-top: 8vw; }
-    .foot-links { padding-left: 0; gap: 9vw; font-size: 1.3rem; }
-    .copy { justify-self: center; text-align: center; padding-right: 0; font-size: .7rem; }
-    .wordmark { bottom: -5vw; }
+    /* butterfly: pinned to the right edge, half cut off, behind the text */
+    .lead-bf-track { width: 54vw; right: -14vw; opacity: .85; }
+    .lead-bf { top: calc(50svh - 27vw); }
+    /* a static glow instead of an animated filter: much cheaper to paint while scrolling */
+    .bf-img { animation: bf-float 9s ease-in-out infinite; filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .6)); }
+  
+    /* ---- leadership motion ----
+       · heading: both lines slide in from the right, the second one travels further so it lags behind and settles last
+         (--tp is the heading's eased scroll progress, written by about.js)
+       · each entry: its divider line draws left to right, then the role slides in, then the text fades up
+       · org names settle: letters start slightly spread and tighten as the name appears
+       · butterfly: drifts, tilts and grows while you scroll through the section */
+    .lead-title { opacity: calc(.15 + var(--tp, 1) * .85); }
+    .lt-br { transform: translate3d(calc((1 - var(--tp, 1)) * 16vw), 0, 0); will-change: transform; }
+  
+    html.js .org-name.rv {
+      transition: opacity 1.1s ease var(--d, 0s), transform 1.2s var(--ease) var(--d, 0s),
+                  filter 1s ease var(--d, 0s), letter-spacing 1.8s var(--ease) var(--d, 0s);
+    }
+    html.js .org-name.rv:not(.in) { letter-spacing: .06em; }
+  
+    html.js .row { position: relative; border-top-color: transparent; }
+    html.js .row::before {
+      content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+      background: var(--line);
+      transform: scaleX(0); transform-origin: left center;
+      transition: transform 1.5s var(--ease) .1s;
+    }
+    html.js .row.in::before { transform: scaleX(1); }
+  
+    html.js .row .role, html.js .row p {
+      opacity: 0;
+      transition: opacity 1s ease, transform 1.2s var(--ease);
+    }
+    html.js .row .role { transform: translate3d(-3vw, 0, 0); }
+    html.js .row p     { transform: translate3d(0, 2.4vw, 0); }
+    html.js .row.in .role { opacity: 1; transform: none; transition-delay: .35s; }
+    html.js .row.in p     { opacity: 1; transform: none; transition-delay: .55s; }
+  
+    .bf-scroll {
+      transform: translate3d(calc(var(--bp, 0) * -8vw), calc(var(--bp, 0) * 12vw), 0)
+                 rotate(calc(var(--bp, 0) * -22deg))
+                 scale(calc(1 + var(--bp, 0) * .12));
+    }
+  
+    /* 4 · contact */
+    .contact { margin-top: 6vw; padding-bottom: 0; }
+    .contact-panel { --r: 8.5vw; padding: 10vw 0 19vw; }
+    .m-break { display: block; }
+    .contact-title { font-size: 16vw; line-height: .76; }
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; margin-top: 6.5vw; padding-left: 0; }
+    .contact-row p { font-size: max(12px, 3.45vw); }
+    .contact-btn { height: max(34px, 9.2vw); padding: 0 5vw; font-size: max(11px, 3.1vw); }
+    .contact-btn:active { transform: scale(.96); background: rgba(255, 255, 255, .26); }
+  
+    .foot {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "links bf" "copy copy";
+      justify-items: stretch; row-gap: 4vw;
+      margin-top: 8vw; padding-top: 5vw;
+    }
+    .foot-links { grid-area: links; flex-direction: column; align-items: flex-start; gap: 0; padding-left: 0; font-size: 6vw; line-height: 1.3; }
+    .foot-bf { grid-area: bf; width: 15vw; justify-self: end; margin-right: 4vw; }
+    .copy { grid-area: copy; justify-self: start; text-align: left; padding-right: 0; font-size: max(8px, 2.2vw); }
+  
+    /* wordmark: cropped by the bottom of the page, but most of it stays visible */
+    .wordmark { bottom: 0; transform: translate(-50%, 28%); }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .bf-img { animation: none; }
+    html.js .row .role, html.js .row p, html.js .row::before { transition-delay: 0s !important; }
   }

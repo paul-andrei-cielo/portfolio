@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f0c9d8">
+    <meta name="description" content="About Paul Andrei Cielo — ui/ux designer, web and mobile developer, and graphic designer.">
     <title>About · Paul Andrei Cielo</title>
     <script>document.documentElement.classList.add('js')</script>
     <!-- index.css first (navbar, blur layers, keyframes), about.css overrides/extends it -->
@@ -11,25 +13,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/logo.png" type="image/png">
+
+    <!-- the portrait is the first big thing on screen -->
+    <link rel="preload" as="image" href="images/about-portrait.png" fetchpriority="high">
+
+    <link rel="icon" href="images/butterfly-logo.png" type="image/png">
   </head>
   <body class="about-page">
     <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
-    <!-- Progressive blur behind the navbar -->
+    <!-- Progressive blur behind the navbar (top on desktop, bottom on phones) -->
     <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
     <header class="topbar">
       <div class="logo-wrap">
         <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
-          <img src="images/home-icon.png" alt="" draggable="false">
+          <img src="images/home-icon.png" alt="" draggable="false" decoding="async">
         </a>
 
-        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
-          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        <button class="logo-btn pill" id="logo-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo" decoding="async">
         </button>
 
-        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+        <button class="round-btn close" id="nav-close" type="button" aria-label="Close menu" tabindex="-1">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
         </button>
       </div>
@@ -54,7 +60,7 @@
 
           <div class="portrait hero-el" style="--d:.2s">
             <div class="pimg">
-              <img src="images/about-portrait.png" alt="Portrait of Andrei" draggable="false">
+              <img src="images/about-portrait.png" alt="Portrait of Andrei" draggable="false" decoding="async" fetchpriority="high">
               <!-- progressive blur: stacked backdrop-filter layers, strongest at the very bottom -->
               <div class="pblur-img" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
             </div>
@@ -79,7 +85,7 @@
           <div class="lead-bf" id="lead-bf">
             <div class="bf-enter">
               <div class="bf-scroll">
-                <img class="bf-img" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="bf-img" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
               </div>
             </div>
           </div>
@@ -87,7 +93,8 @@
 
         <div class="lead-wrap">
           <div class="lead-head" id="lead-head">
-            <h2 class="lead-title" id="lead-title">Leadership Experiences</h2>
+            <!-- .lt-br: one line on desktop, "Leadership / Experiences" on phones -->
+            <h2 class="lead-title" id="lead-title">Leadership <span class="lt-br">Experiences</span></h2>
           </div>
 
           <article class="org">
@@ -116,7 +123,8 @@
       <section class="contact" aria-labelledby="contact-title">
         <div class="contact-panel">
           <div class="contact-inner">
-            <h2 class="contact-title rv" id="contact-title">Want to get in touch?</h2>
+            <!-- .m-break: one line on desktop, "Want to / get in touch?" on phones -->
+            <h2 class="contact-title rv" id="contact-title">Want to <span class="m-break">get in touch?</span></h2>
             <div class="contact-row rv" style="--d:.1s">
               <p>Have something in mind? I'm all ears.</p>
               <a class="contact-btn" href="contact.html">contact me.</a>
@@ -128,17 +136,18 @@
                 <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
                 <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
               </nav>
-              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false">
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
               <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
             </footer>
           </div>
         </div>
-        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false">
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false" decoding="async" loading="lazy">
       </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="script.js"></script>
-    <script src="about.js"></script>
+    <!-- defer keeps the order (anime.js → script.js → about.js) and runs them before DOMContentLoaded -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="about.js" defer></script>
   </body>
 </html>

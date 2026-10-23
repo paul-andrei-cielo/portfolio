@@ -16,7 +16,12 @@
 }
 
 * { box-sizing: border-box; }
-html { scrollbar-gutter: stable; scroll-snap-type: y mandatory; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--rose) transparent; background: var(--blush); }
+html {
+  scrollbar-gutter: stable; scroll-snap-type: y mandatory; scroll-behavior: smooth;
+  scrollbar-width: thin; scrollbar-color: var(--rose) transparent; background: var(--blush);
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
 html:has(body.is-loading) { overflow: hidden; }
 body {
   margin: 0;
@@ -32,6 +37,8 @@ body::before { transition: filter 1.4s var(--ease); }
 body.scrolled::before { filter: brightness(.92) saturate(1.15); }
 .ambient { transition: opacity 1.4s var(--ease); }
 body.scrolled .ambient { opacity: .7; }
+
+button, a { touch-action: manipulation; }
 
 /* ---------- scrollbar ---------- */
 @supports selector(::-webkit-scrollbar) {
@@ -319,8 +326,84 @@ body.on-profile .scroll-btn svg { transform: rotate(180deg); }
   .pblur-btn { width: 180px; height: 250px; right: calc(var(--btn-r) - 65px); bottom: calc(var(--btn-b) - 69px); }
   .roles { max-width: 100%; }
 }
+
+/* ---------- phones ----------
+   Mirrors the mobile screenshots:
+   · navbar sits at the bottom (thumb zone) and its menu opens upward
+   · the scroll button becomes a small pill, top-center, arrow pointing right
+   · the profile screen is full-width: left heading, centered portrait, right-aligned roles */
 @media (max-width: 700px) {
-  .stage { --h1: 12vw; --size: min(64vw, 44svh); }
+  :root { --blur-open: 440px; }
+
+  /* navbar → bottom */
+  .topbar { top: auto; bottom: max(36px, calc(env(safe-area-inset-bottom, 0px) + 20px)); }
+  .logo-wrap { --h: 1.7rem; }
+  .round-btn.home  { margin-right: 12px; }
+  .round-btn.close { margin-left: 12px; }
+
+  /* menu → stacks upward, nearest pill appears first */
+  .menu {
+    top: auto; bottom: 100%; margin: 0 0 18px;
+    flex-direction: column; flex-wrap: nowrap; align-items: center;
+    gap: 7px; width: 100vw; padding: 0 16px;
+  }
+  .menu a { min-width: 108px; padding: 10px 14px; font-size: .875rem; transform: translateY(10px) scale(.96); }
+  body.menu-open .menu a {
+    transition: opacity .8s ease calc((5 - var(--i)) * 70ms + .15s),
+                transform 1s var(--ease) calc((5 - var(--i)) * 70ms + .15s),
+                filter .8s ease calc((5 - var(--i)) * 70ms + .15s),
+                background .8s var(--ease), color .8s var(--ease), box-shadow .8s var(--ease);
+  }
+
+  /* progressive blur follows the navbar to the bottom; the button's blur moves to the top */
+  .pblur-top { inset: auto 0 0 0; height: 150px; }
+  .pblur-top i {
+    -webkit-mask-image: linear-gradient(to top, #000 calc(var(--s) - 24%), transparent var(--s));
+    mask-image: linear-gradient(to top, #000 calc(var(--s) - 24%), transparent var(--s));
+  }
+  .pblur-btn { left: calc(50% - 100px); right: auto; top: -10px; bottom: auto; width: 200px; height: 130px; }
+
+  /* scroll button → small pill, top-center (insets + auto margins center it without touching transform) */
+  .scroll-btn {
+    left: 0; right: 0; margin-inline: auto; bottom: auto;
+    top: max(36px, calc(env(safe-area-inset-top, 0px) + 16px));
+    width: 86px; height: 38px;
+    align-content: center;   /* the arrow's box (46px) is taller than the pill, so center the grid track too */
+  }
+  .scroll-btn svg { width: 20px; height: 46px; transform: rotate(-90deg); }
+  body.on-profile .scroll-btn svg { transform: rotate(90deg); }
+  body.is-loading .scroll-btn,
+  body.scrolled .scroll-btn { transform: translateY(-28px); }
+  .scroll-btn:hover { transform: translateY(3px); }
+
+  /* the two screens sit side by side: swipe right for the profile, left to come back */
+  html:has(body.home-page) { scroll-snap-type: none; scrollbar-gutter: auto; }
+  html:has(body.home-page), body.home-page { height: 100%; overflow: hidden; }
+  body.home-page main {
+    position: fixed; inset: 0; z-index: 1;
+    display: flex;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: none;
+    scrollbar-width: none;
+  }
+  body.home-page main::-webkit-scrollbar { display: none; }
+  body.home-page .screen { flex: 0 0 100%; width: 100%; height: 100%; }
+
+  /* profile screen */
+  .profile { padding: 72px 0; }
+  .stage { --h1: 15vw; --size: min(75vw, 40svh); width: 79vw; }
+  .hello { display: block; font-size: .74em; }
+  .name { letter-spacing: -.015em; }
+  .roles { max-width: 100%; }
+}
+
+/* touch screens have no real hover: don't leave things stuck in their hover state */
+@media (hover: none) {
+  .letter:hover { transform: none; }
+  .logo-btn:hover { background: var(--nav-bg); }
+  .round-btn:hover { background: var(--nav-bg); }
+  body.menu-open .round-btn.close:hover { transform: translate(0, -50%) scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {

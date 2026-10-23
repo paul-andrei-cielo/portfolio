@@ -53,9 +53,15 @@ window.addEventListener('DOMContentLoaded', () => {
   const butterfly = document.getElementById('butterfly');
   const smooth = reduceMotion ? 'auto' : 'smooth';
 
-  // dim the background once the page leaves the top
-  const onScroll = () => body.classList.toggle('scrolled', window.scrollY > 40);
+    // dim the background once the page leaves the top
+  // (desktop scrolls the window; on phones the <main> element scrolls sideways)
+  const mainEl = document.querySelector('main');
+  const onScroll = () => body.classList.toggle(
+    'scrolled',
+    Math.max(window.scrollY, mainEl ? mainEl.scrollLeft : 0) > 40
+  );
   window.addEventListener('scroll', onScroll, { passive: true });
+  if (mainEl) mainEl.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
   // split "Andrei" into letters for the staggered reveal
@@ -76,7 +82,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // reveal the photo + name when the second screen scrolls into view
   if (profile) {
-    const label = (on) => scrollBtn && scrollBtn.setAttribute('aria-label', on ? 'Back to top' : 'Scroll down');
+    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+    const label = (on) => scrollBtn && scrollBtn.setAttribute('aria-label', on ? 'Back to start' : (isMobile ? 'Next screen' : 'Scroll down'));
     new IntersectionObserver(([entry]) => {
       body.classList.toggle('on-profile', entry.isIntersecting);
       label(entry.isIntersecting);
@@ -85,7 +92,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.55 }).observe(profile);
 
     if (scrollBtn) scrollBtn.addEventListener('click', () => {
-      (body.classList.contains('on-profile') ? hero : profile).scrollIntoView({ behavior: smooth });
+      (body.classList.contains('on-profile') ? hero : profile)
+        .scrollIntoView({ behavior: smooth, block: 'start', inline: 'start' });
     });
   }
 
