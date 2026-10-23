@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f0c9d8">
+    <meta name="description" content="Get in touch with Paul Andrei Cielo — ui/ux designer, web and mobile developer, and graphic designer.">
     <title>Contact · Paul Andrei Cielo</title>
     <script>document.documentElement.classList.add('js')</script>
     <!-- index.css first (navbar, blur layers, keyframes), contact.css extends it -->
@@ -16,20 +18,20 @@
   <body class="about-page contact-page">
     <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
-    <!-- Progressive blur behind the navbar -->
+    <!-- Progressive blur behind the navbar (top on desktop, bottom on phones) -->
     <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
     <header class="topbar">
       <div class="logo-wrap">
         <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
-          <img src="images/home-icon.png" alt="" draggable="false">
+          <img src="images/home-icon.png" alt="" draggable="false" decoding="async">
         </a>
 
-        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
-          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        <button class="logo-btn pill" id="logo-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo" decoding="async">
         </button>
 
-        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+        <button class="round-btn close" id="nav-close" type="button" aria-label="Close menu" tabindex="-1">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
         </button>
       </div>
@@ -45,7 +47,7 @@
     </header>
 
     <main>
-      <!-- 1 · connect: heading + socials on the left, form on the right -->
+      <!-- 1 · connect: heading + socials on the left, form on the right (stacked on phones) -->
       <section class="connect" aria-labelledby="connect-title">
         <div class="connect-grid">
 
@@ -78,22 +80,25 @@
           </div>
 
           <form class="connect-form" id="contact-form"
-                action="https://formspree.io/f/xeogabyo" method="POST">
+                action="https://formspree.io/f/xeogabyo" method="POST" aria-describedby="form-status">
             <div class="form-top">
               <div class="field">
-                <input type="text" id="name" name="Name" placeholder=" " autocomplete="name" required>
+                <input type="text" id="name" name="Name" placeholder=" " autocomplete="name" enterkeyhint="next" required>
                 <label for="name">Name*</label>
               </div>
               <div class="field">
-                <input type="email" id="email" name="Email address" placeholder=" " autocomplete="email" required>
+                <input type="email" id="email" name="Email address" placeholder=" " autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" enterkeyhint="next" required>
                 <label for="email">Email*</label>
               </div>
             </div>
 
             <div class="field field-message">
-              <textarea id="message" name="Message" placeholder=" " required></textarea>
+              <textarea id="message" name="Message" placeholder=" " rows="4" required></textarea>
               <label for="message">Message</label>
             </div>
+
+            <!-- spam trap for Formspree: real people never see or fill this -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
 
             <div class="form-actions">
               <button type="submit" class="submit-btn" id="submit-btn">submit</button>
@@ -114,17 +119,18 @@
                 <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
                 <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
               </nav>
-              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false">
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
               <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
             </footer>
           </div>
         </div>
-        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false">
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false" decoding="async" loading="lazy">
       </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="script.js"></script>
-    <script src="contact.js"></script>
+    <!-- defer keeps the order (anime.js → script.js → contact.js) and runs them before DOMContentLoaded -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="contact.js" defer></script>
   </body>
 </html>

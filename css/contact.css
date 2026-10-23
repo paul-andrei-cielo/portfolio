@@ -43,10 +43,24 @@
   
   main { position: relative; z-index: 1; overflow-x: clip; }
   
-  /* shared look for the light serif type */
-  .connect-title, .field label, .field input, .field textarea, .socials, .foot-links {
-    font-family: var(--serif); font-stretch: 62.5%; font-weight: 200;
+  /* Noto Serif Display for the heading, labels, and social links */
+  .connect-title,
+  .field label,
+  .socials,
+  .foot-links {
+    font-family: var(--serif);
+    font-stretch: 62.5%;
+    font-weight: 200;
     text-shadow: var(--ink-shadow);
+  }
+
+  /* Poppins for text entered into the form */
+  .field input,
+  .field textarea {
+    font-family: "Poppins", sans-serif;
+    font-stretch: normal;
+    font-weight: 300;
+    text-shadow: none;
   }
   
   /* ==========================================================
@@ -130,11 +144,23 @@
   .form-top { display: grid; grid-template-columns: 1fr 1fr; gap: 3.4vw; }
   
   .field { position: relative; }
-  .field label, .field input, .field textarea {
-    font-size: clamp(1.3rem, 2.3vw, 2.4rem); line-height: 1.2;
+  /* Labels retain their original size */
+  .field label {
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 2.3vw, 2.4rem);
+    line-height: 1.2;
+  }
+
+  /* Only the typed text becomes smaller */
+  .field input,
+  .field textarea {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.5;
   }
   .field input, .field textarea {
-    display: block; width: 100%; margin: 0; padding: .25em 0 .2em;
+    display: block; width: 100%; margin: 0; padding: .4em 0 .45em;
     color: #fff; background: transparent; border: 0; border-radius: 0;
     border-bottom: 1px solid rgba(255, 255, 255, .38);
     outline: none; caret-color: #fff; resize: none;
@@ -152,10 +178,14 @@
   
   /* label sits where the text goes, then floats up once there is something to label */
   .field label {
-    position: absolute; left: 0; top: .25em; color: #fff; pointer-events: none;
-    transform-origin: left top;
-    transition: transform .55s var(--ease), opacity .4s ease;
-  }
+  position: absolute;
+  left: 0;
+  top: -.2em;
+  color: #fff;
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform .55s var(--ease), opacity .4s ease;
+}
   .field input:focus + label,
   .field input:not(:placeholder-shown) + label,
   .field textarea:focus + label,
@@ -226,6 +256,11 @@
     0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 .8vw rgba(255, 255, 255, .45)); }
     50%      { transform: translateY(-.5vw) rotate(3deg); filter: drop-shadow(0 0 1.6vw rgba(255, 255, 255, .85)); }
   }
+  /* same float without the animated glow (used on phones: much cheaper to paint) */
+  @keyframes bf-drift-lite {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.4vw) rotate(3deg); }
+  }
   .copy {
     margin: 0; justify-self: end; padding-right: 1.5vw; text-align: right;
     font-family: "Poppins", sans-serif; font-weight: 400;
@@ -283,11 +318,137 @@
     .form-status { font-size: .85rem; }
   }
   
+  /* ---------- phones ----------
+     Matched to the 360px mobile mockups (1vw = 3.6px there):
+     · "Let's / connect." big and left-aligned, the three socials centered under it
+     · a full-width divider, then Name / Email / Message stacked, then a small centered submit pill
+     · footer: links stacked at the left, butterfly at the right, copyright underneath, wordmark cropped at the bottom
+     The navbar is at the bottom on phones (see index.css), so it hides downward — and also while you type,
+     so it never fights the keyboard (contact.js adds .is-typing). */
   @media (max-width: 700px) {
-    .contact { margin-top: 14vw; }
-    .contact-panel { padding: 12vw 0 24vw; }
-    .foot { grid-template-columns: 1fr; gap: 6vw; justify-items: center; }
-    .foot-links { padding-left: 0; gap: 9vw; font-size: 1.3rem; }
-    .copy { justify-self: center; text-align: center; padding-right: 0; font-size: .7rem; }
-    .wordmark { bottom: -5vw; }
+    :root { --wrap: 80vw; }
+  
+    body.nav-hidden .topbar,
+    body.is-typing .topbar {
+      transform: translateY(calc(100% + 70px));
+      opacity: 0; pointer-events: none; visibility: hidden;
+      transition: transform .7s var(--ease), opacity .5s ease, visibility 0s .7s;
+    }
+    body.is-typing .pblur-top { opacity: 0; }
+  
+    /* 1 · connect */
+    .connect { padding-top: 20vw; }
+    .connect-grid {
+      width: min(82vw, 420px);
+      margin-inline: auto;
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .connect-side {
+      width: 100%;
+      gap: 16.5vw;
+      padding-bottom: 0;
+    }
+    .connect-title {
+      font-size: 26vw;
+      line-height: .68;
+      padding-top: 0;
+    }
+    
+  
+    .socials {
+      align-items: center;
+      font-size: clamp(1.1rem, 5vw, 1.35rem);
+      gap: .65rem;
+    }
+    .socials a {
+      gap: .65rem;
+    }
+    .socials svg { width: .72em; height: .72em; }
+  
+    .connect-form {
+      width: 100%;
+      min-width: 0;
+      margin-top: 12vw;
+      padding: 10vw 0 0;
+      box-sizing: border-box;
+    }
+    .form-top { gap: 9.5vw; }
+    /* 5.8vw ≈ 21px: always above 16px, so iOS never zooms the page when a field is focused */
+    .field label,
+    .field input,
+    .field textarea {
+      font-size: clamp(1.1rem, 5.4vw, 1.4rem);
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border-bottom-color: rgba(255, 255, 255, .2);
+    }
+
+    /* Keep the floating label from getting too close to the divider */
+    .field label {
+      top: .3em;
+    }
+
+    .field input:focus + label,
+    .field input:not(:placeholder-shown) + label,
+    .field textarea:focus + label,
+    .field textarea:not(:placeholder-shown) + label {
+      transform: translateY(-1.5em) scale(.55);
+      opacity: .9;
+    }
+    .field-message { margin-top: 9.5vw; }
+    .field-message textarea { min-height: 48vw; }
+  
+    .form-actions { margin-top: 8vw; gap: 3vw; }
+    .submit-btn { width: 32vw; height: max(34px, 9vw); font-size: max(13px, 3.9vw); }
+    .form-status { font-size: max(12px, 3.4vw); }
+  
+    /* 2 · footer */
+    .contact { margin-top: 9vw; }
+    .contact-panel { --r: 8vw; padding: 4.7vw 0 19vw; }
+    .contact-inner { width: 85.5vw; }
+    .foot {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "links bf" "copy copy";
+      justify-items: stretch; row-gap: 4vw;
+    }
+    .foot-links { grid-area: links; flex-direction: column; align-items: flex-start; gap: 0; padding-left: 0; font-size: 6vw; line-height: 1.3; }
+    .foot-bf {
+      grid-area: bf; width: 15vw; justify-self: end; margin-right: 4vw;
+      animation-name: bf-drift-lite; filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .6));
+    }
+    .copy { grid-area: copy; justify-self: start; text-align: left; padding-right: 0; font-size: max(8px, 2.2vw); }
+  
+    /* wordmark: cropped by the bottom of the page, but most of it stays visible */
+    .wordmark { bottom: 0; transform: translate(-50%, 28%); }
+  }
+
+  @media (max-width: 400px) {
+    .connect-grid {
+      width: 84vw;
+    }
+  
+    .connect-title {
+      font-size: 25.5vw;
+    }
+  
+    .connect-side {
+      gap: 14vw;
+    }
+  
+    .connect-form {
+      margin-top: 11vw;
+      padding-top: 11vw;
+    }
+  
+    .form-top {
+      gap: 8vw;
+    }
+  
+    .field-message {
+      margin-top: 8vw;
+    }
   }
