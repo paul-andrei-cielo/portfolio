@@ -104,6 +104,7 @@
     margin: 0 0 2.4vw; font-size: clamp(2.2rem, 5vw, 5.4rem); line-height: 1.05;
     font-style: italic; letter-spacing: -.01em;
   }
+  .group-title .long { display: none; }   /* "Dev" + "elopment " + "Tools": the long form is for phones */
   
   .chips {
     list-style: none; margin: 0; padding: 0;
@@ -247,6 +248,11 @@
     0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 .8vw rgba(255, 255, 255, .45)); }
     50%      { transform: translateY(-.5vw) rotate(3deg); filter: drop-shadow(0 0 1.6vw rgba(255, 255, 255, .85)); }
   }
+  /* same float without the animated glow (used on phones: much cheaper to paint) */
+  @keyframes bf-drift-lite {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.4vw) rotate(3deg); }
+  }
   .copy {
     margin: 0; justify-self: end; padding-right: 1.5vw; text-align: right;
     font-family: "Poppins", sans-serif; font-weight: 400; color: #fff;
@@ -281,20 +287,75 @@
     .chips { gap: 2vw; }
     .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; }
   }
-  @media (max-width: 700px) {
-    :root { --wrap: 90vw; }
-    .hero { padding-top: 30vw; }
-    .stack { padding-top: 8vw; }
-    .group + .group { margin-top: 12vw; }
-    .group-title { font-size: 11.5vw; margin-bottom: 4vw; }
-    .chips { gap: 2.6vw; }
   
-    .contact { margin-top: 16vw; }
-    .contact-panel { padding: 12vw 0 22vw; }
-    .contact-title { font-size: 17vw; }
-    .contact-row p { font-size: 1.15rem; }
-    .foot { grid-template-columns: 1fr; gap: 6vw; justify-items: center; margin-top: 10vw; padding-top: 8vw; }
-    .foot-links { padding-left: 0; gap: 9vw; font-size: 1.3rem; }
-    .copy { justify-self: center; text-align: center; padding-right: 0; font-size: .7rem; }
-    .wordmark { bottom: -5vw; }
+  /* ---------- phones ----------
+     Matched to the 360px mobile mockups (1vw = 3.6px there):
+     · hero: "My ✦" centered on the first line, a much bigger italic "stack" under it
+     · every group: centered title, logo circles in a 3-column grid
+     · tapping a circle shows its name underneath it (the desktop pill would push the grid around on a narrow screen)
+     · contact panel + footer: the same layout as the About page
+     The navbar is at the bottom on phones (see index.css), so it hides downward on scroll. */
+  @media (max-width: 700px) {
+    :root { --wrap: 90vw; --chip: 12.2vw; }
+  
+    body.nav-hidden .topbar { transform: translateY(calc(100% + 70px)); }
+  
+    /* 1 · hero */
+    .hero { padding-top: 19vw; }
+    .hero-title { flex-wrap: wrap; justify-content: center; column-gap: 5vw; font-size: 17vw; }
+    .w-stack { flex: 0 0 100%; text-align: center; font-size: 33vw; margin-top: -3.3vw; }
+    .bf { width: 13.3vw; }
+    /* a static glow instead of an animated filter: much cheaper to paint while scrolling */
+    .bf img { animation: bf-float 9s ease-in-out infinite; filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .7)); }
+  
+    /* 2 · the stack */
+    .stack { padding-top: 13vw; }
+    .group + .group { margin-top: 12vw; }
+    .group-title { text-align: center; font-size: 8vw; margin-bottom: 6.4vw; }
+    .group-title .long { display: inline; }
+  
+    .chips {
+      display: grid; grid-template-columns: repeat(3, var(--chip));
+      gap: 6.4vw 10.3vw; justify-content: center;
+    }
+    .chip:last-child:nth-child(3n + 1) { grid-column: 2; }   /* a lone last chip sits in the middle */
+  
+    /* circles never grow here: the name appears underneath instead */
+    .chip, .chip:hover, .chip:focus-visible, .chip.open { width: var(--chip); overflow: visible; }
+    .chip::before { border-radius: inherit; }
+    .chip:focus-visible, .chip.open { background: rgba(255, 255, 255, .42); }
+    .chip-name {
+      position: absolute; left: 50%; top: calc(100% + 1.2vw); z-index: 3;
+      flex: none; overflow: visible; pointer-events: none;
+      transform: translateX(-50%);
+      font-size: max(10px, 2.9vw); font-weight: 600;
+    }
+    .chip-name > span { padding: 0; transform: translateY(-5px); }
+  
+    /* 3 · contact (same as the About page) */
+    .m-break { display: block; }
+    .contact { margin-top: 26vw; padding-bottom: 0; }
+    .contact-panel { --r: 8.5vw; padding: 10vw 0 19vw; }
+    .contact-inner { width: 85.5vw; }
+    .contact-title { font-size: 16vw; line-height: .76; }
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; margin-top: 6.5vw; padding-left: 0; }
+    .contact-row p { font-size: max(12px, 3.45vw); }
+    .contact-btn { height: max(34px, 9.2vw); padding: 0 5vw; font-size: max(11px, 3.1vw); }
+    .contact-btn:active { transform: scale(.96); background: rgba(255, 255, 255, .26); }
+  
+    .foot {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "links bf" "copy copy";
+      justify-items: stretch; row-gap: 4vw;
+      margin-top: 8vw; padding-top: 5vw;
+    }
+    .foot-links { grid-area: links; flex-direction: column; align-items: flex-start; gap: 0; padding-left: 0; font-size: 6vw; line-height: 1.3; }
+    .foot-bf {
+      grid-area: bf; width: 15vw; justify-self: end; margin-right: 4vw;
+      animation-name: bf-drift-lite; filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .6));
+    }
+    .copy { grid-area: copy; justify-self: start; text-align: left; padding-right: 0; font-size: max(8px, 2.2vw); }
+  
+    /* wordmark: cropped by the bottom of the page, but most of it stays visible */
+    .wordmark { bottom: 0; transform: translate(-50%, 28%); }
   }

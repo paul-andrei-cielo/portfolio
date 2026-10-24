@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f0c9d8">
+    <meta name="description" content="The languages, databases and tools Paul Andrei Cielo works with.">
     <title>Tech Stack · Paul Andrei Cielo</title>
     <script>document.documentElement.classList.add('js')</script>
     <!-- index.css first (navbar, blur layers, keyframes), tech-stack.css extends it -->
@@ -11,25 +13,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- the hero butterfly is the first thing to bloom in -->
+    <link rel="preload" as="image" href="images/butterfly-logo.png" fetchpriority="high">
+
     <link rel="icon" href="images/butterfly-logo.png" type="image/png">
   </head>
   <body class="about-page tech-page">
     <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
-    <!-- Progressive blur behind the navbar -->
+    <!-- Progressive blur behind the navbar (top on desktop, bottom on phones) -->
     <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
     <header class="topbar">
       <div class="logo-wrap">
         <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
-          <img src="images/home-icon.png" alt="" draggable="false">
+          <img src="images/home-icon.png" alt="" draggable="false" decoding="async">
         </a>
 
-        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
-          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        <button class="logo-btn pill" id="logo-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo" decoding="async">
         </button>
 
-        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+        <button class="round-btn close" id="nav-close" type="button" aria-label="Close menu" tabindex="-1">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
         </button>
       </div>
@@ -45,53 +51,54 @@
     </header>
 
     <main>
-      <!-- 1 · hero -->
+      <!-- 1 · hero: one row on desktop, "My ✦" over a bigger "stack" on phones -->
       <section class="hero" aria-label="Tech stack">
         <h1 class="hero-title" id="hero-title">
           <span class="w w-my"><span class="e">My</span></span>
           <span class="bf" aria-hidden="true">
-            <span class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false"></span>
+            <span class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" fetchpriority="high"></span>
           </span>
           <span class="w w-stack"><span class="e">stack</span></span>
         </h1>
       </section>
 
-      <!-- 2 · the stack -->
+      <!-- 2 · the stack (tap a logo on phones to see its name) -->
       <div class="stack">
         <section class="group" aria-labelledby="g0">
           <h2 class="group-title" id="g0">Languages</h2>
           <ul class="chips" aria-label="Languages">
-            <li class="chip" tabindex="0" style="--i:0"><span class="chip-icon"><img src="images/tech/c.png" alt="" draggable="false"></span><span class="chip-name"><span>C</span></span></li>
-            <li class="chip" tabindex="0" style="--i:1"><span class="chip-icon"><img src="images/tech/cpp.png" alt="" draggable="false"></span><span class="chip-name"><span>C++</span></span></li>
-            <li class="chip" tabindex="0" style="--i:2"><span class="chip-icon"><img src="images/tech/java.png" alt="" draggable="false"></span><span class="chip-name"><span>Java</span></span></li>
-            <li class="chip" tabindex="0" style="--i:3"><span class="chip-icon"><img src="images/tech/css.png" alt="" draggable="false"></span><span class="chip-name"><span>CSS</span></span></li>
-            <li class="chip" tabindex="0" style="--i:4"><span class="chip-icon"><img src="images/tech/html.png" alt="" draggable="false"></span><span class="chip-name"><span>HTML</span></span></li>
-            <li class="chip" tabindex="0" style="--i:5"><span class="chip-icon"><img src="images/tech/dart.png" alt="" draggable="false"></span><span class="chip-name"><span>Dart</span></span></li>
+            <li class="chip" tabindex="0" style="--i:0"><span class="chip-icon"><img src="images/tech/c.png" alt="" draggable="false" decoding="async"></span><span class="chip-name"><span>C</span></span></li>
+            <li class="chip" tabindex="0" style="--i:1"><span class="chip-icon"><img src="images/tech/cpp.png" alt="" draggable="false" decoding="async"></span><span class="chip-name"><span>C++</span></span></li>
+            <li class="chip" tabindex="0" style="--i:2"><span class="chip-icon"><img src="images/tech/java.png" alt="" draggable="false" decoding="async"></span><span class="chip-name"><span>Java</span></span></li>
+            <li class="chip" tabindex="0" style="--i:3"><span class="chip-icon"><img src="images/tech/css.png" alt="" draggable="false" decoding="async"></span><span class="chip-name"><span>CSS</span></span></li>
+            <li class="chip" tabindex="0" style="--i:4"><span class="chip-icon"><img src="images/tech/html.png" alt="" draggable="false" decoding="async"></span><span class="chip-name"><span>HTML</span></span></li>
+            <li class="chip" tabindex="0" style="--i:5"><span class="chip-icon"><img src="images/tech/dart.png" alt="" draggable="false" decoding="async"></span><span class="chip-name"><span>Dart</span></span></li>
           </ul>
         </section>
 
         <section class="group" aria-labelledby="g1">
           <h2 class="group-title" id="g1">Databases</h2>
           <ul class="chips" aria-label="Databases">
-            <li class="chip" tabindex="0" style="--i:0"><span class="chip-icon"><img src="images/tech/sql.png" alt="" draggable="false"></span><span class="chip-name"><span>SQL Database</span></span></li>
-            <li class="chip" tabindex="0" style="--i:1"><span class="chip-icon"><img src="images/tech/mongodb.png" alt="" draggable="false"></span><span class="chip-name"><span>MongoDB</span></span></li>
-            <li class="chip" tabindex="0" style="--i:2"><span class="chip-icon"><img src="images/tech/firebase.png" alt="" draggable="false"></span><span class="chip-name"><span>Firebase</span></span></li>
+            <li class="chip" tabindex="0" style="--i:0"><span class="chip-icon"><img src="images/tech/sql.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>SQL Database</span></span></li>
+            <li class="chip" tabindex="0" style="--i:1"><span class="chip-icon"><img src="images/tech/mongodb.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>MongoDB</span></span></li>
+            <li class="chip" tabindex="0" style="--i:2"><span class="chip-icon"><img src="images/tech/firebase.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Firebase</span></span></li>
           </ul>
         </section>
 
         <section class="group" aria-labelledby="g2">
-          <h2 class="group-title" id="g2">DevTools</h2>
-          <ul class="chips" aria-label="DevTools">
-            <li class="chip" tabindex="0" style="--i:0"><span class="chip-icon"><img src="images/tech/android-studio.png" alt="" draggable="false"></span><span class="chip-name"><span>Android Studio</span></span></li>
-            <li class="chip" tabindex="0" style="--i:1"><span class="chip-icon"><img src="images/tech/netbeans.png" alt="" draggable="false"></span><span class="chip-name"><span>Apache Netbeans</span></span></li>
-            <li class="chip" tabindex="0" style="--i:2"><span class="chip-icon"><img src="images/tech/express.png" alt="" draggable="false"></span><span class="chip-name"><span>Express</span></span></li>
-            <li class="chip" tabindex="0" style="--i:3"><span class="chip-icon"><img src="images/tech/flutter.png" alt="" draggable="false"></span><span class="chip-name"><span>Flutter</span></span></li>
-            <li class="chip" tabindex="0" style="--i:4"><span class="chip-icon"><img src="images/tech/github.png" alt="" draggable="false"></span><span class="chip-name"><span>Github</span></span></li>
-            <li class="chip" tabindex="0" style="--i:5"><span class="chip-icon"><img src="images/tech/nodejs.png" alt="" draggable="false"></span><span class="chip-name"><span>Node</span></span></li>
-            <li class="chip" tabindex="0" style="--i:6"><span class="chip-icon"><img src="images/tech/apex.png" alt="" draggable="false"></span><span class="chip-name"><span>Oracle Apex</span></span></li>
-            <li class="chip" tabindex="0" style="--i:7"><span class="chip-icon"><img src="images/tech/postman.png" alt="" draggable="false"></span><span class="chip-name"><span>Postman</span></span></li>
-            <li class="chip" tabindex="0" style="--i:8"><span class="chip-icon"><img src="images/tech/render.png" alt="" draggable="false"></span><span class="chip-name"><span>Render</span></span></li>
-            <li class="chip" tabindex="0" style="--i:9"><span class="chip-icon"><img src="images/tech/vs-code.png" alt="" draggable="false"></span><span class="chip-name"><span>VS Code</span></span></li>
+          <!-- "DevTools" on desktop, "Development Tools" on phones -->
+          <h2 class="group-title" id="g2">Dev<span class="long">elopment </span>Tools</h2>
+          <ul class="chips" aria-label="Development tools">
+            <li class="chip" tabindex="0" style="--i:0"><span class="chip-icon"><img src="images/tech/android-studio.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Android Studio</span></span></li>
+            <li class="chip" tabindex="0" style="--i:1"><span class="chip-icon"><img src="images/tech/netbeans.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Apache Netbeans</span></span></li>
+            <li class="chip" tabindex="0" style="--i:2"><span class="chip-icon"><img src="images/tech/express.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Express</span></span></li>
+            <li class="chip" tabindex="0" style="--i:3"><span class="chip-icon"><img src="images/tech/flutter.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Flutter</span></span></li>
+            <li class="chip" tabindex="0" style="--i:4"><span class="chip-icon"><img src="images/tech/github.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Github</span></span></li>
+            <li class="chip" tabindex="0" style="--i:5"><span class="chip-icon"><img src="images/tech/nodejs.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Node</span></span></li>
+            <li class="chip" tabindex="0" style="--i:6"><span class="chip-icon"><img src="images/tech/apex.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Oracle Apex</span></span></li>
+            <li class="chip" tabindex="0" style="--i:7"><span class="chip-icon"><img src="images/tech/postman.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Postman</span></span></li>
+            <li class="chip" tabindex="0" style="--i:8"><span class="chip-icon"><img src="images/tech/render.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>Render</span></span></li>
+            <li class="chip" tabindex="0" style="--i:9"><span class="chip-icon"><img src="images/tech/vs-code.png" alt="" draggable="false" decoding="async" loading="lazy"></span><span class="chip-name"><span>VS Code</span></span></li>
           </ul>
         </section>
       </div>
@@ -100,7 +107,8 @@
       <section class="contact" aria-labelledby="contact-title">
         <div class="contact-panel">
           <div class="contact-inner">
-            <h2 class="contact-title rv" id="contact-title">Want to get in touch?</h2>
+            <!-- .m-break: one line on desktop, "Want to / get in touch?" on phones -->
+            <h2 class="contact-title rv" id="contact-title">Want to <span class="m-break">get in touch?</span></h2>
             <div class="contact-row rv" style="--d:.1s">
               <p>Have something in mind? I'm all ears.</p>
               <a class="contact-btn" href="contact.html">contact me.</a>
@@ -112,17 +120,18 @@
                 <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
                 <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
               </nav>
-              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false">
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
               <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
             </footer>
           </div>
         </div>
-        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false">
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false" decoding="async" loading="lazy">
       </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="script.js"></script>
-    <script src="tech-stack.js"></script>
+    <!-- defer keeps the order (anime.js → script.js → tech-stack.js) and runs them before DOMContentLoaded -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="tech-stack.js" defer></script>
   </body>
 </html>
