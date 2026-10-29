@@ -1,0 +1,394 @@
+/* ==========================================================
+   certifications.css  —  loads AFTER index.css
+   Same gradient, glass navbar, light serif type and frosted
+   footer panel as about.css / contact.css / tech-stack.css.
+   ========================================================== */
+
+   :root {
+    --about-bg: var(--bg);
+    --wrap: 88.6vw;
+    --line: rgba(255, 255, 255, .72);
+    --serif: "Noto Serif Display", serif;
+    --ink-shadow: 0 2px 26px rgba(170, 70, 115, .22);
+  }
+  
+  html { scroll-snap-type: none; }
+  
+  /* ---------- backdrop ---------- */
+  body::before { background: var(--about-bg); filter: brightness(.92) saturate(1.15); }
+  body.scrolled::before { filter: brightness(.92) saturate(1.15); }
+  .ambient { opacity: .7 !important; }
+  
+  body .topbar {
+    --nav-bg: rgba(255, 255, 255, .18); --nav-bg-hi: rgba(255, 255, 255, .32); --nav-ink: #fff;
+    --nav-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35), 0 10px 30px -20px rgba(150, 60, 105, .35);
+    --nav-glow: rgba(150, 60, 105, .5);
+  }
+  
+  /* navbar hides on scroll down, returns on scroll up */
+  .topbar { visibility: visible; transition: transform .7s var(--ease), opacity .5s ease; }
+  body.nav-hidden .topbar {
+    transform: translateY(calc(-100% - 70px));
+    opacity: 0; pointer-events: none; visibility: hidden;
+    transition: transform .7s var(--ease), opacity .5s ease, visibility 0s .7s;
+  }
+  .pblur-top { height: 130px; transition: height .9s var(--ease), opacity .6s ease; }
+  body.nav-hidden .pblur-top { opacity: 0; }
+  
+  main { position: relative; z-index: 1; overflow-x: clip; }
+  
+  .hero-title, .cert-heading, .contact-title, .foot-links {
+    font-family: var(--serif); font-stretch: 62.5%; font-weight: 200;
+    text-shadow: var(--ink-shadow);
+  }
+  
+  .sr {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  
+  /* ==========================================================
+     1 · HERO  —  "Certifications" + butterfly
+     --sp (0 → 1) is the scroll progress, set by certifications.js
+     ========================================================== */
+  .hero { padding-top: 11vw; }
+  .hero-stage { --sp: 0; width: var(--wrap); margin: 0 auto; text-align: center; }
+  
+  .hero-title {
+    margin: 0; font-size: 18.6vw; line-height: 1; letter-spacing: -.01em;
+    will-change: transform, opacity;
+    transform: translate3d(0, calc(var(--sp) * -3vw), 0) scale(calc(1 - var(--sp) * .06));
+    opacity: calc(1 - var(--sp) * .85);
+  }
+  .hero-title .e { display: block; animation: line-in 1.8s var(--ease) .2s backwards; }
+  @keyframes line-in {
+    from { opacity: 0; transform: translateY(.08em); filter: blur(18px); letter-spacing: .04em; }
+    to   { opacity: 1; transform: none; filter: blur(0); letter-spacing: -.01em; }
+  }
+  
+  .hero-bf {
+    display: block;
+    width: 5.4vw;
+    margin: 2vw auto 0;
+    will-change: transform, opacity;
+    transform: translate3d(0, calc(var(--sp) * 4vw), 0);
+    opacity: calc(1 - var(--sp) * .9);
+  }
+  .bf-in { display: block; animation: bloom 2s var(--ease) 1s backwards; }
+  .hero-bf img {
+    display: block; width: 100%; height: auto; user-select: none;
+    animation: bf-float 8s ease-in-out infinite, bf-glow 5s ease-in-out infinite;
+  }
+  @keyframes bloom {
+    from { opacity: 0; transform: scale(.6) rotate(-14deg); filter: blur(20px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes bf-float {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50%      { transform: translate3d(-.3vw, -.7vw, 0) rotate(3deg); }
+  }
+  @keyframes bf-glow {
+    0%, 100% { filter: drop-shadow(0 0 .7vw rgba(255, 255, 255, .45)); }
+    50%      { filter: drop-shadow(0 0 1.5vw rgba(255, 255, 255, .9)); }
+  }
+  
+  /* ==========================================================
+     2 · THE LISTS  (one frosted rounded panel)
+     ========================================================== */
+  .certs { padding-top: 4.2vw; }
+  .certs-panel {
+    width: var(--wrap); margin: 0 auto;
+    padding: 3vw 0 5.5vw;
+    --r: clamp(36px, 5.1vw, 76px);
+    border-radius: var(--r);
+    border: 1.5px solid rgba(255, 255, 255, .5);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .08));
+    -webkit-backdrop-filter: blur(14px) saturate(1.15); backdrop-filter: blur(14px) saturate(1.15);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 30px 80px -50px rgba(170, 70, 115, .35);
+  }
+  
+  .cert-group + .cert-group { margin-top: 5.5vw; }
+  .cert-heading {
+    margin: 0 0 1.2vw;
+    text-align: center;
+    font-size: clamp(1.7rem, 3.2vw, 3.5rem);
+    line-height: 1.1;
+    font-style: italic;
+    letter-spacing: -.01em;
+  }
+  
+  .cert-list {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 66%;
+  }
+  
+  .cert {
+    --y: -50%;
+    --s: 1;
+    --r: 0deg;
+  
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 1.6vw;
+    padding: 1.15vw 0;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* butterfly icon hangs in the left margin */
+  .cert-bf {
+    position: absolute;
+    left: -4.8vw;
+    top: 50%;
+    width: 2.3vw;
+    height: auto;
+    transform: translateY(var(--y)) scale(var(--s)) rotate(var(--r));
+    filter: drop-shadow(0 0 .5vw rgba(255, 255, 255, .55));
+    transition: transform .9s var(--ease), filter .7s ease;
+    user-select: none;
+  }
+  
+  .cert-text {
+    display: flex;
+    flex-direction: column;
+    gap: .1vw;
+    min-width: 0;
+    transition: transform .8s var(--ease);
+  }
+  
+  .cert-title {
+    font-size: clamp(.9rem, 1.25vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.35;
+    text-shadow: 0 1px 14px rgba(160, 70, 110, .25);
+  }
+  .cert-org {
+    font-size: clamp(.8rem, 1.05vw, 1.05rem);
+    font-weight: 300;
+    line-height: 1.3;
+    opacity: .85;
+    text-shadow: 0 1px 14px rgba(160, 70, 110, .25);
+  }
+  .cert-date {
+    font-size: clamp(.8rem, 1.05vw, 1.05rem);
+    font-weight: 400;
+    white-space: nowrap;
+    text-shadow: 0 1px 14px rgba(160, 70, 110, .25);
+    transition: transform .8s var(--ease);
+  }
+  
+  /* arrow appears in the right margin */
+  .cert-arrow {
+    position: absolute;
+    right: -2.8vw;
+    top: 50%;
+    width: 1.35vw;
+    height: 1.35vw;
+    margin-top: -.675vw;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transform: translate(-.5vw, .5vw);
+    transition: opacity .5s ease, transform .8s var(--ease);
+  }
+  
+  /* divider line draws left → right as each row reveals */
+  .cert::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: var(--line); transform-origin: left;
+    transition: transform 1.5s var(--ease) calc(var(--d, 0s) + .3s);
+  }
+  html.js .cert:not(.in)::after { transform: scaleX(0); }
+  
+  /* soft wash behind the row on hover */
+  .cert::before {
+    content: ""; position: absolute; z-index: -1; inset: 0 -1.2vw 0 -1.2vw;
+    background: linear-gradient(90deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, 0) 85%);
+    opacity: 0; transition: opacity .7s ease; pointer-events: none;
+  }
+  
+  @media (hover: hover) {
+    .cert:hover::before { opacity: 1; }
+    .cert:hover .cert-text { transform: translateX(.8vw); }
+    .cert:hover .cert-date { transform: translateX(-.5vw); }
+    .cert:hover .cert-arrow { opacity: 1; transform: none; }
+    .cert:hover .cert-bf { --s: 1.18; --r: -10deg; filter: drop-shadow(0 0 1.1vw rgba(255, 255, 255, .95)); }
+  }
+  .cert:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 6px; }
+  .cert:focus-visible::before { opacity: 1; }
+  .cert:focus-visible .cert-text { transform: translateX(.8vw); }
+  .cert:focus-visible .cert-arrow { opacity: 1; transform: none; }
+  
+  /* ==========================================================
+     3 · CONTACT  (frosted panel, same as the other pages)
+     ========================================================== */
+  .contact { position: relative; z-index: 3; margin-top: 3vw; padding-bottom: 0; overflow: hidden; }
+  .contact-panel {
+    position: relative;
+    border: 1.5px solid rgba(255, 255, 255, .7);
+    --r: clamp(36px, 4.6vw, 70px);
+    border-radius: var(--r) var(--r) 0 0;
+    border-bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .12));
+    -webkit-backdrop-filter: blur(26px) saturate(1.2); backdrop-filter: blur(26px) saturate(1.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 -30px 80px -50px rgba(170, 70, 115, .35);
+    padding: 5.6vw 0 12vw;
+  }
+  .contact-inner { width: var(--wrap); margin: 0 auto; }
+  .contact-title { margin: 0; font-size: 12vw; line-height: 1.05; letter-spacing: -.01em; }
+  
+  .contact-row { display: flex; align-items: center; gap: 3.4vw; margin-top: 2.4vw; padding-left: .4vw; }
+  .contact-row p {
+    margin: 0; font-family: "Poppins", sans-serif;
+    font-size: clamp(1.1rem, 2.05vw, 2.2rem); font-weight: 300; color: #fff;
+    text-shadow: 0 1px 14px rgba(160, 70, 110, .25);
+  }
+  .contact-btn {
+    display: inline-grid; place-items: center;
+    height: clamp(48px, 4.5vw, 70px); padding: 0 clamp(36px, 4.6vw, 68px);
+    border-radius: 999px; color: #fff; text-decoration: none; white-space: nowrap;
+    font-family: "Poppins", sans-serif; font-size: clamp(1rem, 1.6vw, 1.7rem); font-weight: 600;
+    background: rgba(255, 255, 255, .1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35), 0 10px 30px -20px rgba(150, 60, 105, .35);
+    transition: background .5s var(--ease), transform .6s var(--ease);
+  }
+  .contact-btn:hover { background: rgba(255, 255, 255, .22); transform: translateY(-2px); }
+  
+  .foot {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    margin-top: 5.7vw; padding-top: 6.4vw; border-top: 1px solid var(--line);
+  }
+  .foot-links { display: flex; gap: 6vw; padding-left: 2.9vw; font-size: clamp(1.1rem, 2.3vw, 2.4rem); }
+  .foot-links a { color: #fff; text-decoration: none; position: relative; }
+  .foot-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: #fff;
+    transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease);
+  }
+  .foot-links a:hover::after, .foot-links a:focus-visible::after { transform: scaleX(1); }
+  .foot-bf {
+    width: clamp(48px, 5.2vw, 84px); height: auto;
+    filter: drop-shadow(0 0 1vw rgba(255, 255, 255, .6));
+    animation: bf-drift 9s ease-in-out infinite;
+  }
+  @keyframes bf-drift {
+    0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 .8vw rgba(255, 255, 255, .45)); }
+    50%      { transform: translateY(-.5vw) rotate(3deg); filter: drop-shadow(0 0 1.6vw rgba(255, 255, 255, .85)); }
+  }
+  /* same float without the animated glow (used on phones: much cheaper to paint) */
+  @keyframes bf-drift-lite {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.4vw) rotate(3deg); }
+  }
+  .copy {
+    margin: 0; justify-self: end; padding-right: 1.5vw; text-align: right;
+    font-family: "Poppins", sans-serif; font-weight: 400; color: #fff;
+    font-size: clamp(.7rem, 1.3vw, 1.2rem); text-transform: uppercase; letter-spacing: .01em;
+  }
+  
+  /* oversized wordmark, cropped by the bottom of the page */
+  .wordmark {
+    position: absolute; z-index: 4; left: 50%; bottom: 0;
+    width: 100vw; max-width: none; height: auto;
+    transform: translate(-50%, calc(50% - 4.5vw));
+    pointer-events: none; user-select: none;
+  }
+  
+  /* ---------- scroll reveal (plays once) ---------- */
+  html.js .rv { transition: opacity 1.1s ease var(--d, 0s), transform 1.2s var(--ease) var(--d, 0s), filter 1s ease var(--d, 0s); }
+  html.js .rv:not(.in) { opacity: 0; transform: translateY(18px); filter: blur(10px); }
+  /* the big glass panel only fades and rises (a blur filter would flatten its backdrop blur) */
+  html.js .rv-soft { transition: opacity 1.4s ease, transform 1.5s var(--ease); }
+  html.js .rv-soft:not(.in) { opacity: 0; transform: translateY(40px); }
+  
+  .contact-btn:focus-visible, .foot-links a:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title .e, .bf-in, .hero-bf img, .foot-bf { animation: none !important; }
+    .hero-title, .hero-bf { transform: none !important; opacity: 1 !important; }
+    .cert-bf, .cert-text, .cert-date, .cert-arrow, .cert::before, .cert::after, .foot-links a::after { transition: none; }
+  }
+  
+  /* ==========================================================
+     responsive
+     ========================================================== */
+  @media (max-width: 900px) {
+    .cert-list { width: 76%; }
+    .cert-bf { left: -6.4vw; width: 3.6vw; }
+    .cert-arrow { display: none; }
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; }
+  }
+  
+  /* ---------- phones ----------
+     · the navbar is at the bottom on phones (see index.css), so it hides downward on scroll
+     · the contact panel + footer use the same layout as the About, Contact and Tech Stack pages:
+       "Want to / get in touch?", button under the line of text, links stacked at the left with the butterfly
+       at the right, copyright underneath, wordmark cropped at the bottom of the page
+     · animated glows are swapped for static ones, which are much cheaper to paint while scrolling */
+  @media (max-width: 700px) {
+    :root { --wrap: 92vw; }
+  
+    body.nav-hidden .topbar { transform: translateY(calc(100% + 70px)); }
+  
+    .hero { padding-top: 30vw; }
+    .hero-title { font-size: 19.6vw; }
+    .hero-bf { width: 11vw; margin-top: 5vw; }
+    .hero-bf img { animation: bf-float 8s ease-in-out infinite; filter: drop-shadow(0 0 2.6vw rgba(255, 255, 255, .7)); }
+  
+    .certs { padding-top: 8vw; }
+    .certs-panel { padding: 8vw 0 10vw; --r: 8vw; }
+    .cert-group + .cert-group { margin-top: 9vw; }
+    .cert-heading { font-size: 8vw; margin-bottom: 2.5vw; }
+  
+    .cert-list { width: 84%; }
+  
+    .cert {
+      --y: 0;
+      grid-template-columns: 7vw 1fr;
+      grid-template-areas: "bf text" "bf date";
+      column-gap: 3vw;
+      align-items: start;
+      padding: 3.5vw 0;
+    }
+    .cert-bf { position: static; grid-area: bf; width: 5.8vw; margin-top: .6vw; }
+    .cert-text { grid-area: text; gap: .5vw; }
+    .cert-date { grid-area: date; margin-top: .8vw; font-size: .76rem; opacity: .85; }
+    .cert-title { font-size: .9rem; line-height: 1.4; }
+    .cert-org { font-size: .8rem; }
+    .cert::before { inset: 0 -3vw; }
+  
+    /* contact panel + footer */
+    .m-break { display: block; }
+    .contact { margin-top: 8vw; padding-bottom: 0; }
+    .contact-panel { --r: 8.5vw; padding: 10vw 0 19vw; }
+    .contact-inner { width: 85.5vw; }
+    .contact-title { font-size: 16vw; line-height: .76; }
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; margin-top: 6.5vw; padding-left: 0; }
+    .contact-row p { font-size: max(12px, 3.45vw); }
+    .contact-btn { height: max(34px, 9.2vw); padding: 0 5vw; font-size: max(11px, 3.1vw); }
+    .contact-btn:active { transform: scale(.96); background: rgba(255, 255, 255, .26); }
+  
+    .foot {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "links bf" "copy copy";
+      justify-items: stretch; row-gap: 4vw;
+      margin-top: 8vw; padding-top: 5vw;
+    }
+    .foot-links { grid-area: links; flex-direction: column; align-items: flex-start; gap: 0; padding-left: 0; font-size: 6vw; line-height: 1.3; }
+    .foot-bf {
+      grid-area: bf; width: 15vw; justify-self: end; margin-right: 4vw;
+      animation-name: bf-drift-lite; filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .6));
+    }
+    .copy { grid-area: copy; justify-self: start; text-align: left; padding-right: 0; font-size: max(8px, 2.2vw); }
+  
+    /* wordmark: cropped by the bottom of the page, but most of it stays visible */
+    .wordmark { bottom: 0; transform: translate(-50%, 28%); }
+  }

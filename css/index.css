@@ -389,6 +389,8 @@ body.on-profile .scroll-btn svg { transform: rotate(180deg); }
   }
   body.home-page main::-webkit-scrollbar { display: none; }
   body.home-page .screen { flex: 0 0 100%; width: 100%; height: 100%; }
+  /* the home page doesn't need a "go home" button */
+  body.home-page .round-btn.home { display: none; }
 
   /* profile screen */
   .profile { padding: 72px 0; }

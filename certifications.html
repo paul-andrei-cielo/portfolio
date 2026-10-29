@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f0c9d8">
+    <meta name="description" content="Professional certifications and course completions of Paul Andrei Cielo.">
+    <title>Certifications · Paul Andrei Cielo</title>
+    <script>document.documentElement.classList.add('js')</script>
+    <!-- index.css first (navbar, blur layers, keyframes), certifications.css extends it -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/certifications.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- the small butterfly is used all over this page: fetch it early -->
+    <link rel="preload" as="image" href="images/butterfly-logo.png" fetchpriority="high">
+
+    <link rel="icon" href="images/butterfly-logo.png" type="image/png">
+  </head>
+  <body class="about-page cert-page">
+    <div class="ambient" aria-hidden="true"><span></span><span></span></div>
+
+    <!-- Progressive blur behind the navbar (top on desktop, bottom on phones) -->
+    <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <header class="topbar">
+      <div class="logo-wrap">
+        <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
+          <img src="images/home-icon.png" alt="" draggable="false" decoding="async">
+        </a>
+
+        <button class="logo-btn pill" id="logo-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo" decoding="async">
+        </button>
+
+        <button class="round-btn close" id="nav-close" type="button" aria-label="Close menu" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
+        </button>
+      </div>
+
+      <nav class="menu" id="site-menu" aria-label="Main">
+        <a href="about.html" style="--i:0">about</a>
+        <a href="awards.html" style="--i:1">awards &amp; achievements</a>
+        <a href="certifications.html" style="--i:2" aria-current="page">certifications</a>
+        <a href="contact.html" style="--i:3">contact</a>
+        <a href="projects.html" style="--i:4">projects</a>
+        <a href="tech-stack.html" style="--i:5">tech stack</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 1 · hero -->
+      <section class="hero" aria-label="Certifications">
+        <div class="hero-stage" id="hero-stage">
+          <h1 class="hero-title"><span class="e">Certifications</span></h1>
+          <span class="hero-bf" aria-hidden="true">
+            <span class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" fetchpriority="high"></span>
+          </span>
+        </div>
+      </section>
+
+      <!-- 2 · the lists, inside one frosted panel -->
+      <section class="certs" aria-label="Certification list">
+        <div class="certs-panel rv-soft">
+          <section class="cert-group" aria-labelledby="pro-title">
+            <h2 class="cert-heading rv" id="pro-title">Professional Certifications</h2>
+            <ul class="cert-list">
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/a21c1137-4a75-45bc-a79b-64ca005ef8c1/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.00s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">IT Specialist - Cybersecurity</span>
+                    <span class="cert-org">Certiport</span>
+                  </span>
+                  <span class="cert-date">Jun 2026</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/2993965d-818d-4d0f-8772-a245a870cac4/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.08s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">IT Specialist - HTML and CSS</span>
+                    <span class="cert-org">Certiport</span>
+                  </span>
+                  <span class="cert-date">Feb 2026</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/5dfea8dd-cae3-46bc-b556-f06b42960975/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.16s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">IT Specialist - Databases</span>
+                    <span class="cert-org">Certiport</span>
+                  </span>
+                  <span class="cert-date">May 2025</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/3e0d6875-9719-47e2-a4af-1b861e05cdbc/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.24s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Microsoft Office Specialist: PowerPoint Associate (Office 2019)</span>
+                    <span class="cert-org">Microsoft</span>
+                  </span>
+                  <span class="cert-date">May 2024</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/b3638653-3c33-4efa-95f7-1196fc32b88c/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.32s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Microsoft Office Specialist: Word Associate (Office 2019)</span>
+                    <span class="cert-org">Microsoft</span>
+                  </span>
+                  <span class="cert-date">March 2024</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          <section class="cert-group" aria-labelledby="course-title">
+            <h2 class="cert-heading rv" id="course-title">Course Completions</h2>
+            <ul class="cert-list">
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/df38d243-4a81-4a38-9dc5-e9f91edafc24/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.00s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Ethical Hacker</span>
+                    <span class="cert-org">Cisco</span>
+                  </span>
+                  <span class="cert-date">Oct 2026</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/5bd61dd2-e65a-43db-a115-c578344f9741/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.08s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Introduction to IoT</span>
+                    <span class="cert-org">Cisco</span>
+                  </span>
+                  <span class="cert-date">Feb 2026</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/a7c96774-a189-44ba-999e-0ba6e87d90d4/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.16s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Introduction to Cybersecurity</span>
+                    <span class="cert-org">Cisco</span>
+                  </span>
+                  <span class="cert-date">Sept 2025</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://www.credly.com/badges/a7f820f7-146f-4582-849d-73f2f7067852/public_url" target="_blank" rel="noopener noreferrer" style="--d:0.24s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Networking Basics</span>
+                    <span class="cert-org">Cisco</span>
+                  </span>
+                  <span class="cert-date">May 2025</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
+                <a class="cert rv" href="https://paul-andrei-cielo.github.io/portfolio/images/certs/oracle-cert.jpg" target="_blank" rel="noopener noreferrer" style="--d:0.32s">
+                  <img class="cert-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+                  <span class="cert-text">
+                    <span class="cert-title">Java Foundations</span>
+                    <span class="cert-org">Oracle</span>
+                  </span>
+                  <span class="cert-date">Dec 2024</span>
+                  <svg class="cert-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <span class="sr">(opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <!-- 3 · contact (frosted) -->
+      <section class="contact" aria-labelledby="contact-title">
+        <div class="contact-panel">
+          <div class="contact-inner">
+            <!-- .m-break: one line on desktop, "Want to / get in touch?" on phones -->
+            <h2 class="contact-title rv" id="contact-title">Want to <span class="m-break">get in touch?</span></h2>
+            <div class="contact-row rv" style="--d:.1s">
+              <p>Have something in mind? I'm all ears.</p>
+              <a class="contact-btn" href="contact.html">contact me.</a>
+            </div>
+
+            <footer class="foot rv" style="--d:.15s">
+              <nav class="foot-links" aria-label="Social">
+                <a href="https://www.instagram.com/andreiciexo/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
+                <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
+              </nav>
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
+              <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
+            </footer>
+          </div>
+        </div>
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false" decoding="async" loading="lazy">
+      </section>
+    </main>
+
+    <!-- defer keeps the order (anime.js → script.js → certifications.js) and runs them before DOMContentLoaded -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="certifications.js" defer></script>
+  </body>
+</html>
