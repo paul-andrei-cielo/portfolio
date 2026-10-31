@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects · Paul Andrei Cielo</title>
+    <script>document.documentElement.classList.add('js')</script>
+    <!-- index.css first (navbar, blur layers, keyframes), projects.css extends it -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/butterfly-logo.png" type="image/png">
+  </head>
+  <body class="about-page projects-page">
+    <div class="ambient" aria-hidden="true"><span></span><span></span></div>
+
+    <!-- Progressive blur behind the navbar -->
+    <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <header class="topbar">
+      <div class="logo-wrap">
+        <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
+          <img src="images/home-icon.png" alt="" draggable="false">
+        </a>
+
+        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        </button>
+
+        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
+        </button>
+      </div>
+
+      <nav class="menu" id="site-menu" aria-label="Main">
+        <a href="about.html" style="--i:0">about</a>
+        <a href="awards.html" style="--i:1">awards &amp; achievements</a>
+        <a href="certifications.html" style="--i:2">certifications</a>
+        <a href="contact.html" style="--i:3">contact</a>
+        <a href="projects.html" style="--i:4" aria-current="page">projects</a>
+        <a href="tech-stack.html" style="--i:5">tech stack</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- 1 · hero: the title travels from the center to the top-left as you scroll -->
+      <section class="hero-wrap" id="hero-wrap" aria-label="Projects">
+        <div class="hero-stage" id="hero-stage">
+          <div class="hero-bf" aria-hidden="true">
+            <div class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false"></div>
+          </div>
+          <h1 class="hero-title" id="hero-title"><span class="e">Projects</span></h1>
+        </div>
+      </section>
+
+      <!-- 2 · featured projects (open a window) -->
+      <section class="featured" aria-labelledby="featured-title">
+        <h2 class="sec-title" id="featured-title" data-drift="1"><span>featured projects</span></h2>
+
+        <ul class="f-grid">
+          <li class="f-item rv-soft" style="--d:0s">
+            <button class="tile" type="button" data-project="capstone" aria-haspopup="dialog">
+              <span class="tile-img"><img alt="" data-cover="Capstone-Cover" draggable="false"></span>
+              <span class="tile-label">Capstone Project</span>
+              <span class="sr">View details</span>
+            </button>
+          </li>
+          <li class="f-item rv-soft" style="--d:.12s">
+            <button class="tile" type="button" data-project="iot" aria-haspopup="dialog">
+              <span class="tile-img"><img alt="" data-cover="IoT-Cover" draggable="false"></span>
+              <span class="tile-label">IoT Project</span>
+              <span class="sr">View details</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 3 · other projects (expand in place) -->
+      <section class="others" aria-labelledby="others-title">
+        <h2 class="sec-title sec-others" id="others-title" data-drift="-1"><span>other projects</span></h2>
+
+        <ul class="o-grid">
+          <li class="o-item rv-soft" style="--d:0s">
+            <article class="o-tile">
+              <button class="o-head" type="button" aria-expanded="false" aria-controls="more-sdcanteen">
+                <span class="o-img"><img src="images/projects/SDCAnteen.jpg" alt="SDCAnteen mobile application screens" draggable="false"></span>
+                <span class="o-name">SDCAnteen</span>
+                <span class="o-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+              </button>
+              <div class="o-more" id="more-sdcanteen">
+                <div class="o-more-in">
+                  <p class="o-desc">SDCanteen is a mobile application designed for the canteen of St. Dominic College of Asia (SDCA), aiming to digitize and streamline the canteen transaction process. It seeks to make ordering and purchasing more convenient by reducing reliance on traditional, manual transactions.</p>
+                  <h3 class="o-label">Tech used</h3>
+                  <ul class="o-chips">
+                    <li style="--k:0">Android Studio</li>
+                    <li style="--k:1">Kotlin</li>
+                    <li style="--k:2">Java</li>
+                    <li style="--k:3">XML</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="o-item rv-soft" style="--d:.12s">
+            <article class="o-tile">
+              <button class="o-head" type="button" aria-expanded="false" aria-controls="more-reqit">
+                <span class="o-img"><img src="images/projects/Req-IT.png" alt="Req-IT mobile application screens" draggable="false"></span>
+                <span class="o-name">Req-IT</span>
+                <span class="o-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+              </button>
+              <div class="o-more" id="more-reqit">
+                <div class="o-more-in">
+                  <p class="o-desc">Req-IT is an IoT-enabled document request and tracking system designed for the Registrar’s Office of St. Dominic College of Asia. It allows students and alumni to request academic documents online, track request statuses, and receive notifications. It also provides a registrar portal for managing requests, verifying clearances and payments, and using RFID technology to verify identities during document claiming. The system aims to make the document request process more convenient, efficient, and secure.</p>
+                  <h3 class="o-label">Tech used</h3>
+                  <ul class="o-chips">
+                    <li style="--k:0">Dart</li>
+                    <li style="--k:1">Node.js</li>
+                    <li style="--k:2">Express.js</li>
+                    <li style="--k:3">MongoDB</li>
+                    <li style="--k:4">Render</li>
+                    <li style="--k:5">RFID Reader</li>
+                    <li style="--k:6">Bruno</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <li class="o-item rv-soft" style="--d:.24s">
+            <article class="o-tile">
+              <button class="o-head" type="button" aria-expanded="false" aria-controls="more-mindblossom">
+                <span class="o-img"><img src="images/projects/MindBlossom.jpg" alt="MindBlossom mobile application screens" draggable="false"></span>
+                <span class="o-name">MindBlossom</span>
+                <span class="o-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+              </button>
+              <div class="o-more" id="more-mindblossom">
+                <div class="o-more-in">
+                  <p class="o-desc">MindBlossom is a mood-tracking note-taking app that allows users to write down their thoughts, experiences, and daily reflections. At the end of each note, users can select the emotion that best represents how they feel. These emotions are then displayed on a calendar, allowing users to look back on their entries and track their moods over time. MindBlossom combines journaling and mood tracking in one app, helping users reflect on their feelings and become more aware of their emotional patterns.</p>
+                  <h3 class="o-label">Tech used</h3>
+                  <ul class="o-chips">
+                    <li style="--k:0">Android Studio</li>
+                    <li style="--k:1">Kotlin</li>
+                    <li style="--k:2">Java</li>
+                    <li style="--k:3">XML</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 4 · contact (frosted) -->
+      <section class="contact" aria-labelledby="contact-title">
+        <div class="contact-panel">
+          <div class="contact-inner">
+            <h2 class="contact-title rv" id="contact-title">Want to get in touch?</h2>
+            <div class="contact-row rv" style="--d:.1s">
+              <p>Have something in mind? I'm all ears.</p>
+              <a class="contact-btn" href="contact.html">contact me.</a>
+            </div>
+
+            <footer class="foot rv" style="--d:.15s">
+              <nav class="foot-links" aria-label="Social">
+                <a href="https://www.instagram.com/andreiciexo/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
+                <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
+              </nav>
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false">
+              <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
+            </footer>
+          </div>
+        </div>
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false">
+      </section>
+    </main>
+
+    <!-- project window (filled by projects.js) -->
+    <div class="modal" id="modal" aria-hidden="true" inert>
+      <div class="modal-backdrop"></div>
+      <button class="modal-close" id="modal-close" type="button" aria-label="Close project window">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+      </button>
+
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="m-title">
+        <div class="m-text" id="m-text" tabindex="0"></div>
+
+        <div class="m-gal" id="m-gal" aria-label="Project photos">
+          <div class="gal">
+            <div class="gal-track" id="gal-track"></div>
+            <div class="gal-blur top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="gal-blur bot" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="script.js"></script>
+    <script src="projects.js"></script>
+  </body>
+</html>
