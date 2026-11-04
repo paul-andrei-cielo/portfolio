@@ -92,7 +92,12 @@
   }
 
   /* ---------- 4 · photos (found in any of the folders, fallback TBA.png) ---------- */
-  let knownBase = null;
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode: just skip the cache */ } }
+  };
+  // the folder that worked last time is tried first, so a repeat visit doesn't search
+  let knownBase = BASES.includes(store.get('awards-base')) ? store.get('awards-base') : null;
   const folders = () => (knownBase ? [knownBase, ...BASES.filter(b => b !== knownBase)] : BASES);
   const loadImg = (url) => new Promise(res => {
     const im = new Image();
@@ -103,7 +108,7 @@
   const findPhoto = async (file) => {
     for (const base of folders()) {
       const found = await loadImg(base + file);
-      if (found) { knownBase = base; return found; }
+      if (found) { knownBase = base; store.set('awards-base', base); return found; }
     }
     return null;
   };
@@ -119,8 +124,6 @@
     }
     return photoCache[file];
   };
-  // warm the cache so a click opens instantly
-  Object.values(AWARDS).forEach(a => getPhoto(a.photo));
 
   /* ---------- 5 · award window ---------- */
   const modal = document.getElementById('aw-modal');
@@ -132,6 +135,17 @@
   const nameEl = document.getElementById('aw-name');
   const detailsClip = document.getElementById('aw-details');
   const detailsIn = document.getElementById('aw-details-in');
+
+  // photos: on a computer, warm the cache so a click opens instantly; on a phone (or with data saver on)
+  // only fetch a photo when a finger / pointer touches its row, so the page doesn't download every photo up front
+  const phone = window.matchMedia('(max-width: 800px)').matches;
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  if (!phone && !saveData) Object.values(AWARDS).forEach(a => getPhoto(a.photo));
+  document.querySelectorAll('.aw-item[data-award]').forEach(btn => {
+    ['pointerdown', 'pointerenter', 'focus'].forEach(type => {
+      btn.addEventListener(type, () => { const a = AWARDS[btn.dataset.award]; if (a) getPhoto(a.photo); }, { passive: true, once: true });
+    });
+  });
 
   let current = null;         // the open award
   let lastTrigger = null;
@@ -175,13 +189,16 @@
     const W = scroller.clientWidth;
     stage.style.setProperty('--nh', measureName(1) + 'px');
 
-    // a long title (2-3 lines) under the centered photo must not reach the scroll hint:
+    // a long title (2-3 lines) under the centered photo must not reach the scroll hint / close button:
     // shrink the photo just enough to make room (--k0 scales its size)
     const mobile = window.matchMedia('(max-width: 800px)').matches;
     const ar = parseFloat(stage.style.getPropertyValue('--ar')) || 1.7778;
-    const t0 = H * (mobile ? 0.20 : 0.21), gap = H * (mobile ? 0.03 : 0.034);
-    const h0 = mobile ? Math.min(W * 0.88 / ar, H * 0.38) : Math.min(W * 0.53 / ar, H * 0.53);
-    const limit = current.kind === 'detail' ? H - (H * 0.036 + 64) : H * 0.95;
+    const t0 = H * (mobile ? 0.387 : 0.21), gap = H * (mobile ? 0.04 : 0.034);
+    const h0 = mobile ? Math.min(W * 0.80 / ar, H * 0.38) : Math.min(W * 0.53 / ar, H * 0.53);
+    // phones: the close button is at the bottom center, and (for windows that scroll) the hint sits just above it
+    const limit = mobile
+      ? closeBtn.offsetTop - (current.kind === 'detail' ? 60 : 16)
+      : (current.kind === 'detail' ? H - (H * 0.036 + 64) : H * 0.95);
     const k0 = clamp((limit - t0 - gap - measureName(0)) / h0, 0.5, 1);
     stage.style.setProperty('--k0', k0.toFixed(3));
 

@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f0c9d8">
+    <meta name="description" content="Awards, achievements and certificates of Paul Andrei Cielo.">
     <title>Awards &amp; Achievements · Paul Andrei Cielo</title>
     <script>document.documentElement.classList.add('js')</script>
     <!-- index.css first (navbar, blur layers, keyframes), awards.css extends it -->
@@ -11,25 +13,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- the hero butterfly is the first thing on screen -->
+    <link rel="preload" as="image" href="images/butterfly-logo.png" fetchpriority="high">
+
     <link rel="icon" href="images/logo.png" type="image/png">
   </head>
   <body class="about-page awards-page">
     <div class="ambient" aria-hidden="true"><span></span><span></span></div>
 
-    <!-- Progressive blur behind the navbar -->
+    <!-- Progressive blur behind the navbar (top on desktop, bottom on phones) -->
     <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
     <header class="topbar">
       <div class="logo-wrap">
         <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
-          <img src="images/home-icon.png" alt="" draggable="false">
+          <img src="images/home-icon.png" alt="" draggable="false" decoding="async">
         </a>
 
-        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
-          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        <button class="logo-btn pill" id="logo-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo" decoding="async">
         </button>
 
-        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+        <button class="round-btn close" id="nav-close" type="button" aria-label="Close menu" tabindex="-1">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
         </button>
       </div>
@@ -49,10 +55,10 @@
       <section class="hero" aria-label="Awards and achievements">
         <div class="hero-stage" id="hero-stage">
           <div class="hero-bf" aria-hidden="true">
-            <div class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false"></div>
+            <div class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" fetchpriority="high"></div>
           </div>
           <h1 class="hero-title">
-            <span class="l1"><span class="e">Awards &amp;</span></span>
+            <span class="l1"><span class="e">Awards <span class="amp">&amp;</span></span></span>
             <span class="l2"><span class="e">Achievements</span></span>
           </h1>
         </div>
@@ -66,14 +72,14 @@
           <ul class="aw-list">
             <li class="rv" style="--d:.05s">
               <button class="aw-item" type="button" data-award="dean" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="Consistent Dean’s Lister">Consistent Dean’s Lister</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
             </li>
             <li class="rv" style="--d:.12s">
               <button class="aw-item" type="button" data-award="stellar" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="Stellar Dominican Champion Award">Stellar Dominican Champion Award</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
@@ -86,7 +92,7 @@
           <ul class="aw-list">
             <li class="rv" style="--d:.05s">
               <button class="aw-item" type="button" data-award="isite" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="iSITE Quiz Bee – 1st Runner-Up">iSITE Quiz Bee – 1st Runner-Up</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
@@ -99,7 +105,7 @@
           <ul class="aw-list">
             <li class="rv" style="--d:.05s">
               <button class="aw-item" type="button" data-award="research" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="DLSU-D SHS 3rd Research Conference">DLSU-D SHS 3rd Research Conference</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
@@ -112,7 +118,7 @@
           <ul class="aw-list">
             <li class="rv" style="--d:.05s">
               <button class="aw-item" type="button" data-award="dost" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="DOST-SEI Undergraduate S&amp;T Scholarship">DOST-SEI Undergraduate S&amp;T Scholarship</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
@@ -125,28 +131,28 @@
           <ul class="aw-list">
             <li class="rv" style="--d:.05s">
               <button class="aw-item" type="button" data-award="ascend" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="ASCEND 2025">ASCEND 2025</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
             </li>
             <li class="rv" style="--d:.12s">
               <button class="aw-item" type="button" data-award="dsdap" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="DSDAP">DSDAP</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
             </li>
             <li class="rv" style="--d:.19s">
               <button class="aw-item" type="button" data-award="geek" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="JPCS National Geek Speaks 2026">JPCS National Geek Speaks 2026</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
             </li>
             <li class="rv" style="--d:.26s">
               <button class="aw-item" type="button" data-award="techtalks" aria-haspopup="dialog">
-                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async">
                 <span class="aw-label" data-text="PCS MMM-TECHTALKS">PCS MMM-TECHTALKS</span>
                 <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
               </button>
@@ -160,7 +166,8 @@
       <section class="contact" aria-labelledby="contact-title">
         <div class="contact-panel">
           <div class="contact-inner">
-            <h2 class="contact-title rv" id="contact-title">Want to get in touch?</h2>
+            <!-- .m-break: one line on desktop, "Want to / get in touch?" on phones -->
+            <h2 class="contact-title rv" id="contact-title">Want to <span class="m-break">get in touch?</span></h2>
             <div class="contact-row rv" style="--d:.1s">
               <p>Have something in mind? I'm all ears.</p>
               <a class="contact-btn" href="contact.html">contact me.</a>
@@ -172,12 +179,12 @@
                 <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
                 <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
               </nav>
-              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false">
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false" decoding="async" loading="lazy">
               <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
             </footer>
           </div>
         </div>
-        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false">
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false" decoding="async" loading="lazy">
       </section>
     </main>
 
@@ -190,10 +197,10 @@
 
       <div class="aw-scroll" id="aw-scroll" tabindex="0" role="dialog" aria-modal="true" aria-labelledby="aw-title">
         <div class="aw-stage" id="aw-stage">
-          <div class="aw-bf" aria-hidden="true"><img src="images/butterfly-logo.png" alt="" draggable="false"></div>
+          <div class="aw-bf" aria-hidden="true"><img src="images/butterfly-logo.png" alt="" draggable="false" decoding="async"></div>
 
           <figure class="aw-photo">
-            <div class="aw-photo-in"><img id="aw-img" alt="" draggable="false"></div>
+            <div class="aw-photo-in"><img id="aw-img" alt="" draggable="false" decoding="async"></div>
           </figure>
 
           <h2 class="aw-name" id="aw-title"><span class="aw-name-in" id="aw-name"></span></h2>
@@ -211,8 +218,9 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="script.js"></script>
-    <script src="scripts/awards.js"></script>
+    <!-- defer keeps the order (anime.js → script.js → awards.js) and runs them before DOMContentLoaded -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="scripts/awards.js" defer></script>
   </body>
 </html>

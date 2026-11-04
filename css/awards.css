@@ -381,6 +381,11 @@
     0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 .8vw rgba(255, 255, 255, .45)); }
     50%      { transform: translateY(-.5vw) rotate(3deg); filter: drop-shadow(0 0 1.6vw rgba(255, 255, 255, .85)); }
   }
+  /* same float without the animated glow (used on phones: much cheaper to paint) */
+  @keyframes bf-drift-lite {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.4vw) rotate(3deg); }
+  }
   .copy {
     margin: 0; justify-self: end; padding-right: 1.5vw; text-align: right;
     font-family: "Poppins", sans-serif; font-weight: 400; color: #fff;
@@ -405,8 +410,6 @@
   /* award rows glide in from the right, one after another (--d is set per row in the HTML) */
   html.js .aw-list .rv:not(.in) { transform: translateX(4vw); }
   
-  
-  
   .contact-btn:focus-visible, .foot-links a:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
   
   @media (prefers-reduced-motion: reduce) {
@@ -415,6 +418,11 @@
     .aw-modal.open .aw-photo-in, .aw-modal.open .aw-name-in, .aw-modal.open .aw-bf img, .aw-modal.open .aw-hint { animation: none !important; }
     .aw-modal.open .aw-photo-in, .aw-modal.open .aw-name-in, .aw-modal.open .aw-bf img { opacity: 1; }
     .aw-ico, .aw-arrow, .aw-item::before, .aw-close, .aw-backdrop { transition-duration: .01ms !important; }
+  }
+  
+  /* touch screens have no real hover: skip the frosted wash (eight blur layers for nothing) */
+  @media (hover: none) {
+    .aw-item::before { display: none; }
   }
   
   /* ==========================================================
@@ -431,40 +439,104 @@
     .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; }
   }
   
-  /* phones: photo on top, name and details underneath once you scroll */
+  /* ---------- phones: the award window ----------
+     Matched to the 360px mobile mockups (1vw = 3.6px there):
+     · p = 0: butterfly on top, an 80vw photo centered, the name under it, the round close button at the bottom
+     · p = 1 (after scrolling): the photo is smaller at the top, the name sits under it on the left, details below */
   @media (max-width: 800px) {
-    .aw-stage {
-      --pad: 6vw;
-      --w0: calc(min(88vw, calc(38svh * var(--ar))) * var(--k0));
-      --w1: min(68vw, calc(26svh * var(--ar)));
-      --l1: calc((100% - var(--w1)) / 2);
-      --t0: 20svh;
-      --t1: 11svh;
-      --n0: calc(var(--t0) + var(--w0) / var(--ar) + 3svh);
-      --n1: calc(var(--t1) + var(--w1) / var(--ar) + 2.6svh);
-      --dt: calc(var(--n1) + var(--nh) + 3svh);
-      --fs0: 9vw; --fs1: 9vw;
+    .aw-modal {
+      --close-b: max(10vw, calc(env(safe-area-inset-bottom, 0px) + 16px));
+      --close-s: max(40px, 10.6vw);
     }
-    .aw-stage[data-len="m"] { --fs0: 7.4vw; --fs1: 7.4vw; }
-    .aw-stage[data-len="l"] { --fs0: 5.8vw; --fs1: 5.8vw; }
-    .aw-name { max-width: calc(88vw - 0vw * var(--p)); }
-    .aw-bf { width: 14vw; top: 5svh; }
-    .aw-details { width: 88vw; }
+    .aw-backdrop { -webkit-backdrop-filter: blur(18px) saturate(1.15); backdrop-filter: blur(18px) saturate(1.15); }
+  
+    .aw-stage {
+      --pad: 10.3vw;
+      --w0: calc(min(80vw, calc(38svh * var(--ar))) * var(--k0));
+      --w1: min(72vw, calc(28svh * var(--ar)));
+      --l1: calc((100% - var(--w1)) / 2);
+      --t0: 38.7svh;
+      --t1: 7.8svh;
+      --n0: calc(var(--t0) + var(--w0) / var(--ar) + 4svh);
+      --n1: calc(var(--t1) + var(--w1) / var(--ar) + 6.7svh);
+      --dt: calc(var(--n1) + var(--nh) + 4.2svh);
+      --fs0: 11.7vw; --fs1: 11.7vw;
+    }
+    .aw-stage[data-len="m"] { --fs0: 9.6vw; --fs1: 9.6vw; }
+    .aw-stage[data-len="l"] { --fs0: 7.5vw; --fs1: 7.5vw; }
+    .aw-name { max-width: calc(88vw - 8.6vw * var(--p)); }
+    .aw-bf { width: 17vw; top: 15.4svh; }
+    .aw-details { width: calc(100vw - 2 * var(--pad)); bottom: calc(var(--close-b) + var(--close-s) + 3vw); }
     .aw-dl dd, .aw-d-list, .aw-d-p { font-size: .95rem; }
     .aw-d-h { font-size: 1.1rem; }
-    .aw-close { top: 3vw; left: 3vw; }
+    /* the scroll hint sits just above the close button */
+    .aw-hint { bottom: calc(var(--close-b) + var(--close-s) + 2.5vw); }
+  
+    /* the close button: round, centered at the bottom */
+    .aw-close {
+      top: auto; left: 0; right: 0; margin-inline: auto;
+      bottom: var(--close-b);
+      width: var(--close-s); height: var(--close-s);
+      background: rgba(255, 255, 255, .38);
+    }
   }
   
+  /* ---------- phones: hero, list, contact ---------- */
   @media (max-width: 700px) {
     :root { --wrap: 92vw; }
+  
+    /* the navbar is at the bottom on phones, so it hides downward (and while an award window is open) */
+    body.nav-hidden .topbar, body.modal-open .topbar { transform: translateY(calc(100% + 70px)); }
+  
+    /* hero: butterfly centered on top, the title left-aligned under it, the list starts right after */
+    .hero-stage { height: 113vw; }
+    .hero-bf { left: 27vw; right: auto; top: 17.5vw; width: 40vw; }   /* the artwork sits right of the box center, so the box is nudged left */
+    /* a static glow instead of an animated filter: much cheaper to paint while scrolling */
+    .hero-bf img { animation: bf-float 9s ease-in-out infinite; filter: drop-shadow(0 0 4vw rgba(255, 255, 255, .7)); }
+    .hero-title { left: 10.2vw; bottom: auto; top: 75vw; }
+    /* sizes measured against the real glyph widths: "Achievements" ends as far from the right edge as "Awards" starts from the left */
+    .hero-title .l1 { font-size: 14vw; line-height: .9; }
+    .hero-title .l2 { font-size: 16.1vw; line-height: .95; }
+    .hero-title .amp { font-style: normal; }   /* the "&" is upright in the mockup */
+  
+    /* the list: category title at the left margin, rows indented under it, label left-aligned with the arrow right after it */
     .awards { padding-top: 12vw; }
-    .contact { margin-top: 8vw; }
-    .contact-panel { padding: 12vw 0 22vw; }
-    .contact-title { font-size: 17vw; }
-    .contact-row p { font-size: 1.15rem; }
-    .foot { grid-template-columns: 1fr; gap: 6vw; justify-items: center; margin-top: 10vw; padding-top: 8vw; }
-    .foot-links { padding-left: 0; gap: 9vw; font-size: 1.3rem; }
-    .copy { justify-self: center; text-align: center; padding-right: 0; font-size: .7rem; }
-    .wordmark { bottom: -5vw; }
-    .hero-bf { width: 62vw; top: 9svh; right: -6vw; }
+    .aw-group { width: 79.6vw; margin: 0 auto 9vw; }
+    .aw-group-title { font-size: 11.9vw; margin: 0 0 1.4vw; }
+    .aw-list { margin: 0 auto; width: fit-content; max-width: 100%; }   /* centered; short names give a narrow block like the mockup, long ones fill the width */
+    .aw-item {
+      grid-template-columns: 6.7vw minmax(0, max-content) 3.9vw;
+      column-gap: 2.6vw; justify-content: start;
+      padding: 1.5vw 0; text-align: left;
+    }
+    .aw-ico { width: 6.7vw; }
+    .aw-label { justify-items: start; font-size: 4.9vw; text-wrap: balance; }   /* balanced lines: no lonely last word */
+    .aw-arrow { width: 3.9vw; height: 3.9vw; justify-self: start; }
+  
+    /* contact panel + footer: the same layout as the other pages */
+    .m-break { display: block; }
+    .contact { margin-top: 12vw; padding-bottom: 0; }
+    .contact-panel { --r: 8.5vw; padding: 10vw 0 19vw; }
+    .contact-inner { width: 85.5vw; }
+    .contact-title { font-size: 16vw; line-height: .76; }
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; margin-top: 6.5vw; padding-left: 0; }
+    .contact-row p { font-size: max(12px, 3.45vw); }
+    .contact-btn { height: max(34px, 9.2vw); padding: 0 5vw; font-size: max(11px, 3.1vw); }
+    .contact-btn:active { transform: scale(.96); background: rgba(255, 255, 255, .26); }
+  
+    .foot {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "links bf" "copy copy";
+      justify-items: stretch; row-gap: 4vw;
+      margin-top: 8vw; padding-top: 5vw;
+    }
+    .foot-links { grid-area: links; flex-direction: column; align-items: flex-start; gap: 0; padding-left: 0; font-size: 6vw; line-height: 1.3; }
+    .foot-bf {
+      grid-area: bf; width: 15vw; justify-self: end; margin-right: 4vw;
+      animation-name: bf-drift-lite; filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .6));
+    }
+    .copy { grid-area: copy; justify-self: start; text-align: left; padding-right: 0; font-size: max(8px, 2.2vw); }
+  
+    /* wordmark: cropped by the bottom of the page, but most of it stays visible */
+    .wordmark { bottom: 0; transform: translate(-50%, 28%); }
   }
