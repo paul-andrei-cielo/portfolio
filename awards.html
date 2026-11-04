@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awards &amp; Achievements · Paul Andrei Cielo</title>
+    <script>document.documentElement.classList.add('js')</script>
+    <!-- index.css first (navbar, blur layers, keyframes), awards.css extends it -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/awards.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/logo.png" type="image/png">
+  </head>
+  <body class="about-page awards-page">
+    <div class="ambient" aria-hidden="true"><span></span><span></span></div>
+
+    <!-- Progressive blur behind the navbar -->
+    <div class="pblur pblur-top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <header class="topbar">
+      <div class="logo-wrap">
+        <a href="index.html" class="round-btn home" id="nav-home" aria-label="Home" tabindex="-1">
+          <img src="images/home-icon.png" alt="" draggable="false">
+        </a>
+
+        <button class="logo-btn pill" id="logo-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Paul Andrei Cielo, open menu">
+          <img src="images/portfolio-logo.png" alt="paul andrei cielo">
+        </button>
+
+        <button class="round-btn close" id="nav-close" aria-label="Close menu" tabindex="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
+        </button>
+      </div>
+
+      <nav class="menu" id="site-menu" aria-label="Main">
+        <a href="about.html" style="--i:0">about</a>
+        <a href="awards.html" style="--i:1" aria-current="page">awards &amp; achievements</a>
+        <a href="certifications.html" style="--i:2">certifications</a>
+        <a href="contact.html" style="--i:3">contact</a>
+        <a href="projects.html" style="--i:4">projects</a>
+        <a href="tech-stack.html" style="--i:5">tech stack</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- 1 · hero -->
+      <section class="hero" aria-label="Awards and achievements">
+        <div class="hero-stage" id="hero-stage">
+          <div class="hero-bf" aria-hidden="true">
+            <div class="bf-in"><img src="images/butterfly-logo.png" alt="" draggable="false"></div>
+          </div>
+          <h1 class="hero-title">
+            <span class="l1"><span class="e">Awards &amp;</span></span>
+            <span class="l2"><span class="e">Achievements</span></span>
+          </h1>
+        </div>
+      </section>
+
+      <!-- 2 · the awards -->
+      <section class="awards" aria-label="Awards list">
+
+        <div class="aw-group">
+          <h2 class="aw-group-title rv">Academic</h2>
+          <ul class="aw-list">
+            <li class="rv" style="--d:.05s">
+              <button class="aw-item" type="button" data-award="dean" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="Consistent Dean’s Lister">Consistent Dean’s Lister</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+            <li class="rv" style="--d:.12s">
+              <button class="aw-item" type="button" data-award="stellar" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="Stellar Dominican Champion Award">Stellar Dominican Champion Award</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="aw-group">
+          <h2 class="aw-group-title rv">Competition</h2>
+          <ul class="aw-list">
+            <li class="rv" style="--d:.05s">
+              <button class="aw-item" type="button" data-award="isite" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="iSITE Quiz Bee – 1st Runner-Up">iSITE Quiz Bee – 1st Runner-Up</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="aw-group">
+          <h2 class="aw-group-title rv">Research Conference</h2>
+          <ul class="aw-list">
+            <li class="rv" style="--d:.05s">
+              <button class="aw-item" type="button" data-award="research" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="DLSU-D SHS 3rd Research Conference">DLSU-D SHS 3rd Research Conference</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="aw-group">
+          <h2 class="aw-group-title rv">Scholarship</h2>
+          <ul class="aw-list">
+            <li class="rv" style="--d:.05s">
+              <button class="aw-item" type="button" data-award="dost" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="DOST-SEI Undergraduate S&amp;T Scholarship">DOST-SEI Undergraduate S&amp;T Scholarship</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="aw-group">
+          <h2 class="aw-group-title rv">Certificates of Participation</h2>
+          <ul class="aw-list">
+            <li class="rv" style="--d:.05s">
+              <button class="aw-item" type="button" data-award="ascend" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="ASCEND 2025">ASCEND 2025</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+            <li class="rv" style="--d:.12s">
+              <button class="aw-item" type="button" data-award="dsdap" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="DSDAP">DSDAP</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+            <li class="rv" style="--d:.19s">
+              <button class="aw-item" type="button" data-award="geek" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="JPCS National Geek Speaks 2026">JPCS National Geek Speaks 2026</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+            <li class="rv" style="--d:.26s">
+              <button class="aw-item" type="button" data-award="techtalks" aria-haspopup="dialog">
+                <img class="aw-ico" src="images/butterfly-logo.png" alt="" draggable="false">
+                <span class="aw-label" data-text="PCS MMM-TECHTALKS">PCS MMM-TECHTALKS</span>
+                <svg class="aw-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- 3 · contact (frosted) -->
+      <section class="contact" aria-labelledby="contact-title">
+        <div class="contact-panel">
+          <div class="contact-inner">
+            <h2 class="contact-title rv" id="contact-title">Want to get in touch?</h2>
+            <div class="contact-row rv" style="--d:.1s">
+              <p>Have something in mind? I'm all ears.</p>
+              <a class="contact-btn" href="contact.html">contact me.</a>
+            </div>
+
+            <footer class="foot rv" style="--d:.15s">
+              <nav class="foot-links" aria-label="Social">
+                <a href="https://www.instagram.com/andreiciexo/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://github.com/paul-andrei-cielo/" target="_blank" rel="noopener">Github</a>
+                <a href="https://www.linkedin.com/in/andrei-cielo/" target="_blank" rel="noopener">LinkedIn</a>
+              </nav>
+              <img class="foot-bf" src="images/butterfly-logo.png" alt="" draggable="false">
+              <p class="copy">© <span id="year">2026</span> Paul Andrei Cielo. All rights reserved</p>
+            </footer>
+          </div>
+        </div>
+        <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false">
+      </section>
+    </main>
+
+    <!-- award window (filled by awards.js) -->
+    <div class="aw-modal" id="aw-modal" aria-hidden="true" inert>
+      <div class="aw-backdrop"></div>
+      <button class="aw-close" id="aw-close" type="button" aria-label="Close award window">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+      </button>
+
+      <div class="aw-scroll" id="aw-scroll" tabindex="0" role="dialog" aria-modal="true" aria-labelledby="aw-title">
+        <div class="aw-stage" id="aw-stage">
+          <div class="aw-bf" aria-hidden="true"><img src="images/butterfly-logo.png" alt="" draggable="false"></div>
+
+          <figure class="aw-photo">
+            <div class="aw-photo-in"><img id="aw-img" alt="" draggable="false"></div>
+          </figure>
+
+          <h2 class="aw-name" id="aw-title"><span class="aw-name-in" id="aw-name"></span></h2>
+
+          <div class="aw-details" id="aw-details">
+            <div class="aw-details-in" id="aw-details-in"></div>
+          </div>
+
+          <div class="aw-hint" aria-hidden="true">
+            <span>scroll</span>
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div class="aw-runway" id="aw-runway" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="script.js"></script>
+    <script src="scripts/awards.js"></script>
+  </body>
+</html>

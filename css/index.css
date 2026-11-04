@@ -247,7 +247,7 @@ body.on-profile .butterfly { opacity: 0; transform: scale(.92) translateY(-2%); 
 .avatar-bg, .avatar-photo { grid-area: 1 / 1; position: relative; border-radius: 50%; }
 .avatar-bg {
   z-index: 1;
-  background: rgba(255, 255, 255, .55);               /* transparent white backdrop */
+  background: rgba(255, 255, 255, .25);               /* transparent white backdrop */
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   box-shadow: 0 30px 60px -40px rgba(194, 82, 125, .35);
 }

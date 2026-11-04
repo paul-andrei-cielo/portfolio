@@ -1,0 +1,470 @@
+/* ==========================================================
+   awards.css  —  loads AFTER index.css
+   Same gradient, glass navbar, light serif type and frosted
+   footer panel as the other pages.
+   ========================================================== */
+
+   :root {
+    --about-bg: var(--bg);
+    --wrap: 88.6vw;
+    --line: rgba(255, 255, 255, .72);
+    --serif: "Noto Serif Display", serif;
+    --ink-shadow: 0 2px 26px rgba(170, 70, 115, .22);
+    --text-shadow: 0 1px 14px rgba(160, 70, 110, .28);
+  }
+  
+  html { scroll-snap-type: none; }
+  html.modal-open { overflow: hidden; }
+  
+  /* ---------- backdrop ---------- */
+  body::before { background: var(--about-bg); filter: brightness(.92) saturate(1.15); }
+  body.scrolled::before { filter: brightness(.92) saturate(1.15); }
+  .ambient { opacity: .7 !important; }
+  
+  body .topbar {
+    --nav-bg: rgba(255, 255, 255, .18); --nav-bg-hi: rgba(255, 255, 255, .32); --nav-ink: #fff;
+    --nav-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35), 0 10px 30px -20px rgba(150, 60, 105, .35);
+    --nav-glow: rgba(150, 60, 105, .5);
+  }
+  
+  /* navbar hides on scroll down, returns on scroll up (and while an award window is open) */
+  .topbar { visibility: visible; transition: transform .7s var(--ease), opacity .5s ease; }
+  body.nav-hidden .topbar, body.modal-open .topbar {
+    transform: translateY(calc(-100% - 70px));
+    opacity: 0; pointer-events: none; visibility: hidden;
+    transition: transform .7s var(--ease), opacity .5s ease, visibility 0s .7s;
+  }
+  .pblur-top { height: 130px; transition: height .9s var(--ease), opacity .6s ease; }
+  body.nav-hidden .pblur-top, body.modal-open .pblur-top { opacity: 0; }
+  
+  main { position: relative; z-index: 1; overflow-x: clip; }
+  
+  .hero-title, .aw-group-title, .aw-name, .contact-title, .foot-links {
+    font-family: var(--serif); font-stretch: 62.5%; font-weight: 200;
+    text-shadow: var(--ink-shadow);
+  }
+  
+  /* ==========================================================
+     1 · HERO  —  "Awards & / Achievements" + big butterfly
+     --sp (0 → 1) is the scroll progress, set by awards.js
+     ========================================================== */
+  .hero-stage {
+    --sp: 0;
+    position: relative; height: 100vh; height: 100svh; overflow: hidden;
+  }
+  
+  .hero-bf {
+    position: absolute; right: 2.2vw; top: 3svh; width: min(37vw, 78svh);
+    will-change: transform, opacity, filter;
+    transform: translate3d(calc(var(--sp) * 7vw), calc(var(--sp) * -12svh), 0) rotate(calc(var(--sp) * 14deg));
+    opacity: calc(1 - var(--sp) * 1.15);
+    filter: blur(calc(var(--sp) * 12px));
+  }
+  .bf-in { animation: bloom 2.2s var(--ease) .5s backwards; }
+  .hero-bf img {
+    display: block; width: 100%; height: auto; user-select: none;
+    animation: bf-float 9s ease-in-out infinite, bf-glow 5.5s ease-in-out infinite;
+  }
+  @keyframes bloom {
+    from { opacity: 0; transform: scale(.7) rotate(-12deg); filter: blur(26px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes bf-float {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+    50%      { transform: translate3d(-.7vw, -1.5vw, 0) rotate(2.4deg) scale(1.018); }
+  }
+  @keyframes bf-glow {
+    0%, 100% { filter: drop-shadow(0 0 1.4vw rgba(255, 255, 255, .4)); }
+    50%      { filter: drop-shadow(0 0 3vw rgba(255, 255, 255, .85)); }
+  }
+  
+  .hero-title {
+    position: absolute; left: 4.6vw; bottom: 3.2svh; margin: 0; white-space: nowrap;
+    letter-spacing: -.01em;
+  }
+  .hero-title .l1, .hero-title .l2 { display: block; will-change: transform, opacity; }
+  /* sizes tuned so "Achievements" ends well inside the right edge */
+  .hero-title .l1 {
+    font-size: 13.8vw; line-height: .8; font-style: italic; font-weight: 200;
+    transform: translate3d(calc(var(--sp) * -9vw), 0, 0); opacity: calc(1 - var(--sp) * 1.1);
+  }
+  .hero-title .l2 {
+    font-size: 16.4vw; line-height: .84; font-weight: 300;
+    transform: translate3d(calc(var(--sp) * 9vw), 0, 0); opacity: calc(1 - var(--sp) * 1.1);
+  }
+  .hero-title .e { display: block; animation: line-in 1.8s var(--ease) .35s backwards; }
+  .hero-title .l2 .e { animation-delay: .7s; }
+  @keyframes line-in {
+    from { opacity: 0; transform: translateY(.1em); filter: blur(18px); letter-spacing: .04em; }
+    to   { opacity: 1; transform: none; filter: blur(0); letter-spacing: -.01em; }
+  }
+  
+  /* ==========================================================
+     2 · THE LIST
+     ========================================================== */
+  .awards { padding: 5vw 0 0; }
+  .aw-group { width: 54vw; margin: 0 auto 5.5vw; }
+  
+  .aw-group-title {
+    margin: 0 0 .5vw; font-size: 5.6vw; line-height: 1.05; letter-spacing: -.01em;
+  }
+  /* the list is centered on the page; the category titles stay on the left of the group */
+  .aw-list { list-style: none; margin: 0 auto; padding: 0; width: 44vw; }
+  
+  .aw-item {
+    position: relative; isolation: isolate;
+    display: grid; grid-template-columns: 3.4vw 1fr 3.4vw; align-items: center; column-gap: 1vw;
+    width: 100%; margin: 0; padding: .75vw 0; border: 0; background: none; cursor: pointer;
+    color: #fff; font-family: "Poppins", sans-serif; text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .aw-ico {
+    width: 2.7vw; height: auto; justify-self: start;
+    filter: drop-shadow(0 0 .5vw rgba(255, 255, 255, .55));
+    transition: transform 1.2s var(--ease), filter 1s ease;
+  }
+  
+  /* the label reserves its bold width up front, so the row never shifts when it turns bold */
+  .aw-label {
+    display: inline-grid; justify-items: center;
+    font-size: clamp(1rem, 1.55vw, 1.7rem); font-weight: 300; line-height: 1.25;
+    text-shadow: var(--text-shadow);
+    -webkit-text-stroke: 0 currentColor;   /* thickens smoothly on hover instead of snapping to bold */
+    transition: -webkit-text-stroke-width .9s ease;
+  }
+  .aw-label::after {
+    content: attr(data-text); font-weight: 600; height: 0; overflow: hidden;
+    visibility: hidden; pointer-events: none; user-select: none;
+  }
+  
+  .aw-arrow {
+    width: 2.1vw; height: 2.1vw; justify-self: end; fill: none; stroke: #fff;
+    stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; opacity: .85;
+    transition: transform 1.1s var(--ease), opacity .8s ease;
+  }
+  
+  /* soft wash behind the row */
+  .aw-item::before {
+    content: ""; position: absolute; z-index: -1; inset: 0 -1.4vw; border-radius: 999px;
+    /* frosted glass, same recipe as the tiles on the other pages */
+    background: linear-gradient(180deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, .14));
+    -webkit-backdrop-filter: blur(16px) saturate(1.25); backdrop-filter: blur(16px) saturate(1.25);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .42), inset 0 1px 0 rgba(255, 255, 255, .65), 0 16px 36px -24px rgba(170, 70, 115, .5);
+    opacity: 0; transform: scaleX(.9); transform-origin: left center;
+    transition: opacity .9s ease, transform 1.2s var(--ease); pointer-events: none;
+  }
+  
+  /* hover: the text turns bold (it's clickable) */
+  @media (hover: hover) {
+    .aw-item:hover .aw-label { -webkit-text-stroke-width: .7px; }
+    .aw-item:hover::before { opacity: 1; transform: none; }
+    .aw-item:hover .aw-arrow { transform: translate(.25vw, -.25vw); opacity: 1; }
+    .aw-item:hover .aw-ico { transform: scale(1.07) rotate(-5deg); filter: drop-shadow(0 0 .8vw rgba(255, 255, 255, .8)); }
+  }
+  .aw-item:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 999px; }
+  .aw-item:focus-visible .aw-label { -webkit-text-stroke-width: .7px; }
+  .aw-item:focus-visible::before { opacity: 1; transform: none; }
+  
+  /* ==========================================================
+     AWARD WINDOW
+     p = 0  →  photo centered, name below   (like a certificate)
+     p = 1  →  photo top-right, name top-left, details visible
+     (--p is driven by the scroll position inside the window)
+     ========================================================== */
+  .aw-modal {
+    --text-shadow: 0 1px 10px rgba(110, 35, 80, .5);
+    position: fixed; inset: 0; z-index: 120;
+    visibility: hidden; pointer-events: none; transition: visibility 0s .8s;
+  }
+  .aw-modal.open { visibility: visible; pointer-events: auto; transition-delay: 0s; }
+  
+  /* frosted blur only, no dark dim */
+  .aw-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(255, 255, 255, .06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.15); backdrop-filter: blur(24px) saturate(1.15);
+    opacity: 0; transition: opacity .8s ease;
+  }
+  .aw-modal.open .aw-backdrop { opacity: 1; }
+  
+  .aw-close {
+    position: absolute; z-index: 6;
+    top: clamp(16px, 6svh, 46px); left: clamp(16px, 3.4vw, 46px);
+    display: grid; place-items: center;
+    width: clamp(46px, 4.5vw, 62px); height: clamp(46px, 4.5vw, 62px);
+    padding: 0; border: 0; border-radius: 50%; color: #fff; cursor: pointer;
+    background: rgba(255, 255, 255, .2);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5), 0 12px 30px -16px rgba(120, 50, 85, .12);
+    opacity: 0; transform: scale(.7) rotate(-45deg);
+    transition: opacity .6s ease, transform .9s var(--ease), background .5s ease;
+  }
+  .aw-close svg {
+    width: 44%; height: 44%; fill: none; stroke: currentColor; stroke-width: 2.6;
+    stroke-linecap: round; filter: drop-shadow(0 1px 3px rgba(110, 35, 75, .15));
+  }
+  .aw-modal.open .aw-close { opacity: 1; transform: none; transition-delay: .35s, .35s, 0s; }
+  .aw-close:hover { background: rgba(255, 255, 255, .36); }
+  .aw-modal.open .aw-close:hover { transform: rotate(90deg); transition-delay: 0s; }
+  .aw-close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  
+  .aw-scroll {
+    position: absolute; inset: 0; z-index: 2;
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; outline: none;
+  }
+  .aw-scroll::-webkit-scrollbar { display: none; }
+  .aw-modal.simple .aw-scroll { overflow: hidden; }       /* certificates of participation: no scrolling */
+  .aw-runway { height: 0; }
+  
+  /* closing: everything in the window (details included) fades out quickly instead of lingering over the page */
+  .aw-scroll { opacity: 0; filter: blur(8px); transition: opacity .3s ease, filter .35s ease; }
+  .aw-modal.open .aw-scroll { opacity: 1; filter: blur(0); transition: opacity .4s ease, filter .4s ease; }
+  .aw-modal:not(.open) .aw-close { transition: opacity .25s ease, transform .5s var(--ease), background .5s ease; }
+  
+  /* ---------- stage: everything inside is positioned from --p ---------- */
+  .aw-stage {
+    --p: 0; --ar: 1.7778; --ds: 0; --H: 100svh;
+    --pad: 5.6vw;
+    --k0: 1;   /* photo size factor, set by awards.js so a long title never reaches the scroll hint */
+    --w0: calc(min(53vw, calc(53svh * var(--ar))) * var(--k0));
+    --w1: min(44.4vw, calc(44svh * var(--ar)));
+    --l0: calc((100% - var(--w0)) / 2);
+    --l1: calc(100% - var(--pad) - var(--w1));
+    --t0: 21svh;
+    --t1: 17.7svh;
+    --n0: calc(var(--t0) + var(--w0) / var(--ar) + 3.4svh);
+    --n1: 15.6svh;
+    --nl1: var(--pad);
+    --nh: calc(var(--fs1) * 2.1);   /* fallback (two lines); awards.js replaces it with the measured height */
+    --dt: calc(var(--n1) + var(--nh) + 4svh);
+    --fs0: 5.2vw; --fs1: 6.2vw;
+    position: sticky; top: 0; height: var(--H); overflow: hidden;
+  }
+  .aw-stage[data-len="m"] { --fs0: 4.2vw; --fs1: 5.2vw; }
+  .aw-stage[data-len="l"] { --fs0: 3.3vw; --fs1: 4.2vw; }
+  
+  .aw-photo {
+    position: absolute; margin: 0;
+    width: calc(var(--w0) + (var(--w1) - var(--w0)) * var(--p));
+    left: calc(var(--l0) + (var(--l1) - var(--l0)) * var(--p));
+    top: calc(var(--t0) + (var(--t1) - var(--t0)) * var(--p));
+  }
+  .aw-photo-in {
+    aspect-ratio: var(--ar); overflow: hidden;
+    border-radius: clamp(26px, 4.4vw, 64px);
+    background: rgba(255, 255, 255, .18);
+    box-shadow: 0 50px 80px -46px rgba(70, 15, 50, .6);
+  }
+  .aw-photo-in img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; }
+  .aw-photo-in img:not([src]) { opacity: 0; }
+  
+  .aw-name {
+    position: absolute; margin: 0; width: max-content;
+    max-width: calc(72vw - 30vw * var(--p));
+    left: calc(50% + (var(--nl1) - 50%) * var(--p));
+    transform: translateX(calc(-50% * (1 - var(--p))));
+    top: calc(var(--n0) + (var(--n1) - var(--n0)) * var(--p));
+    font-size: calc(var(--fs0) + (var(--fs1) - var(--fs0)) * var(--p));
+    line-height: 1.04; letter-spacing: -.01em; text-align: center;
+  }
+  .aw-modal.leftalign .aw-name { text-align: left; }
+  
+  .aw-bf {
+    position: absolute; top: 3.8svh; left: 50%; width: 6.4vw;
+    transform: translate3d(-50%, calc(var(--p) * -5svh), 0);
+    opacity: calc(1 - var(--p) * 2);
+  }
+  .aw-bf img {
+    display: block; width: 100%; height: auto; user-select: none;
+    animation: bf-float 8s ease-in-out infinite, bf-glow 5s ease-in-out infinite;
+  }
+  
+  /* details: fade up as the photo moves right; the text scrolls with the window afterwards */
+  .aw-details {
+    position: absolute; left: var(--pad); width: 41vw; top: var(--dt); bottom: 2svh; overflow: hidden;
+    opacity: clamp(0, calc((var(--p) - .9) * 10), 1);   /* appears only once the title has settled at the top, so they never overlap */
+    transform: translateY(calc((1 - var(--p)) * 4svh));
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 2.4svh, #000 calc(100% - 4svh), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 2.4svh, #000 calc(100% - 4svh), transparent 100%);
+    pointer-events: none;
+  }
+  .aw-details-in { transform: translateY(calc(var(--ds) * -1px)); padding: 1.2svh 0 8svh; color: #fff; font-family: "Poppins", sans-serif; text-shadow: var(--text-shadow); }
+  .aw-modal.simple .aw-details, .aw-modal.simple .aw-hint { display: none; }
+  
+  .aw-d-h { margin: 0 0 1.2svh; font-size: clamp(1.1rem, 1.7vw, 1.8rem); font-weight: 500; }
+  .aw-dl { margin: 0; display: grid; gap: 1.6svh; }
+  .aw-dl div { display: grid; gap: .2em; }
+  .aw-dl dt { font-size: clamp(.7rem, .85vw, .9rem); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+  .aw-dl dd { margin: 0; font-size: clamp(.95rem, 1.3vw, 1.4rem); font-weight: 400; line-height: 1.45; }
+  .aw-d-sub { margin: 3svh 0 1svh; font-size: clamp(.7rem, .85vw, .9rem); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+  .aw-d-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .9svh; font-size: clamp(.95rem, 1.3vw, 1.4rem); font-weight: 400; line-height: 1.4; }
+  .aw-d-list li { display: flex; gap: .55em; }
+  .aw-d-list li::before { content: "•"; flex: none; }
+  .aw-d-p { margin: 0 0 1.8svh; font-size: clamp(.95rem, 1.28vw, 1.38rem); font-weight: 400; line-height: 1.6; }
+  
+  .aw-hint {
+    position: absolute; bottom: 3.6svh; left: 50%; transform: translateX(-50%);
+    display: grid; justify-items: center; gap: .3em; color: #fff;
+    font-family: "Poppins", sans-serif; font-size: clamp(.75rem, .95vw, 1rem); font-weight: 400;
+    letter-spacing: .12em; text-transform: uppercase; text-shadow: var(--text-shadow);
+    opacity: calc(1 - var(--p) * 3);
+  }
+  .aw-hint svg {
+    width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    animation: hint-bob 2s ease-in-out infinite;
+  }
+  @keyframes hint-bob { 50% { transform: translateY(5px); } }
+  
+  /* ---------- entrance (inner layers, so the scroll-driven positions stay untouched) ---------- */
+  .aw-photo-in, .aw-name-in, .aw-bf img { opacity: 0; }
+  .aw-name-in { display: inline-block; }
+  .aw-modal.open .aw-photo-in { animation: aw-pop 1.3s var(--ease) .12s both; }
+  .aw-modal.open .aw-name-in { animation: aw-rise 1.2s var(--ease) .5s both; }
+  .aw-modal.open .aw-bf img { opacity: 1; animation: aw-drop 1.2s var(--ease) .3s both, bf-float 8s ease-in-out 1.6s infinite, bf-glow 5s ease-in-out 1.6s infinite; }
+  .aw-modal.open .aw-hint { animation: aw-rise-hint 1s var(--ease) 1.2s backwards; }
+  @keyframes aw-pop  { from { opacity: 0; transform: translateY(26px) scale(.93); filter: blur(18px); } to { opacity: 1; transform: none; filter: blur(0); } }
+  @keyframes aw-rise { from { opacity: 0; transform: translateY(18px); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
+  @keyframes aw-drop { from { opacity: 0; transform: translateY(-18px) scale(.85); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
+  @keyframes aw-rise-hint { from { opacity: 0; } to { opacity: 1; } }
+  
+  /* ==========================================================
+     3 · CONTACT  (frosted panel, same as the other pages)
+     ========================================================== */
+  .contact { position: relative; z-index: 3; margin-top: 4vw; padding-bottom: 0; overflow: hidden; }
+  .contact-panel {
+    position: relative;
+    border: 1.5px solid rgba(255, 255, 255, .7);
+    --r: clamp(36px, 4.6vw, 70px);
+    border-radius: var(--r) var(--r) 0 0;
+    border-bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .12));
+    -webkit-backdrop-filter: blur(26px) saturate(1.2); backdrop-filter: blur(26px) saturate(1.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 -30px 80px -50px rgba(170, 70, 115, .35);
+    padding: 5.6vw 0 12vw;
+  }
+  .contact-inner { width: var(--wrap); margin: 0 auto; }
+  .contact-title { margin: 0; font-size: 12vw; line-height: 1.05; letter-spacing: -.01em; }
+  
+  .contact-row { display: flex; align-items: center; gap: 3.4vw; margin-top: 2.4vw; padding-left: .4vw; }
+  .contact-row p {
+    margin: 0; font-family: "Poppins", sans-serif;
+    font-size: clamp(1.1rem, 2.05vw, 2.2rem); font-weight: 300; color: #fff;
+    text-shadow: 0 1px 14px rgba(160, 70, 110, .25);
+  }
+  .contact-btn {
+    display: inline-grid; place-items: center;
+    height: clamp(48px, 4.5vw, 70px); padding: 0 clamp(36px, 4.6vw, 68px);
+    border-radius: 999px; color: #fff; text-decoration: none; white-space: nowrap;
+    font-family: "Poppins", sans-serif; font-size: clamp(1rem, 1.6vw, 1.7rem); font-weight: 600;
+    background: rgba(255, 255, 255, .1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35), 0 10px 30px -20px rgba(150, 60, 105, .35);
+    transition: background .5s var(--ease), transform .6s var(--ease);
+  }
+  .contact-btn:hover { background: rgba(255, 255, 255, .22); transform: translateY(-2px); }
+  
+  .foot {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    margin-top: 5.7vw; padding-top: 6.4vw; border-top: 1px solid var(--line);
+  }
+  .foot-links { display: flex; gap: 6vw; padding-left: 2.9vw; font-size: clamp(1.1rem, 2.3vw, 2.4rem); }
+  .foot-links a { color: #fff; text-decoration: none; position: relative; }
+  .foot-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: #fff;
+    transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease);
+  }
+  .foot-links a:hover::after, .foot-links a:focus-visible::after { transform: scaleX(1); }
+  .foot-bf {
+    width: clamp(48px, 5.2vw, 84px); height: auto;
+    filter: drop-shadow(0 0 1vw rgba(255, 255, 255, .6));
+    animation: bf-drift 9s ease-in-out infinite;
+  }
+  @keyframes bf-drift {
+    0%, 100% { transform: translateY(0) rotate(0deg); filter: drop-shadow(0 0 .8vw rgba(255, 255, 255, .45)); }
+    50%      { transform: translateY(-.5vw) rotate(3deg); filter: drop-shadow(0 0 1.6vw rgba(255, 255, 255, .85)); }
+  }
+  .copy {
+    margin: 0; justify-self: end; padding-right: 1.5vw; text-align: right;
+    font-family: "Poppins", sans-serif; font-weight: 400; color: #fff;
+    font-size: clamp(.7rem, 1.3vw, 1.2rem); text-transform: uppercase; letter-spacing: .01em;
+  }
+  
+  .wordmark {
+    position: absolute; z-index: 4; left: 50%; bottom: 0;
+    width: 100vw; max-width: none; height: auto;
+    transform: translate(-50%, calc(50% - 4.5vw));
+    pointer-events: none; user-select: none;
+  }
+  
+  /* ---------- scroll reveal (plays once) ---------- */
+  html.js .rv { transition: opacity 1.1s ease var(--d, 0s), transform 1.2s var(--ease) var(--d, 0s), filter 1s ease var(--d, 0s); }
+  html.js .rv:not(.in) { opacity: 0; transform: translateY(18px); filter: blur(10px); }
+  
+  /* category titles slide in from the left while their letters tighten up */
+  html.js .aw-group-title.rv { transition: opacity 1.2s ease, transform 1.5s var(--ease), filter 1.1s ease, letter-spacing 1.8s var(--ease); }
+  html.js .aw-group-title.rv:not(.in) { transform: translateX(-5vw); letter-spacing: .05em; }
+  
+  /* award rows glide in from the right, one after another (--d is set per row in the HTML) */
+  html.js .aw-list .rv:not(.in) { transform: translateX(4vw); }
+  
+  
+  
+  .contact-btn:focus-visible, .foot-links a:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html.js .aw-group-title.rv:not(.in), html.js .aw-list .rv:not(.in) { transform: none; letter-spacing: -.01em; }
+    .bf-in, .hero-bf img, .hero-title .e, .foot-bf, .aw-bf img, .aw-hint svg { animation: none !important; }
+    .aw-modal.open .aw-photo-in, .aw-modal.open .aw-name-in, .aw-modal.open .aw-bf img, .aw-modal.open .aw-hint { animation: none !important; }
+    .aw-modal.open .aw-photo-in, .aw-modal.open .aw-name-in, .aw-modal.open .aw-bf img { opacity: 1; }
+    .aw-ico, .aw-arrow, .aw-item::before, .aw-close, .aw-backdrop { transition-duration: .01ms !important; }
+  }
+  
+  /* ==========================================================
+     responsive
+     ========================================================== */
+  @media (max-width: 900px) {
+    .aw-group { width: 86vw; }
+    .aw-group-title { font-size: 12vw; }
+    .aw-list { margin-left: 0; width: 100%; }
+    .aw-item { grid-template-columns: 10vw 1fr 10vw; column-gap: 3vw; padding: 2.6vw 0; }
+    .aw-ico { width: 8vw; }
+    .aw-label { font-size: 1.05rem; }
+    .aw-arrow { width: 6vw; height: 6vw; }
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 4vw; }
+  }
+  
+  /* phones: photo on top, name and details underneath once you scroll */
+  @media (max-width: 800px) {
+    .aw-stage {
+      --pad: 6vw;
+      --w0: calc(min(88vw, calc(38svh * var(--ar))) * var(--k0));
+      --w1: min(68vw, calc(26svh * var(--ar)));
+      --l1: calc((100% - var(--w1)) / 2);
+      --t0: 20svh;
+      --t1: 11svh;
+      --n0: calc(var(--t0) + var(--w0) / var(--ar) + 3svh);
+      --n1: calc(var(--t1) + var(--w1) / var(--ar) + 2.6svh);
+      --dt: calc(var(--n1) + var(--nh) + 3svh);
+      --fs0: 9vw; --fs1: 9vw;
+    }
+    .aw-stage[data-len="m"] { --fs0: 7.4vw; --fs1: 7.4vw; }
+    .aw-stage[data-len="l"] { --fs0: 5.8vw; --fs1: 5.8vw; }
+    .aw-name { max-width: calc(88vw - 0vw * var(--p)); }
+    .aw-bf { width: 14vw; top: 5svh; }
+    .aw-details { width: 88vw; }
+    .aw-dl dd, .aw-d-list, .aw-d-p { font-size: .95rem; }
+    .aw-d-h { font-size: 1.1rem; }
+    .aw-close { top: 3vw; left: 3vw; }
+  }
+  
+  @media (max-width: 700px) {
+    :root { --wrap: 92vw; }
+    .awards { padding-top: 12vw; }
+    .contact { margin-top: 8vw; }
+    .contact-panel { padding: 12vw 0 22vw; }
+    .contact-title { font-size: 17vw; }
+    .contact-row p { font-size: 1.15rem; }
+    .foot { grid-template-columns: 1fr; gap: 6vw; justify-items: center; margin-top: 10vw; padding-top: 8vw; }
+    .foot-links { padding-left: 0; gap: 9vw; font-size: 1.3rem; }
+    .copy { justify-self: center; text-align: center; padding-right: 0; font-size: .7rem; }
+    .wordmark { bottom: -5vw; }
+    .hero-bf { width: 62vw; top: 9svh; right: -6vw; }
+  }
