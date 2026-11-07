@@ -16,10 +16,12 @@
 
   /* ---------- the awards ----------
      kind: 'detail'  → photo centered first; scrolling moves it to the top right and shows details
-           'simple'  → photo centered, name below, nothing to scroll (certificates of participation) */
+           'simple'  → photo centered, name below, nothing to scroll (certificates of participation)
+     photo:  one file name
+     photos: several file names, shown side by side in the same frame (e.g. two vertical photos) */
   const AWARDS = {
     dean: {
-      kind: 'detail', photo: FALLBACK,
+      kind: 'detail', photos: ['deans-lister-1.jpg', 'deans-lister-2.jpg'],
       title: 'Consistent Dean’s Lister',
       details: [
         { dl: [['Institution', 'St. Dominic College of Asia'], ['Program', 'Bachelor of Science in Information Technology']] },
@@ -48,7 +50,7 @@
       ]
     },
     dost: {
-      kind: 'detail', photo: FALLBACK,
+      kind: 'detail', photo: null,   // no photo: the window opens straight on the details
       title: '2023 DOST-SEI Undergraduate S&T Scholarship Program',
       details: [
         { p: 'One of my proudest achievements is being named one of the qualifiers for the 2023 DOST-SEI Undergraduate S&T Scholarship Program. Out of more than 70,000 aspiring scholars, I was fortunate to be among the 9,776 qualifiers in 2023. Being a DOST-SEI scholar has helped me pursue my college education and motivated me to strive for excellence in the field I have chosen.' },
@@ -60,6 +62,8 @@
     geek:      { kind: 'simple', photo: 'GeekSpeaks.jpg', title: 'JPCS National Geek Speaks 2026' },
     techtalks: { kind: 'simple', photo: 'TechTalks.jpg',  title: 'PCS MMM-TECHTALKS' }
   };
+  const photoFiles = (a) => a.photos || (a.photo ? [a.photo] : []);
+  const noPhoto = (a) => photoFiles(a).length === 0;
 
   /* ---------- 1 · navbar button: hides on scroll down, returns on scroll up ---------- */
   let lastY = window.scrollY;
@@ -79,6 +83,21 @@
     const sp = clamp(window.scrollY / (window.innerHeight * 0.8), 0, 1);
     heroStage.style.setProperty('--sp', sp.toFixed(3));
   };
+
+  /* hero title: it stays hidden until the web font is loaded, then the entrance plays once.
+     (before, it started in the fallback font and visibly jumped wider when the real font swapped in) */
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    let shown = false;
+    const showTitle = () => { if (shown) return; shown = true; heroTitle.classList.add('ready'); };
+    if (document.fonts && document.fonts.load) {
+      Promise.all([
+        document.fonts.load('italic 200 1em "Noto Serif Display"'),   // "Awards &"
+        document.fonts.load('300 1em "Noto Serif Display"')           // "Achievements"
+      ]).then(showTitle, showTitle);
+    }
+    setTimeout(showTitle, 1500);   // never keep the title hidden if the font is slow or blocked
+  }
 
   /* ---------- 3 · soft reveal ---------- */
   const targets = document.querySelectorAll('.rv');
@@ -124,6 +143,8 @@
     }
     return photoCache[file];
   };
+  // all the photos of one award, in order
+  const getPhotos = (a) => Promise.all(photoFiles(a).map(getPhoto));
 
   /* ---------- 5 · award window ---------- */
   const modal = document.getElementById('aw-modal');
@@ -132,6 +153,7 @@
   const stage = document.getElementById('aw-stage');
   const runway = document.getElementById('aw-runway');
   const imgEl = document.getElementById('aw-img');
+  const photoWrap = imgEl.parentElement;
   const nameEl = document.getElementById('aw-name');
   const detailsClip = document.getElementById('aw-details');
   const detailsIn = document.getElementById('aw-details-in');
@@ -140,10 +162,10 @@
   // only fetch a photo when a finger / pointer touches its row, so the page doesn't download every photo up front
   const phone = window.matchMedia('(max-width: 800px)').matches;
   const saveData = !!(navigator.connection && navigator.connection.saveData);
-  if (!phone && !saveData) Object.values(AWARDS).forEach(a => getPhoto(a.photo));
+  if (!phone && !saveData) Object.values(AWARDS).forEach(a => photoFiles(a).forEach(getPhoto));
   document.querySelectorAll('.aw-item[data-award]').forEach(btn => {
     ['pointerdown', 'pointerenter', 'focus'].forEach(type => {
-      btn.addEventListener(type, () => { const a = AWARDS[btn.dataset.award]; if (a) getPhoto(a.photo); }, { passive: true, once: true });
+      btn.addEventListener(type, () => { const a = AWARDS[btn.dataset.award]; if (a) photoFiles(a).forEach(getPhoto); }, { passive: true, once: true });
     });
   });
 
@@ -199,12 +221,13 @@
     const limit = mobile
       ? closeBtn.offsetTop - (current.kind === 'detail' ? 60 : 16)
       : (current.kind === 'detail' ? H - (H * 0.036 + 64) : H * 0.95);
-    const k0 = clamp((limit - t0 - gap - measureName(0)) / h0, 0.5, 1);
+    const k0 = noPhoto(current) ? 1 : clamp((limit - t0 - gap - measureName(0)) / h0, 0.5, 1);
     stage.style.setProperty('--k0', k0.toFixed(3));
 
     if (current.kind !== 'detail') { runway.style.height = '0px'; travel = 1; hold = 0; updateProgress(); return; }
-    travel = Math.round(H * 0.55);
-    hold = Math.round(H * 0.12);
+    // no photo: nothing has to travel, the whole scroll is for reading the details
+    travel = noPhoto(current) ? 1 : Math.round(H * 0.55);
+    hold = noPhoto(current) ? 0 : Math.round(H * 0.12);
     const extra = Math.max(0, detailsIn.scrollHeight - detailsClip.clientHeight + 24);
     runway.style.height = (travel + hold + extra) + 'px';
     updateProgress();
@@ -214,8 +237,9 @@
     if (!current) return;
     const simple = current.kind !== 'detail';
     const st = simple ? 0 : scroller.scrollTop;
-    const p = simple ? 0 : clamp(st / travel, 0, 1);
-    const ds = simple ? 0 : Math.max(0, st - travel - hold);
+    const flat = !simple && noPhoto(current);      // no photo: already in the "settled" layout
+    const p = simple ? 0 : flat ? 1 : clamp(st / travel, 0, 1);
+    const ds = simple ? 0 : flat ? st : Math.max(0, st - travel - hold);
     stage.style.setProperty('--p', p.toFixed(4));
     stage.style.setProperty('--ds', ds.toFixed(1));
     modal.classList.toggle('leftalign', p > 0.5);
@@ -225,11 +249,40 @@
   // the title's height depends on the web font, so measure again once it has loaded
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 
-  const setPhoto = (info) => {
-    if (!info) { imgEl.removeAttribute('src'); return; }
-    const ar = clamp(info.w / info.h, 0.8, 2.2);
-    stage.style.setProperty('--ar', ar.toFixed(4));
-    imgEl.src = info.url;
+  // empties the photo frame (and removes the extra <img>s of a multi-photo award)
+  const clearPhotos = () => {
+    photoWrap.querySelectorAll('.aw-extra').forEach(n => n.remove());
+    photoWrap.classList.remove('multi');
+    imgEl.style.flex = '';
+    imgEl.removeAttribute('src');
+  };
+
+  // one photo fills the frame; several photos sit side by side, and the frame takes
+  // the combined aspect ratio (the 3% matches the gap set in the CSS)
+  const setPhotos = (list) => {
+    clearPhotos();
+    list = (list || []).filter(Boolean);
+    if (!list.length) return;
+    if (list.length === 1) {
+      const info = list[0];
+      stage.style.setProperty('--ar', clamp(info.w / info.h, 0.8, 2.2).toFixed(4));
+      imgEl.src = info.url;
+      return;
+    }
+    const ars = list.map(i => i.w / i.h);
+    const sum = ars.reduce((s, v) => s + v, 0);
+    stage.style.setProperty('--ar', clamp(sum / 0.97, 0.8, 2.6).toFixed(4));
+    photoWrap.classList.add('multi');
+    imgEl.style.flex = `${ars[0].toFixed(4)} 1 0`;
+    imgEl.src = list[0].url;
+    list.slice(1).forEach((info, i) => {
+      const im = new Image();
+      im.className = 'aw-extra';
+      im.alt = ''; im.draggable = false; im.decoding = 'async';
+      im.style.flex = `${ars[i + 1].toFixed(4)} 1 0`;
+      im.src = info.url;
+      photoWrap.appendChild(im);
+    });
   };
 
   const openAward = async (id, trigger) => {
@@ -240,19 +293,20 @@
     lastTrigger = trigger || null;
     const token = ++openToken;
 
-    // get the photo first (usually already cached) so the layout is right when the window appears
-    const info = await Promise.race([getPhoto(a.photo), new Promise(r => setTimeout(() => r(undefined), 900))]);
+    // get the photos first (usually already cached) so the layout is right when the window appears
+    const infos = await Promise.race([getPhotos(a), new Promise(r => setTimeout(() => r(undefined), 900))]);
     if (token !== openToken) return;
-    if (info !== undefined) setPhoto(info);
-    else getPhoto(a.photo).then(i => { if (token === openToken) { setPhoto(i); layout(); } });
+    if (infos !== undefined) setPhotos(infos);
+    else getPhotos(a).then(list => { if (token === openToken) { setPhotos(list); layout(); } });
 
     nameEl.textContent = a.title;
     stage.dataset.len = a.title.length > 44 ? 'l' : a.title.length > 26 ? 'm' : 's';
     modal.classList.toggle('simple', a.kind !== 'detail');
+    modal.classList.toggle('nophoto', a.kind === 'detail' && noPhoto(a));
     modal.classList.remove('leftalign');
     renderDetails(a);
     scroller.scrollTop = 0;
-    stage.style.setProperty('--p', '0');
+    stage.style.setProperty('--p', a.kind === 'detail' && noPhoto(a) ? '1' : '0');
     stage.style.setProperty('--ds', '0');
 
     modal.removeAttribute('inert');
@@ -276,7 +330,7 @@
     html.classList.remove('modal-open');
     body.classList.remove('modal-open');
     if (lastTrigger) lastTrigger.focus({ preventScroll: true });
-    resetTimer = setTimeout(() => { current = null; imgEl.removeAttribute('src'); }, 900);
+    resetTimer = setTimeout(() => { current = null; clearPhotos(); }, 900);
   };
 
   document.querySelectorAll('.aw-item[data-award]').forEach(btn => {

@@ -98,7 +98,12 @@
           </div>
 
           <article class="org">
-            <h3 class="org-name rv">SDCA - Domini Xode</h3>
+            <h3 class="org-name rv">
+              <button class="org-link" type="button" data-cert="domini" aria-haspopup="dialog">
+                <span>SDCA - Domini Xode</span>
+                <svg class="org-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </h3>
             <div class="row rv">
               <div class="role"><b>President</b><span>A.Y. 2025–2026</span></div>
               <p>Domini Xode is the official BSIT student organization of St. Dominic College of Asia. As president, I led activities such as IT Week and Digital Campus Week, along with IT-related seminars and orientations that helped students expand their knowledge beyond the classroom.</p>
@@ -110,7 +115,12 @@
           </article>
 
           <article class="org">
-            <h3 class="org-name rv">JPCS – SDCA Chapter</h3>
+            <h3 class="org-name rv">
+              <button class="org-link" type="button" data-cert="jpcs" aria-haspopup="dialog">
+                <span>JPCS – SDCA Chapter</span>
+                <svg class="org-arrow" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33 33 7M14 7h19v19"/></svg>
+              </button>
+            </h3>
             <div class="row rv">
               <div class="role"><b>President</b><span>A.Y. 2025–2026</span></div>
               <p>Alongside leading Domini Xode, I also served as president of the Junior Philippine Computer Society (JPCS) – SDCA Chapter. During my term, we collaborated with other chapters, including UPHSD–Las Piñas, for their Gold Rush event and organized IT-related seminars to help members expand their knowledge and stay updated on industry developments.</p>
@@ -144,6 +154,26 @@
         <img class="wordmark" src="images/portfolio-logo.png" alt="" aria-hidden="true" draggable="false" decoding="async" loading="lazy">
       </section>
     </main>
+
+    <!-- certificate window (filled by about.js) -->
+    <div class="aw-modal" id="aw-modal" aria-hidden="true" inert>
+      <div class="aw-backdrop"></div>
+      <button class="aw-close" id="aw-close" type="button" aria-label="Close certificate window">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+      </button>
+
+      <div class="aw-scroll" id="aw-scroll" role="dialog" aria-modal="true" aria-labelledby="aw-title">
+        <div class="aw-stage" id="aw-stage">
+          <div class="aw-bf" aria-hidden="true"><img src="images/butterfly-logo.png" alt="" draggable="false" decoding="async"></div>
+
+          <figure class="aw-photo">
+            <div class="aw-photo-in"><img id="aw-img" alt="" draggable="false" decoding="async"></div>
+          </figure>
+
+          <h2 class="aw-name" id="aw-title"><span class="aw-name-in" id="aw-name"></span></h2>
+        </div>
+      </div>
+    </div>
 
     <!-- defer keeps the order (anime.js → script.js → about.js) and runs them before DOMContentLoaded -->
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>

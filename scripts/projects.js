@@ -24,7 +24,7 @@
   const PROJECTS = {
     capstone: {
       folder: 'Capstone',
-      photos: [6, 7, 8, 9, 10, 11, 12].map(n => `projects/Capstone/${n}.png`),
+      photos: [6, 7, 8, 9, 10, 11, 12, 13, 14].map(n => `projects/Capstone/${n}.png`),
       kicker: 'Capstone Project',
       name: 'PadaLock',
       subtitle: 'An IoT-Based Intelligent Residential Delivery and Return Parcel Locker with Multi-Step Authentication and Surveillance',
@@ -47,7 +47,7 @@
     },
     iot: {
       folder: 'IoT',
-      photos: [1, 2, 3, 4, 5].map(n => `projects/IoT/${n}.png`),
+      photos: [15, 1, 2, 3, 4, 5].map(n => `projects/IoT/${n}.png`),
       kicker: 'IoT Project',
       name: '',
       subtitle: 'An IoT-Based Parcel Collection System for Secure Home Deliveries',
@@ -261,23 +261,144 @@
     textEl.scrollTop = 0;
   };
 
-  const resetTrack = () => {
-    track.classList.remove('run');
-    track.style.animation = 'none';
-    track.innerHTML = '';
-    void track.offsetWidth;
-    track.style.animation = '';
-    track.style.removeProperty('--dur');
+  /* --- gallery: auto-drift + manual scroll --- */
+  const gal = { raf: 0, last: 0, pos: 0, set: 0, loop: 0, speed: 36, horiz: false,
+                hold: 0, touching: false, hover: false, drag: null, moved: false, lb: false };
+  let galUrls = [];
+  const galKey = () => (gal.horiz ? 'scrollLeft' : 'scrollTop');
+  const holdGal = (ms = 1400) => { gal.hold = performance.now() + ms; };
+  const stopGal = () => { cancelAnimationFrame(gal.raf); gal.raf = 0; };
+
+  const stepGal = (t) => {
+    const dt = Math.min(64, t - gal.last) / 1000;
+    gal.last = t;
+    const key = galKey();
+    // if the scroll position isn't where we left it, the person moved it
+    if (Math.abs(galEl[key] - gal.set) > 1.5) { gal.pos = galEl[key]; holdGal(); }
+    const paused = gal.touching || gal.hover || gal.drag || gal.lb || t < gal.hold;
+    if (!paused) gal.pos += gal.speed * dt;
+    // 3 copies of the set: jump by exactly one loop when near an edge (invisible)
+    if (gal.pos > gal.loop * 2.5)      { gal.pos -= gal.loop; if (gal.drag) gal.drag.from -= gal.loop; }
+    else if (gal.pos < gal.loop * .5)  { gal.pos += gal.loop; if (gal.drag) gal.drag.from += gal.loop; }
+    if (Math.abs(galEl[key] - gal.pos) > .01) galEl[key] = gal.pos;
+    gal.set = galEl[key];
+    gal.raf = requestAnimationFrame(stepGal);
+  };
+  const startGal = (loop, horiz, speed) => {
+    stopGal();
+    Object.assign(gal, { loop, horiz, speed, pos: loop, hold: 0 });
+    galEl[galKey()] = loop;
+    gal.set = galEl[galKey()];
+    gal.last = performance.now();
+    gal.raf = requestAnimationFrame(stepGal);
   };
 
-  const card = (src) => {
-    const c = document.createElement('div');
+  const resetTrack = () => {
+    stopGal();
+    track.innerHTML = '';
+    galEl.scrollTop = 0; galEl.scrollLeft = 0;
+  };
+
+  const card = (src, i) => {
+    const c = document.createElement('button');
+    c.type = 'button';
     c.className = 'gal-card';
+    c.dataset.i = i;
+    c.tabIndex = -1;
+    c.setAttribute('aria-label', `View photo ${i + 1}`);
     const im = new Image();
     im.src = src; im.alt = ''; im.decoding = 'async'; im.draggable = false;
     c.appendChild(im);
     return c;
   };
+
+  /* --- photo viewer --- */
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCount = document.getElementById('lb-count');
+  const lbClose = document.getElementById('lb-close');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
+  let lbIdx = 0;
+
+  const showLb = (i) => {
+    const n = galUrls.length;
+    if (!n) return;
+    lbIdx = (i + n) % n;
+    lbImg.src = galUrls[lbIdx];
+    lbCount.textContent = `${lbIdx + 1} / ${n}`;
+    lbPrev.hidden = lbNext.hidden = n < 2;
+  };
+  const stepLb = (d) => showLb(lbIdx + d);
+  const openLb = (i) => {
+    showLb(i);
+    gal.lb = true;
+    lightbox.removeAttribute('inert');
+    lightbox.setAttribute('aria-hidden', 'false');
+    lightbox.classList.add('open');
+    lbClose.focus({ preventScroll: true });
+  };
+  const closeLb = (silent) => {
+    if (!lightbox.classList.contains('open')) return;
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightbox.setAttribute('inert', '');
+    gal.lb = false;
+    if (!silent) closeBtn.focus({ preventScroll: true });
+  };
+  lbClose.addEventListener('click', () => closeLb());
+  lbPrev.addEventListener('click', () => stepLb(-1));
+  lbNext.addEventListener('click', () => stepLb(1));
+  lightbox.addEventListener('click', (e) => { if (!e.target.closest('.lb-btn, #lb-img')) closeLb(); });
+  let swipeX = 0;
+  lightbox.addEventListener('touchstart', (e) => { swipeX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - swipeX;
+    if (Math.abs(dx) > 50) stepLb(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  /* --- gallery input: wheel / touch / mouse drag / click --- */
+  galEl.addEventListener('wheel', (e) => {
+    holdGal();
+    if (gal.horiz && Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); galEl.scrollLeft += e.deltaY; }
+  }, { passive: false });
+  galEl.addEventListener('touchstart', () => { gal.touching = true; }, { passive: true });
+  const touchEnd = () => { gal.touching = false; holdGal(); };
+  galEl.addEventListener('touchend', touchEnd, { passive: true });
+  galEl.addEventListener('touchcancel', touchEnd, { passive: true });
+  galEl.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') gal.hover = true; });
+  galEl.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { gal.hover = false; holdGal(600); } });
+
+  galEl.addEventListener('pointerdown', (e) => {
+    gal.moved = false;
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    gal.drag = { x: e.clientX, y: e.clientY, from: galEl[galKey()], id: e.pointerId };
+  });
+  galEl.addEventListener('pointermove', (e) => {
+    const d = gal.drag;
+    if (!d) return;
+    const delta = gal.horiz ? e.clientX - d.x : e.clientY - d.y;
+    if (!gal.moved) {
+      if (Math.abs(delta) < 5) return;
+      gal.moved = true;
+      galEl.setPointerCapture(d.id);
+      galEl.classList.add('dragging');
+    }
+    galEl[galKey()] = d.from - delta;
+  });
+  const endDrag = () => {
+    if (!gal.drag) return;
+    gal.drag = null;
+    galEl.classList.remove('dragging');
+    holdGal();
+  };
+  galEl.addEventListener('pointerup', endDrag);
+  galEl.addEventListener('pointercancel', endDrag);
+  galEl.addEventListener('click', (e) => {
+    if (gal.moved) { gal.moved = false; return; }      // that was a drag, not a click
+    const c = e.target.closest('.gal-card[data-i]');
+    if (c) openLb(+c.dataset.i);
+  });
 
   const buildGallery = async (key, token) => {
     // placeholders while the photos are found
@@ -292,25 +413,22 @@
 
     resetTrack();
     if (!urls.length) { modal.classList.add('no-gal'); return; }
-    urls.forEach(u => track.appendChild(card(u)));
-    if (reduce) return;
+    galUrls = urls;
+    urls.forEach((u, i) => track.appendChild(card(u, i)));
+    if (reduce) return;                      // reduced motion: scrollable + clickable, no auto-drift
 
-    // repeat the set until it fills the window, then duplicate it once for a seamless loop
+    // measure one set, repeat it until it's ~2.2x the window, then use 3 copies for the endless loop
     const horiz = window.matchMedia('(max-width: 800px)').matches;
     const cs = getComputedStyle(track);
     const gap = parseFloat(horiz ? cs.columnGap : cs.rowGap) || 0;
     const setLen = horiz ? track.offsetWidth : track.offsetHeight;
     const viewLen = horiz ? galEl.clientWidth : galEl.clientHeight;
     const unit = setLen + gap;
-    const reps = clamp(Math.ceil((viewLen * 1.1) / unit), 1, 8);
+    const reps = clamp(Math.ceil((viewLen * 2.2) / unit), 1, 8);
 
     resetTrack();
-    const list = Array.from({ length: reps }, () => urls).flat();
-    [...list, ...list].forEach(u => track.appendChild(card(u)));
-    // slower on phones (the photos are read there), normal speed on the vertical desktop band
-    const speed = horiz ? 24 : 36;   // px per second
-    track.style.setProperty('--dur', Math.max(16, (unit * reps) / speed).toFixed(1) + 's');
-    requestAnimationFrame(() => track.classList.add('run'));
+    for (let c = 0; c < 3 * reps; c++) urls.forEach((u, i) => track.appendChild(card(u, i)));
+    startGal(unit * reps, horiz, horiz ? 24 : 36);   // px per second (desktop / phone)
   };
 
   const openProject = (key, trigger) => {
@@ -353,6 +471,7 @@
   const closeProject = () => {
     if (!modal.classList.contains('open')) return;
     openToken++;
+    closeLb(true);
 
     const src = lastTrigger;
     if (!reduce && src && panel.animate) {
@@ -385,11 +504,23 @@
   });
   closeBtn.addEventListener('click', closeProject);
   modal.addEventListener('click', (e) => {
-    if (e.target.closest('.modal-panel') || e.target.closest('.modal-close')) return;
+    if (e.target.closest('.modal-panel') || e.target.closest('.modal-close') || e.target.closest('.lightbox')) return;
     closeProject();
   });
   document.addEventListener('keydown', (e) => {
     if (!modal.classList.contains('open')) return;
+    if (lightbox.classList.contains('open')) {       // the photo viewer has priority
+      if (e.key === 'Escape') { e.preventDefault(); closeLb(); }
+      else if (e.key === 'ArrowLeft')  { e.preventDefault(); stepLb(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); stepLb(1); }
+      else if (e.key === 'Tab') {
+        const f = [lbClose, lbPrev, lbNext].filter(b => !b.hidden);
+        const i = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+      return;
+    }
     if (e.key === 'Escape') { e.preventDefault(); closeProject(); return; }
     if (e.key === 'Tab') {                       // keep focus inside the window
       const f = [closeBtn, textEl];

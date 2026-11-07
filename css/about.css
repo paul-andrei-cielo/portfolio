@@ -399,3 +399,159 @@
     .bf-img { animation: none; }
     html.js .row .role, html.js .row p, html.js .row::before { transition-delay: 0s !important; }
   }
+
+  /* ==========================================================
+   CLICKABLE ORG NAMES  +  CERTIFICATE WINDOW
+   (same look as the award window on the awards page)
+   ========================================================== */
+html.modal-open { overflow: hidden; }
+
+/* navbar steps aside while the window is open */
+body.modal-open .topbar {
+  transform: translateY(calc(-100% - 70px));
+  opacity: 0; pointer-events: none; visibility: hidden;
+  transition: transform .7s var(--ease), opacity .5s ease, visibility 0s .7s;
+}
+body.modal-open .pblur-top { opacity: 0; }
+
+/* ---------- the org names become buttons ---------- */
+.org-link {
+  display: inline-flex; align-items: center; gap: .16em;
+  margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+  color: inherit; font: inherit; letter-spacing: inherit; text-shadow: inherit; text-align: left;
+  -webkit-text-stroke: 0 currentColor;     /* thickens smoothly on hover */
+  transition: -webkit-text-stroke-width .9s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.org-arrow {
+  flex: none; width: .42em; height: .42em; margin-top: .08em;
+  fill: none; stroke: #fff; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round;
+  opacity: .85; transition: transform 1.1s var(--ease), opacity .8s ease;
+}
+@media (hover: hover) {
+  .org-link:hover { -webkit-text-stroke-width: 1.2px; }
+  .org-link:hover .org-arrow { transform: translate(.06em, -.06em); opacity: 1; }
+}
+.org-link:focus-visible { outline: 3px solid #fff; outline-offset: 6px; border-radius: 14px; }
+.org-link:focus-visible .org-arrow { opacity: 1; }
+
+/* ---------- certificate window ---------- */
+.aw-modal {
+  --text-shadow: 0 1px 10px rgba(110, 35, 80, .5);
+  position: fixed; inset: 0; z-index: 120;
+  visibility: hidden; pointer-events: none; transition: visibility 0s .8s;
+}
+.aw-modal.open { visibility: visible; pointer-events: auto; transition-delay: 0s; }
+
+/* frosted blur only, no dark dim */
+.aw-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(255, 255, 255, .06);
+  -webkit-backdrop-filter: blur(24px) saturate(1.15); backdrop-filter: blur(24px) saturate(1.15);
+  opacity: 0; transition: opacity .8s ease;
+}
+.aw-modal.open .aw-backdrop { opacity: 1; }
+
+.aw-close {
+  position: absolute; z-index: 6;
+  top: clamp(16px, 6svh, 46px); left: clamp(16px, 3.4vw, 46px);
+  display: grid; place-items: center;
+  width: clamp(46px, 4.5vw, 62px); height: clamp(46px, 4.5vw, 62px);
+  padding: 0; border: 0; border-radius: 50%; color: #fff; cursor: pointer;
+  background: rgba(255, 255, 255, .2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5), 0 12px 30px -16px rgba(120, 50, 85, .12);
+  opacity: 0; transform: scale(.7) rotate(-45deg);
+  transition: opacity .6s ease, transform .9s var(--ease), background .5s ease;
+}
+.aw-close svg {
+  width: 44%; height: 44%; fill: none; stroke: currentColor; stroke-width: 2.6;
+  stroke-linecap: round; filter: drop-shadow(0 1px 3px rgba(110, 35, 75, .15));
+}
+.aw-modal.open .aw-close { opacity: 1; transform: none; transition-delay: .35s, .35s, 0s; }
+.aw-close:hover { background: rgba(255, 255, 255, .36); }
+.aw-modal.open .aw-close:hover { transform: rotate(90deg); transition-delay: 0s; }
+.aw-close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.aw-modal:not(.open) .aw-close { transition: opacity .25s ease, transform .5s var(--ease), background .5s ease; }
+
+.aw-scroll {
+  position: absolute; inset: 0; z-index: 2; overflow: hidden; outline: none;
+  opacity: 0; filter: blur(8px); transition: opacity .3s ease, filter .35s ease;
+}
+.aw-modal.open .aw-scroll { opacity: 1; filter: blur(0); transition: opacity .4s ease, filter .4s ease; }
+
+/* stage: photo centered, name below it */
+.aw-stage {
+  --ar: 1.7778; --H: 100svh; --k0: 1;        /* --k0 is set by about.js so a long title never reaches the bottom edge */
+  --w0: calc(min(53vw, calc(53svh * var(--ar))) * var(--k0));
+  --t0: 21svh;
+  --fs0: 5.2vw;
+  position: relative; height: var(--H); overflow: hidden;
+}
+.aw-stage[data-len="m"] { --fs0: 4.2vw; }
+.aw-stage[data-len="l"] { --fs0: 3.3vw; }
+
+.aw-photo {
+  position: absolute; margin: 0;
+  width: var(--w0); left: calc((100% - var(--w0)) / 2); top: var(--t0);
+}
+.aw-photo-in {
+  aspect-ratio: var(--ar); overflow: hidden;
+  border-radius: clamp(26px, 4.4vw, 64px);
+  background: rgba(255, 255, 255, .18);
+  box-shadow: 0 50px 80px -46px rgba(70, 15, 50, .6);
+}
+.aw-photo-in img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; }
+.aw-photo-in img:not([src]) { opacity: 0; }
+
+.aw-name {
+  position: absolute; margin: 0; width: max-content; max-width: 72vw;
+  left: 50%; transform: translateX(-50%);
+  top: calc(var(--t0) + var(--w0) / var(--ar) + 3.4svh);
+  font-family: var(--serif); font-stretch: 62.5%; font-weight: 200; text-shadow: var(--ink-shadow);
+  font-size: var(--fs0); line-height: 1.04; letter-spacing: -.01em; text-align: center;
+}
+
+.aw-bf { position: absolute; top: 3.8svh; left: 50%; width: 6.4vw; transform: translate3d(-50%, 0, 0); }
+.aw-bf img { display: block; width: 100%; height: auto; user-select: none; }
+
+/* entrance (inner layers, so the positions above stay untouched) */
+.aw-photo-in, .aw-name-in, .aw-bf img { opacity: 0; }
+.aw-name-in { display: inline-block; }
+.aw-modal.open .aw-photo-in { animation: aw-pop 1.3s var(--ease) .12s both; }
+.aw-modal.open .aw-name-in { animation: aw-rise 1.2s var(--ease) .5s both; }
+.aw-modal.open .aw-bf img { opacity: 1; animation: aw-drop 1.2s var(--ease) .3s both, bf-float 8s ease-in-out 1.6s infinite, bf-glow 5s ease-in-out 1.6s infinite; }
+@keyframes aw-pop  { from { opacity: 0; transform: translateY(26px) scale(.93); filter: blur(18px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes aw-rise { from { opacity: 0; transform: translateY(18px); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes aw-drop { from { opacity: 0; transform: translateY(-18px) scale(.85); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .aw-modal.open .aw-photo-in, .aw-modal.open .aw-name-in, .aw-modal.open .aw-bf img { animation: none !important; opacity: 1; }
+  .org-arrow, .aw-close, .aw-backdrop { transition-duration: .01ms !important; }
+}
+
+/* phones: butterfly on top, a big photo centered, the name under it, round close button at the bottom */
+@media (max-width: 800px) {
+  .aw-modal {
+    --close-b: max(10vw, calc(env(safe-area-inset-bottom, 0px) + 16px));
+    --close-s: max(40px, 10.6vw);
+  }
+  .aw-backdrop { -webkit-backdrop-filter: blur(18px) saturate(1.15); backdrop-filter: blur(18px) saturate(1.15); }
+  .aw-stage {
+    --w0: calc(min(80vw, calc(38svh * var(--ar))) * var(--k0));
+    --t0: 38.7svh;
+    --fs0: 11.7vw;
+  }
+  .aw-stage[data-len="m"] { --fs0: 9.6vw; }
+  .aw-stage[data-len="l"] { --fs0: 7.5vw; }
+  .aw-name { top: calc(var(--t0) + var(--w0) / var(--ar) + 4svh); max-width: 88vw; }
+  .aw-bf { width: 17vw; top: 15.4svh; }
+  .aw-close {
+    top: auto; left: 0; right: 0; margin-inline: auto;
+    bottom: var(--close-b); width: var(--close-s); height: var(--close-s);
+    background: rgba(255, 255, 255, .38);
+  }
+}
+@media (max-width: 700px) {
+  /* the navbar is at the bottom on phones, so it hides downward */
+  body.modal-open .topbar { transform: translateY(calc(100% + 70px)); }
+}

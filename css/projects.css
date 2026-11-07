@@ -101,8 +101,8 @@
   html.js .hero-title:not(.ready) { visibility: hidden; }
   .hero-title .e { display: block; }
   html.js .hero-title.ready .e { animation: line-in 1.8s var(--ease) .5s backwards; }
-  /* FIX 1: letter-spacing is no longer animated, so the title's width is constant and
-     measureHero() always gets the real width (this is what keeps "Projects" centered) */
+  /* letter-spacing is not animated, so the title's width is constant and
+     measureHero() always gets the real width (this keeps "Projects" centered) */
   @keyframes line-in {
     from { opacity: 0; transform: translateY(.1em); filter: blur(18px); }
     to   { opacity: 1; transform: none; filter: blur(0); }
@@ -111,7 +111,7 @@
   /* ==========================================================
      section headings (drift in from the side while scrolling)
      ========================================================== */
-  /* FIX 2: z-index 0 so the headings sit BEHIND the glass tiles */
+  /* z-index 0 so the headings sit BEHIND the glass tiles */
   .sec-title {
     position: relative; top: -3.2vw; z-index: 0; pointer-events: none;
     margin: 0 0 -5.8vw; text-align: center;
@@ -129,13 +129,12 @@
   /* ==========================================================
      2 · FEATURED  —  two blurred glass tiles
      ========================================================== */
-  /* FIX 3: less negative = further from the "Projects" header (was -70) */
   .featured { position: relative; z-index: 2; margin-top: -56vh; margin-top: -56svh; }
   
   .f-grid {
     list-style: none; margin: 0 auto; padding: 0; width: var(--wrap);
     display: grid; grid-template-columns: 1fr 1fr; gap: 2.1vw;
-    position: relative; z-index: 1;               /* FIX 2: grids above the headings */
+    position: relative; z-index: 1;               /* grids above the headings */
   }
   
   .tile {
@@ -176,13 +175,12 @@
   /* ==========================================================
      3 · OTHER PROJECTS  —  tiles that expand in place
      ========================================================== */
-  /* FIX 3: much closer to the featured tiles (was 12vw) */
   .others { position: relative; z-index: 2; margin-top: 5vw; }
   
   .o-grid {
     list-style: none; margin: 0 auto; padding: 0; width: var(--wrap);
     display: flex; gap: 1.6vw; align-items: flex-start;
-    position: relative; z-index: 1;               /* FIX 2 */
+    position: relative; z-index: 1;
   }
   .o-item { flex: 1 1 0; min-width: 0; }
   
@@ -257,7 +255,7 @@
   
   /* ==========================================================
      PROJECT WINDOW
-     FIX 4: rose-tinted, dimmed glass so the white text is readable
+     Rose-tinted, dimmed glass so the white text is readable.
      The panel itself is animated from projects.js (clip-path morph
      from / back to the tile that opened it).
      ========================================================== */
@@ -278,7 +276,7 @@
   
   .modal-close {
     position: absolute; z-index: 3;
-    top: clamp(16px, 4vh, 43px); right: clamp(16px, 3.4vw, 46px);
+    top: clamp(16px, 4vh, 43px); left: clamp(16px, 3.4vw, 46px);
     display: grid; place-items: center;
     width: clamp(46px, 4.5vw, 62px); height: clamp(46px, 4.5vw, 62px);
     padding: 0; border: 0; border-radius: 50%; color: #fff; cursor: pointer;
@@ -353,7 +351,7 @@
     background: rgba(255, 255, 255, .24); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .42);
   }
   
-  /* right: photo marquee, blurred at its ends */
+  /* right: photo strip, blurred at its ends */
   .m-gal {
     position: relative; min-height: 0; padding: 0 2.4vw 0 1vw;
     filter: blur(10px); opacity: 0; transition: opacity .8s ease .65s, filter .9s ease .65s;
@@ -366,28 +364,38 @@
   .modal:not(.open) .m-text,
   .modal:not(.open) .m-gal { transition: opacity .25s ease, filter .25s ease; }
   
-  .gal { position: relative; height: 100%; overflow: hidden; }
-  .gal-track {
-    --gap: 1.2vw; display: flex; flex-direction: column; gap: var(--gap);
-    animation: gal-up var(--dur, 40s) linear infinite;
-    animation-play-state: paused; will-change: transform;
+  /* ---------- gallery: a real scroll container that drifts by itself (projects.js) ---------- */
+  .gal {
+    position: relative; height: 100%;
+    overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: none; -ms-overflow-style: none;
+    touch-action: pan-y; cursor: grab;
+    -webkit-user-select: none; user-select: none;
   }
-  .gal-track.run { animation-play-state: running; }
-  .gal:hover .gal-track { animation-play-state: paused; }
-  @keyframes gal-up   { to { transform: translate3d(0, calc(-50% - var(--gap) / 2), 0); } }
-  @keyframes gal-left { to { transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0); } }
+  .gal::-webkit-scrollbar { display: none; }
+  .gal.dragging { cursor: grabbing; }
+  .gal.dragging .gal-card { pointer-events: none; }
+  
+  .gal-track { --gap: 1.2vw; display: flex; flex-direction: column; gap: var(--gap); }
   
   .gal-card {
-    flex: none; aspect-ratio: 16 / 10; border-radius: 1.7vw; overflow: hidden;
+    flex: none; display: block; padding: 0; border: 0; font: inherit; cursor: pointer;
+    aspect-ratio: 16 / 10; border-radius: 1.7vw; overflow: hidden;
     background: rgba(255, 255, 255, .22);
     box-shadow: 0 24px 40px -30px rgba(110, 40, 75, .6);
+    -webkit-tap-highlight-color: transparent;
   }
-  .gal-card img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; }
-  .gal-card.skeleton { animation: pulse 1.8s ease-in-out infinite; }
+  .gal-card img {
+    display: block; width: 100%; height: 100%; object-fit: cover; user-select: none;
+    transition: transform .9s var(--ease);
+  }
+  @media (hover: hover) { .gal-card:hover img { transform: scale(1.045); } }
+  .gal-card:focus-visible { outline: 3px solid #fff; outline-offset: -3px; }
+  .gal-card.skeleton { animation: pulse 1.8s ease-in-out infinite; cursor: default; }
   @keyframes pulse { 50% { opacity: .45; } }
   
   /* progressive blur at the ends (same recipe as the About portrait) */
-  .gal-blur { position: absolute; z-index: 2; pointer-events: none; left: 0; right: 0; height: 11%; }   /* thin soft edge (was 24%) */
+  .gal-blur { position: absolute; z-index: 2; pointer-events: none; left: 0; right: 0; height: 11%; }   /* thin soft edge */
   .gal-blur.top { top: 0; --dir: to top; }
   .gal-blur.bot { bottom: 0; --dir: to bottom; }
   .gal-blur i { position: absolute; inset: 0; -webkit-backdrop-filter: blur(var(--b)); backdrop-filter: blur(var(--b)); }
@@ -399,6 +407,45 @@
   .gal-blur i {
     -webkit-mask-image: linear-gradient(var(--dir), transparent var(--s), #000 calc(var(--s) + 28%));
     mask-image: linear-gradient(var(--dir), transparent var(--s), #000 calc(var(--s) + 28%));
+  }
+  
+  /* ---------- photo viewer (inside the project window) ---------- */
+  .lightbox {
+    position: absolute; inset: 0; z-index: 6; display: grid; place-items: center;
+    visibility: hidden; opacity: 0; transition: opacity .35s ease, visibility 0s .35s;
+  }
+  .lightbox.open { visibility: visible; opacity: 1; transition-delay: 0s; }
+  .lb-backdrop {
+    position: absolute; inset: 0; background: rgba(70, 25, 50, .4);
+    -webkit-backdrop-filter: blur(18px) saturate(.9); backdrop-filter: blur(18px) saturate(.9);
+  }
+  .lb-fig { position: relative; margin: 0; display: grid; place-items: center; }
+  .lb-fig img {
+    display: block; max-width: min(88vw, 1500px); max-height: 82svh; object-fit: contain;
+    border-radius: clamp(16px, 2.4vw, 34px);
+    box-shadow: 0 40px 80px -30px rgba(70, 25, 50, .6);
+    transform: scale(.95); transition: transform .6s var(--ease);
+  }
+  .lightbox.open .lb-fig img { transform: none; }
+  .lb-btn {
+    position: absolute; z-index: 1; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%;
+    width: clamp(46px, 4.5vw, 62px); height: clamp(46px, 4.5vw, 62px); color: #fff; cursor: pointer;
+    background: rgba(255, 255, 255, .5);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6), 0 12px 30px -16px rgba(120, 50, 85, .4);
+    transition: background .4s ease, transform .5s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lb-btn[hidden] { display: none; }
+  .lb-btn:hover { background: rgba(255, 255, 255, .72); }
+  .lb-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .lb-btn svg { width: 44%; height: 44%; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+  .lb-close { top: clamp(16px, 4vh, 43px); right: clamp(16px, 3.4vw, 46px); }
+  .lb-prev  { left: clamp(16px, 3.4vw, 46px);  top: 50%; margin-top: -23px; }
+  .lb-next  { right: clamp(16px, 3.4vw, 46px); top: 50%; margin-top: -23px; }
+  .lb-count {
+    position: absolute; bottom: clamp(14px, 3.4vh, 36px); left: 0; right: 0; margin: 0; text-align: center;
+    font: 500 clamp(.8rem, 1vw, 1rem) "Poppins", sans-serif; letter-spacing: .1em; color: #fff;
+    text-shadow: 0 1px 10px rgba(110, 35, 75, .3);
   }
   
   /* ==========================================================
@@ -486,10 +533,8 @@
   
   @media (prefers-reduced-motion: reduce) {
     .bf-in, .hero-bf img, .hero-title .e, .foot-bf { animation: none !important; }
-    .gal-track { animation: none !important; }
-    .gal { overflow: auto; scrollbar-width: thin; }
     .m-text > * { animation: none !important; }
-    .tile, .tile-img img, .tile-label, .o-tile, .o-img img, .o-more, .modal-panel, .modal-close { transition-duration: .01ms !important; }
+    .tile, .tile-img img, .tile-label, .o-tile, .o-img img, .o-more, .modal-panel, .modal-close, .gal-card img, .lb-fig img { transition-duration: .01ms !important; }
   }
   
   /* ==========================================================
@@ -525,7 +570,8 @@
       --pr: 7vw; border-radius: var(--pr);
     }
     .m-gal { order: -1; height: 40vw; padding: 5vw 0 0; }
-    .gal-track { --gap: 3vw; flex-direction: row; width: max-content; height: 100%; animation-name: gal-left; }
+    .gal { overflow-x: auto; overflow-y: hidden; touch-action: pan-x; }
+    .gal-track { --gap: 3vw; flex-direction: row; width: max-content; height: 100%; }
     .gal-card { height: 100%; width: auto; border-radius: 4vw; }
     .gal-blur { top: 0; bottom: 0; height: auto; width: 16%; left: auto; right: auto; }
     .gal-blur.top { left: 0; --dir: to left; }
@@ -542,16 +588,11 @@
     .m-chips { gap: 2vw; }
     .m-chips li { padding: 2vw 3.6vw; font-size: .82rem; }
     .modal.no-gal .m-gal { display: none; }
-    .modal-close { top: 3vw; right: 3vw; }
+    .modal-close { top: 3vw; left: 3vw; }
   }
   
   /* ---------- phones ----------
-     Matched to the 360px mobile mockups (1vw = 3.6px there):
-     · hero: a big glowing butterfly with a huge "Projects" under it
-     · "featured projects" / "other projects" on two lines, tiles stacked full width right under them
-     · "other" tiles: big image, name, and (when opened) the description and tech chips
-     · project window: a photo band on top, text below, round close button under the panel
-     · contact panel + footer: the same layout as the About page
+     Matched to the 360px mobile mockups (1vw = 3.6px there).
      The navbar is at the bottom on phones (see index.css), so it hides downward — and while a project window is open.
      The small text sizes follow the mockups (~9px); raise --m-body for easier reading. */
   @media (max-width: 700px) {
@@ -611,6 +652,12 @@
       bottom: max(10vw, calc(env(safe-area-inset-bottom, 0px) + 16px));
       width: max(40px, 10.6vw); height: max(40px, 10.6vw);
     }
+  
+    /* photo viewer: prev / next sit at the bottom */
+    .lb-prev, .lb-next { top: auto; margin-top: 0; bottom: max(8vw, calc(env(safe-area-inset-bottom, 0px) + 14px)); }
+    .lb-prev { left: 12vw; }
+    .lb-next { right: 12vw; }
+    .lb-count { bottom: max(10.5vw, calc(env(safe-area-inset-bottom, 0px) + 22px)); }
   
     /* 4 · contact (same as the About page) */
     .m-break { display: block; }
