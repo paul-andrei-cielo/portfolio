@@ -58,6 +58,7 @@
       ]
     },
     ascend:    { kind: 'simple', photo: 'ASCEND.jpg',     title: 'ASCEND 2025: Empowering Leaders, Embracing Commitments, Raising the Future' },
+    aunqa:   { kind: 'simple', photo: 'AUN-QA.jpg',     title: '472nd ASEAN University Network - Quality Assurance (AUN-QA) Programme Level Assessment' },
     dsdap:     { kind: 'simple', photo: 'DSDAP.jpg',      title: 'Digital Startup Development and Acceleration Program (DSDAP)' },
     geek:      { kind: 'simple', photo: 'GeekSpeaks.jpg', title: 'JPCS National Geek Speaks 2026' },
     techtalks: { kind: 'simple', photo: 'TechTalks.jpg',  title: 'PCS MMM-TECHTALKS' }
